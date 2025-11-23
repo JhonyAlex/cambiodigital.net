@@ -9,35 +9,100 @@
         </button>
     </div>
 
+    <!-- FORMULARIO SIMPLE -->
     <div id="form-simple" class="block animate-fade-in">
         <h2 class="font-black text-4xl md:text-6xl mb-2 text-left uppercase">Hablemos</h2>
         <p class="font-mono text-left mb-8 text-gray-600">Cuéntanos tu problema, nosotros diseñamos la solución.</p>
         
-        <form class="space-y-6 text-left">
+        <form id="simpleContactForm" class="space-y-6 text-left">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block font-bold text-sm uppercase mb-2">Nombre</label>
-                    <input type="text" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu nombre">
+                    <input type="text" id="simple-name" required class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu nombre">
                 </div>
                 <div>
                     <label class="block font-bold text-sm uppercase mb-2">Empresa</label>
-                    <input type="text" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu empresa">
+                    <input type="text" id="simple-company" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu empresa">
                 </div>
             </div>
+
+            <!-- Selector de Contacto Simple -->
             <div>
-                <label class="block font-bold text-sm uppercase mb-2">Email</label>
-                <input type="email" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="tu@email.com">
+                <label class="block font-bold text-sm uppercase mb-2">¿Cómo te contactamos?</label>
+                <div class="flex gap-4 mb-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="contact-method-simple" value="email" checked onchange="toggleContactMethod('simple', 'email')" class="accent-cd-magenta w-5 h-5">
+                        <span class="font-mono font-bold">Email</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="contact-method-simple" value="phone" onchange="toggleContactMethod('simple', 'phone')" class="accent-cd-magenta w-5 h-5">
+                        <span class="font-mono font-bold">Teléfono / WhatsApp</span>
+                    </label>
+                </div>
+
+                <!-- Input Email Simple -->
+                <div id="simple-email-container">
+                    <input type="email" id="simple-email" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="tu@email.com">
+                </div>
+
+                <!-- Input Teléfono Simple -->
+                <div id="simple-phone-container" class="hidden flex gap-2">
+                    <select id="simple-country-code" class="w-1/3 p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender font-mono">
+                        <optgroup label="Norteamérica">
+                            <option value="+1">🇺🇸 USA (+1)</option>
+                            <option value="+1">🇨🇦 Canadá (+1)</option>
+                            <option value="+52">🇲🇽 México (+52)</option>
+                        </optgroup>
+                        <optgroup label="Sudamérica">
+                            <option value="+57" selected>🇨🇴 Colombia (+57)</option>
+                            <option value="+54">🇦🇷 Argentina (+54)</option>
+                            <option value="+56">🇨🇱 Chile (+56)</option>
+                            <option value="+51">🇵🇪 Perú (+51)</option>
+                            <option value="+593">🇪🇨 Ecuador (+593)</option>
+                            <option value="+58">🇻🇪 Venezuela (+58)</option>
+                            <option value="+591">🇧🇴 Bolivia (+591)</option>
+                            <option value="+595">🇵🇾 Paraguay (+595)</option>
+                            <option value="+598">🇺🇾 Uruguay (+598)</option>
+                            <option value="+55">🇧🇷 Brasil (+55)</option>
+                        </optgroup>
+                        <optgroup label="Centroamérica y Caribe">
+                            <option value="+502">🇬🇹 Guatemala (+502)</option>
+                            <option value="+53">🇨🇺 Cuba (+53)</option>
+                            <option value="+1">🇩🇴 Rep. Dom. (+1)</option>
+                            <option value="+504">🇭🇳 Honduras (+504)</option>
+                            <option value="+503">🇸🇻 El Salvador (+503)</option>
+                            <option value="+505">🇳🇮 Nicaragua (+505)</option>
+                            <option value="+506">🇨🇷 Costa Rica (+506)</option>
+                            <option value="+507">🇵🇦 Panamá (+507)</option>
+                        </optgroup>
+                        <optgroup label="Europa">
+                            <option value="+34">🇪🇸 España (+34)</option>
+                            <option value="+44">🇬🇧 Reino Unido (+44)</option>
+                            <option value="+49">🇩🇪 Alemania (+49)</option>
+                            <option value="+33">🇫🇷 Francia (+33)</option>
+                            <option value="+39">🇮🇹 Italia (+39)</option>
+                            <option value="+351">🇵🇹 Portugal (+351)</option>
+                            <option value="+31">🇳🇱 Países Bajos (+31)</option>
+                            <option value="+32">🇧🇪 Bélgica (+32)</option>
+                            <option value="+41">🇨🇭 Suiza (+41)</option>
+                        </optgroup>
+                        <option value="">Otro</option>
+                    </select>
+                    <input type="tel" id="simple-phone" class="w-2/3 p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="300 123 4567">
+                </div>
             </div>
+
             <div>
                 <label class="block font-bold text-sm uppercase mb-2">¿Qué necesitas?</label>
-                <textarea rows="4" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Breve descripción..."></textarea>
+                <textarea id="simple-message" required rows="4" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Breve descripción..."></textarea>
             </div>
-            <button type="button" class="w-full bg-black text-cd-cream font-black text-xl py-4 border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta transition-colors btn-press shadow-[6px_6px_0_var(--shadow-color)] uppercase">
+            <button type="submit" id="btn-submit-simple" class="w-full bg-black text-cd-cream font-black text-xl py-4 border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta transition-colors btn-press shadow-[6px_6px_0_var(--shadow-color)] uppercase">
                 Enviar Mensaje
             </button>
         </form>
     </div>
 
+    <!-- FORMULARIO SERVICIO (TICKET) -->
     <div id="form-service" class="hidden animate-fade-in">
         <h2 class="font-black text-3xl md:text-5xl mb-2 text-left uppercase">Nueva Solicitud</h2>
         <p class="font-mono text-left mb-8 text-gray-600 text-sm">Crea una tarea directamente en nuestro sistema de gestión.</p>
@@ -46,6 +111,72 @@
             <div>
                 <label class="block font-bold text-sm uppercase mb-2">Nombre completo / Empresa <span class="text-cd-magenta">*</span></label>
                 <input type="text" id="req-name" required class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Ej: Jhony Alvarez / Cambio Digital">
+            </div>
+
+            <!-- Selector de Contacto Servicio -->
+            <div>
+                <label class="block font-bold text-sm uppercase mb-2">Datos de Contacto <span class="text-cd-magenta">*</span></label>
+                <div class="flex gap-4 mb-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="contact-method-service" value="email" checked onchange="toggleContactMethod('service', 'email')" class="accent-cd-magenta w-5 h-5">
+                        <span class="font-mono font-bold">Email</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="contact-method-service" value="phone" onchange="toggleContactMethod('service', 'phone')" class="accent-cd-magenta w-5 h-5">
+                        <span class="font-mono font-bold">Teléfono / WhatsApp</span>
+                    </label>
+                </div>
+
+                <!-- Input Email Servicio -->
+                <div id="service-email-container">
+                    <input type="email" id="req-email" class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="tu@email.com">
+                </div>
+
+                <!-- Input Teléfono Servicio -->
+                <div id="service-phone-container" class="hidden flex gap-2">
+                    <select id="req-country-code" class="w-1/3 p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender font-mono">
+                        <optgroup label="Norteamérica">
+                            <option value="+1">🇺🇸 USA (+1)</option>
+                            <option value="+1">🇨🇦 Canadá (+1)</option>
+                            <option value="+52">🇲🇽 México (+52)</option>
+                        </optgroup>
+                        <optgroup label="Sudamérica">
+                            <option value="+57" selected>🇨🇴 Colombia (+57)</option>
+                            <option value="+54">🇦🇷 Argentina (+54)</option>
+                            <option value="+56">🇨🇱 Chile (+56)</option>
+                            <option value="+51">🇵🇪 Perú (+51)</option>
+                            <option value="+593">🇪🇨 Ecuador (+593)</option>
+                            <option value="+58">🇻🇪 Venezuela (+58)</option>
+                            <option value="+591">🇧🇴 Bolivia (+591)</option>
+                            <option value="+595">🇵🇾 Paraguay (+595)</option>
+                            <option value="+598">🇺🇾 Uruguay (+598)</option>
+                            <option value="+55">🇧🇷 Brasil (+55)</option>
+                        </optgroup>
+                        <optgroup label="Centroamérica y Caribe">
+                            <option value="+502">🇬🇹 Guatemala (+502)</option>
+                            <option value="+53">🇨🇺 Cuba (+53)</option>
+                            <option value="+1">🇩🇴 Rep. Dom. (+1)</option>
+                            <option value="+504">🇭🇳 Honduras (+504)</option>
+                            <option value="+503">🇸🇻 El Salvador (+503)</option>
+                            <option value="+505">🇳🇮 Nicaragua (+505)</option>
+                            <option value="+506">🇨🇷 Costa Rica (+506)</option>
+                            <option value="+507">🇵🇦 Panamá (+507)</option>
+                        </optgroup>
+                        <optgroup label="Europa">
+                            <option value="+34">🇪🇸 España (+34)</option>
+                            <option value="+44">🇬🇧 Reino Unido (+44)</option>
+                            <option value="+49">🇩🇪 Alemania (+49)</option>
+                            <option value="+33">🇫🇷 Francia (+33)</option>
+                            <option value="+39">🇮🇹 Italia (+39)</option>
+                            <option value="+351">🇵🇹 Portugal (+351)</option>
+                            <option value="+31">🇳🇱 Países Bajos (+31)</option>
+                            <option value="+32">🇧🇪 Bélgica (+32)</option>
+                            <option value="+41">🇨🇭 Suiza (+41)</option>
+                        </optgroup>
+                        <option value="">Otro</option>
+                    </select>
+                    <input type="tel" id="req-phone" class="w-2/3 p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="300 123 4567">
+                </div>
             </div>
 
             <div>
@@ -76,13 +207,12 @@
                 <span>Crear Tarea</span> <i data-lucide="check-circle-2"></i>
             </button>
         </form>
-        <div id="form-message" class="hidden mt-4 p-4 border-2 border-black bg-green-200 text-black font-mono text-sm font-bold"></div>
     </div>
 
 </div>
 
 <div class="mt-16 flex gap-6 text-2xl">
-    <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="linkedin"></i></a>
-    <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="instagram"></i></a>
-    <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="mail"></i></a>
+    <a href="https://wa.me/573122908416" target="_blank" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="message-circle"></i></a>
+    <a href="https://www.instagram.com/cambiodigitall/" target="_blank" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="instagram"></i></a>
+    <a href="mailto:hola@cambiodigital.net" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="mail"></i></a>
 </div>

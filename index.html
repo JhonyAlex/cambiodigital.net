@@ -578,7 +578,49 @@
         </div>
     </footer>
 
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="bg-cd-cream border-4 border-black p-8 max-w-md w-full shadow-[8px_8px_0_#c200b3] text-center relative animate-fade-in">
+            <button onclick="closePopup()" class="absolute top-4 right-4 p-2 hover:bg-black hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="w-20 h-20 bg-green-400 rounded-full border-4 border-black flex items-center justify-center mx-auto mb-6 shadow-[4px_4px_0_black]">
+                <i data-lucide="check" class="w-10 h-10 text-black"></i>
+            </div>
+            <h3 class="font-black text-3xl uppercase mb-4">¡Solicitud Enviada!</h3>
+            <p class="font-mono text-sm mb-6">Hemos recibido tu información correctamente. Te hemos enviado un correo de confirmación y te contactaremos lo antes posible.</p>
+            <button onclick="closePopup()" class="w-full bg-black text-white font-bold py-3 uppercase border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta transition-colors shadow-[4px_4px_0_black]">
+                Entendido
+            </button>
+        </div>
+    </div>
+
     <script>
+        // Popup Logic
+        window.closePopup = function() {
+            document.getElementById('success-popup').classList.add('hidden');
+        }
+
+        // Toggle Contact Method
+        window.toggleContactMethod = function(formType, method) {
+            const emailContainer = document.getElementById(`${formType}-email-container`);
+            const phoneContainer = document.getElementById(`${formType}-phone-container`);
+            const emailInput = document.getElementById(formType === 'simple' ? 'simple-email' : 'req-email');
+            const phoneInput = document.getElementById(formType === 'simple' ? 'simple-phone' : 'req-phone');
+
+            if (method === 'email') {
+                emailContainer.classList.remove('hidden');
+                phoneContainer.classList.add('hidden');
+                emailInput.required = true;
+                phoneInput.required = false;
+            } else {
+                emailContainer.classList.add('hidden');
+                phoneContainer.classList.remove('hidden');
+                emailInput.required = false;
+                phoneInput.required = true;
+            }
+        };
+
         // Form Switcher
         window.switchForm = function(type) {
             const btnSimple = document.getElementById('tab-simple');
@@ -612,76 +654,121 @@
         // 2. Manejo del envío a n8n (ClickUp)
         function initServiceForm() {
             const serviceForm = document.getElementById('serviceRequestForm');
-            const messageDiv = document.getElementById('form-message');
-            const submitBtn = document.getElementById('btn-submit-task');
+            const simpleForm = document.getElementById('simpleContactForm');
+            const popup = document.getElementById('success-popup');
 
             // REEMPLAZA ESTO CON TU URL DEL WEBHOOK DE N8N
             const N8N_WEBHOOK_URL = 'https://n8n.cambiodigital.cloud/webhook-test/c1692d85-8ad6-4977-b484-541c16463d0a'; 
 
+            // Helper to get contact info
+            const getContactInfo = (formType) => {
+                const method = document.querySelector(`input[name="contact-method-${formType}"]:checked`).value;
+                if (method === 'email') {
+                    return { method: 'email', value: document.getElementById(formType === 'simple' ? 'simple-email' : 'req-email').value };
+                } else {
+                    const code = document.getElementById(formType === 'simple' ? 'simple-country-code' : 'req-country-code').value;
+                    const number = document.getElementById(formType === 'simple' ? 'simple-phone' : 'req-phone').value;
+                    return { method: 'phone', value: `${code} ${number}` };
+                }
+            };
+
+            // Handle Service Form
             if(serviceForm) {
                 serviceForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-
+                    const submitBtn = document.getElementById('btn-submit-task');
+                    const originalBtnText = submitBtn.innerHTML;
+                    
                     const fileInput = document.getElementById('req-file');
                     const file = fileInput.files[0];
 
-                    // Validate file size (50MB)
                     if (file && file.size > 50 * 1024 * 1024) {
                         alert('El archivo es demasiado grande. El límite es 50MB.');
                         return;
                     }
                     
-                    // Feedback visual de carga
-                    const originalBtnText = submitBtn.innerHTML;
                     submitBtn.innerHTML = 'Enviando... <i data-lucide="loader" class="animate-spin"></i>';
                     submitBtn.disabled = true;
-                    lucide.createIcons(); // Ensure loader icon renders
+                    lucide.createIcons();
 
-                    // Recopilar datos
+                    const contact = getContactInfo('service');
                     const requester = document.getElementById('req-name').value;
                     const title = document.getElementById('req-title').value;
                     const description = document.getElementById('req-desc').value;
                     const dueDate = document.getElementById('req-date').value;
 
-                    // Prepare FormData for N8N (Multipart)
                     const formData = new FormData();
+                    formData.append('formType', 'service');
                     formData.append('taskName', title);
+                    formData.append('requester', requester);
+                    formData.append('contactMethod', contact.method);
+                    formData.append('contactValue', contact.value);
+                    formData.append('dueDate', new Date(dueDate).getTime());
                     formData.append('taskDescription', `
 **Solicitante:** ${requester}
+**Contacto:** ${contact.value} (${contact.method})
 **Fecha Límite:** ${dueDate}
 
 **Detalles:**
 ${description}
                     `);
-                    formData.append('dueDate', new Date(dueDate).getTime());
                     
-                    if (file) {
-                        formData.append('file', file);
-                    }
+                    if (file) formData.append('file', file);
 
                     try {
-                        const response = await fetch(N8N_WEBHOOK_URL, {
-                            method: 'POST',
-                            body: formData
-                        });
-
+                        const response = await fetch(N8N_WEBHOOK_URL, { method: 'POST', body: formData });
                         if (response.ok) {
-                            messageDiv.classList.remove('hidden', 'bg-red-200');
-                            messageDiv.classList.add('bg-green-200');
-                            messageDiv.innerText = "¡Solicitud creada con éxito en nuestro sistema!";
                             serviceForm.reset();
-                        } else {
-                            throw new Error('Error en el servidor');
-                        }
+                            popup.classList.remove('hidden');
+                        } else throw new Error('Error en el servidor');
                     } catch (error) {
                         console.error(error);
-                        messageDiv.classList.remove('hidden', 'bg-green-200');
-                        messageDiv.classList.add('bg-red-200');
-                        messageDiv.innerText = "Error al conectar. Por favor intenta de nuevo.";
+                        alert("Error al conectar. Por favor intenta de nuevo.");
                     } finally {
                         submitBtn.innerHTML = originalBtnText;
                         submitBtn.disabled = false;
-                        lucide.createIcons(); // Recargar iconos
+                        lucide.createIcons();
+                    }
+                });
+            }
+
+            // Handle Simple Form
+            if(simpleForm) {
+                simpleForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const submitBtn = document.getElementById('btn-submit-simple');
+                    const originalBtnText = submitBtn.innerHTML;
+                    
+                    submitBtn.innerHTML = 'Enviando... <i data-lucide="loader" class="animate-spin"></i>';
+                    submitBtn.disabled = true;
+                    lucide.createIcons();
+
+                    const contact = getContactInfo('simple');
+                    const name = document.getElementById('simple-name').value;
+                    const company = document.getElementById('simple-company').value;
+                    const message = document.getElementById('simple-message').value;
+
+                    const formData = new FormData();
+                    formData.append('formType', 'simple');
+                    formData.append('requester', name);
+                    formData.append('company', company);
+                    formData.append('contactMethod', contact.method);
+                    formData.append('contactValue', contact.value);
+                    formData.append('message', message);
+
+                    try {
+                        const response = await fetch(N8N_WEBHOOK_URL, { method: 'POST', body: formData });
+                        if (response.ok) {
+                            simpleForm.reset();
+                            popup.classList.remove('hidden');
+                        } else throw new Error('Error en el servidor');
+                    } catch (error) {
+                        console.error(error);
+                        alert("Error al conectar. Por favor intenta de nuevo.");
+                    } finally {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        lucide.createIcons();
                     }
                 });
             }
