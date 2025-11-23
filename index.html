@@ -175,6 +175,7 @@
             </a>
             
             <div class="hidden md:flex space-x-6 items-center">
+                <a href="blog.html" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/BLOG</a>
                 <a href="#somos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/QUIÉNES_SOMOS</a>
                 <a href="#servicios" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PAQUETES</a>
                 <a href="#proyectos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PROYECTOS</a>
@@ -193,6 +194,7 @@
             <button id="close-menu-btn" class="absolute top-6 right-6 p-2 btn-press">
                 <i data-lucide="x" class="w-10 h-10"></i>
             </button>
+            <a href="blog.html" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Blog</a>
             <a href="#somos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Quiénes Somos</a>
             <a href="#servicios" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Paquetes</a>
             <a href="#proyectos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Proyectos</a>
@@ -559,6 +561,74 @@
             </div>
         </section>
 
+        <!-- 6.8 Blog Preview -->
+        <section 
+            id="blog-preview" 
+            class="w-full flex flex-col items-center justify-center p-8 py-24 border-t-4 border-black"
+            data-bg="bg-cd-purple-dark"
+            data-text="text-cd-cream"
+            data-shadow="#c200b3"
+            data-highlight="#d7b5f2"
+        >
+            <div class="flex flex-col items-center mb-12 gap-4 text-center">
+                <h2 class="reveal font-black text-5xl md:text-7xl uppercase text-center text-cd-cream">
+                    Blog <span class="text-stroke-black text-cd-magenta">Digital</span>
+                </h2>
+                <p class="reveal font-mono text-cd-cream text-lg md:text-xl max-w-2xl">
+                    // LATEST_UPDATES <br>
+                    Estrategias y noticias para potenciar tu negocio.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full mb-12">
+                <!-- Article 1 -->
+                <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col h-full">
+                    <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">CRM_ORGANIZACIÓN</span>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" alt="Dashboard ordenado" class="w-full h-40 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-black text-xl uppercase mb-3 leading-tight line-clamp-2">¿Te cuesta organizar tus clientes? El secreto de los negocios exitosos</h3>
+                    <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                    <p class="font-mono text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
+                        Muchas empresas pierden ventas por tener datos de clientes en diferentes lugares. Un CRM centraliza todo en un solo sitio...
+                    </p>
+                    <a href="blog.html" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center">
+                        Leer Artículo
+                    </a>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col h-full">
+                    <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">RRSS_AUTOMATIZACIÓN</span>
+                    <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800" alt="Social media" class="w-full h-40 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-black text-xl uppercase mb-3 leading-tight line-clamp-2">¿Tus mensajes se pierden en redes sociales? Evita el caos</h3>
+                    <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                    <p class="font-mono text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
+                        No responder rápido en Instagram o WhatsApp puede costarte clientes. Las empresas que tardan más de 1 hora en responder pierden...
+                    </p>
+                    <a href="blog.html" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center">
+                        Leer Artículo
+                    </a>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col h-full">
+                    <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">ATENCIÓN_CLIENTE</span>
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800" alt="Customer support" class="w-full h-40 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                    <h3 class="font-black text-xl uppercase mb-3 leading-tight line-clamp-2">Errores en redes sociales que alejan clientes</h3>
+                    <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                    <p class="font-mono text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
+                        Respuestas tardías, mensajes robóticos o discusiones públicas ahuyentan clientes potenciales. La clave: respuestas rápidas...
+                    </p>
+                    <a href="blog.html" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center">
+                        Leer Artículo
+                    </a>
+                </article>
+            </div>
+
+            <a href="blog.html" class="reveal bg-cd-magenta text-white font-bold text-xl py-4 px-12 border-hard shadow-hard btn-press hover:bg-white hover:text-black uppercase flex items-center justify-center gap-2">
+                Ver Todas las Noticias <i data-lucide="arrow-right"></i>
+            </a>
+        </section>
+
         <!-- 7. Contacto -->
         <section 
             id="contacto" 
@@ -920,7 +990,7 @@ ${description}
                         root.style.setProperty('--highlight-color', newHighlight);
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { threshold: 0, rootMargin: "-45% 0px -45% 0px" });
 
             sections.forEach(section => themeObserver.observe(section));
 

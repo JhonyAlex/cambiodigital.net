@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Cambio Digital | Noticias sobre Automatización y Transformación Digital</title>
+    <meta name="description" content="Descubre cómo automatizar tu empresa, resolver problemas de atención al cliente y optimizar procesos con CRM. Noticias prácticas sin tecnicismos.">
+    <meta name="keywords" content="automatización, CRM, atención cliente, redes sociales, empresa, chatbots, gestión digital, transformación digital">
+    <meta property="og:title" content="Blog Cambio Digital - Automatización sin complicaciones">
+    <meta property="og:description" content="Casos reales y consejos prácticos para empresas que quieren automatizar procesos y mejorar su atención al cliente">
+    <meta property="og:image" content="https://cambiodigital.net/assets/blog/og-image.jpg">
+    <meta property="og:url" content="https://cambiodigital.net/blog.html">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        'cd-purple-dark': '#2a004f',
+                        'cd-purple-medium': '#5e2a84',
+                        'cd-purple-light': '#8a55c1',
+                        'cd-lavender': '#d7b5f2',
+                        'cd-magenta': '#c200b3',
+                        'cd-cream': '#f8f8f0',
+                        'cd-dark-grey': '#1a1a1a'
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --shadow-color: #2a004f;
+            --highlight-color: #c200b3;
+        }
+        
+        body {
+            transition: background-color 0.5s ease-out, color 0.5s ease-out;
+        }
+
+        /* --- Text Stroke Utility --- */
+        .text-stroke-black {
+            -webkit-text-stroke: 2px black;
+            color: transparent;
+        }
+
+        /* --- Custom Cursor --- */
+        @media (pointer: fine) {
+            body, a, button, input, textarea {
+                cursor: none;
+            }
+            #cursor-dot, #cursor-outline {
+                display: block;
+            }
+        }
+        @media (pointer: coarse) {
+            #cursor-dot, #cursor-outline {
+                display: none;
+            }
+        }
+        
+        #cursor-dot {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.4s;
+            z-index: 9999;
+        }
+        
+        #cursor-outline {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s linear, border-color 0.4s;
+            z-index: 9998;
+        }
+
+        body:has(a:hover, button:hover, input:hover, textarea:hover) #cursor-dot {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        /* --- Brutalist Components --- */
+        .shadow-hard {
+            box-shadow: 6px 6px 0 var(--shadow-color);
+            border: 3px solid var(--shadow-color);
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .btn-press:active, .card-hover:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--shadow-color);
+        }
+
+        .border-hard {
+            border: 3px solid var(--shadow-color);
+        }
+
+        /* --- Background Pattern --- */
+        .bg-grid {
+            background-image: radial-gradient(var(--shadow-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.08;
+            pointer-events: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* --- Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Mobile Menu --- */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden bg-cd-cream text-black selection:bg-cd-magenta selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div id="cursor-outline"></div>
+    <div id="cursor-dot"></div>
+
+    <div class="fixed inset-0 z-0 bg-grid"></div>
+
+    <!-- 1. Navbar -->
+    <header class="fixed top-0 left-0 w-full p-4 z-50 transition-all duration-300" id="navbar">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 py-3 bg-cd-cream text-black shadow-hard z-50 relative">
+            <a href="index.html" class="font-black text-2xl tracking-tighter btn-press flex items-center gap-2">
+                <div class="w-4 h-4 bg-black"></div> CD.
+            </a>
+            
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="blog.html" class="font-bold text-sm hover:underline decoration-2 underline-offset-4 text-cd-magenta">/BLOG</a>
+                <a href="index.html#somos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/QUIÉNES_SOMOS</a>
+                <a href="index.html#servicios" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PAQUETES</a>
+                <a href="index.html#proyectos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PROYECTOS</a>
+                <a href="index.html#equipo" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/EQUIPO</a>
+                <a href="index.html#contacto" class="font-bold text-sm py-2 px-5 bg-black text-cd-cream border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta hover:text-white transition-colors btn-press shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
+                    CONTACTAR
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden p-2 btn-press focus:outline-none">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-cd-purple-dark text-cd-cream z-40 flex flex-col items-center justify-center space-y-8 md:hidden border-l-4 border-black">
+            <button id="close-menu-btn" class="absolute top-6 right-6 p-2 btn-press">
+                <i data-lucide="x" class="w-10 h-10"></i>
+            </button>
+            <a href="blog.html" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors text-cd-magenta">Blog</a>
+            <a href="index.html#somos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Quiénes Somos</a>
+            <a href="index.html#servicios" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Paquetes</a>
+            <a href="index.html#proyectos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Proyectos</a>
+            <a href="index.html#equipo" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Equipo</a>
+            <a href="index.html#contacto" class="mobile-link text-3xl font-black uppercase bg-cd-magenta px-6 py-2 border-hard text-white">Contacto</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-32 pb-24 px-4">
+        
+        <!-- Header Blog -->
+        <section class="max-w-7xl mx-auto mb-16 text-center">
+            <div class="reveal active inline-block mb-4 px-4 py-1 border-2 border-black bg-cd-purple-medium text-white font-mono text-xs md:text-sm font-bold shadow-[4px_4px_0_#000]">
+                NEWS & INSIGHTS
+            </div>
+            <h1 class="reveal active font-black text-6xl md:text-8xl uppercase mb-6 tracking-tighter">
+                Blog <span class="text-stroke-black text-cd-cream">Digital</span>
+            </h1>
+            <p class="reveal active delay-200 font-mono text-lg md:text-xl max-w-2xl mx-auto">
+                Noticias, estrategias y casos reales sobre automatización y transformación digital. Sin tecnicismos.
+            </p>
+        </section>
+
+        <!-- Grid Noticias -->
+        <section class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Noticia 1 -->
+            <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col">
+                <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">CRM_ORGANIZACIÓN</span>
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" alt="Dashboard ordenado" class="w-full h-48 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                <h3 class="font-black text-2xl uppercase mb-3 leading-tight">¿Te cuesta organizar tus clientes? El secreto de los negocios exitosos</h3>
+                <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                    Muchas empresas pierden ventas por tener datos de clientes en diferentes lugares. Un CRM centraliza todo en un solo sitio, evita olvidos y mejora las relaciones comerciales. Reunir contactos, historial y notas mejora la experiencia del cliente y aumenta las ventas hasta un 29% según estudios recientes.
+                </p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#CRM</span>
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Organización</span>
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Ventas</span>
+                </div>
+                <a href="index.html#contacto" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center mb-2">
+                    Solicita Información
+                </a>
+                <div class="border-t-2 border-black pt-4 mt-auto">
+                    <p class="font-mono text-xs text-gray-600">
+                        ¿Quieres implementar estas soluciones? 
+                        <a href="index.html#contacto" class="font-bold underline hover:text-cd-magenta">Contáctanos aquí</a>
+                    </p>
+                </div>
+            </article>
+
+            <!-- Noticia 2 -->
+            <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col">
+                <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">RRSS_AUTOMATIZACIÓN</span>
+                <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800" alt="Social media" class="w-full h-48 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                <h3 class="font-black text-2xl uppercase mb-3 leading-tight">¿Tus mensajes se pierden en redes sociales? Evita el caos con automatización</h3>
+                <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                    No responder rápido en Instagram o WhatsApp puede costarte clientes. Las empresas que tardan más de 1 hora en responder pierden hasta el 15% de oportunidades. Solución: chatbots inteligentes y gestión unificada que responden 24/7, mejorando tu imagen y captando más ventas sin esfuerzo manual.
+                </p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#RedesSociales</span>
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Chatbots</span>
+                </div>
+                <a href="index.html#contacto" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center mb-2">
+                    Solicita Información
+                </a>
+                <div class="border-t-2 border-black pt-4 mt-auto">
+                    <p class="font-mono text-xs text-gray-600">
+                        ¿Quieres implementar estas soluciones? 
+                        <a href="index.html#contacto" class="font-bold underline hover:text-cd-magenta">Contáctanos aquí</a>
+                    </p>
+                </div>
+            </article>
+
+            <!-- Noticia 3 -->
+            <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col">
+                <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">ATENCIÓN_CLIENTE</span>
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800" alt="Customer support" class="w-full h-48 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                <h3 class="font-black text-2xl uppercase mb-3 leading-tight">Errores en redes sociales que alejan clientes (y cómo solucionarlos)</h3>
+                <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                    Respuestas tardías, mensajes robóticos o discusiones públicas ahuyentan clientes potenciales. La clave: respuestas rápidas y personalizadas usando chatbots bien configurados que unifican todos tus canales. Lleva conversaciones complejas al privado y resuelve de verdad. Tu marca se verá profesional y cercana.
+                </p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#ServicioCliente</span>
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Empresas</span>
+                </div>
+                <a href="index.html#contacto" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center mb-2">
+                    Solicita Información
+                </a>
+                <div class="border-t-2 border-black pt-4 mt-auto">
+                    <p class="font-mono text-xs text-gray-600">
+                        ¿Quieres implementar estas soluciones? 
+                        <a href="index.html#contacto" class="font-bold underline hover:text-cd-magenta">Contáctanos aquí</a>
+                    </p>
+                </div>
+            </article>
+
+            <!-- Noticia 4 -->
+            <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col">
+                <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">AUTOMATIZACIÓN_PROCESOS</span>
+                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800" alt="Automatización" class="w-full h-48 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                <h3 class="font-black text-2xl uppercase mb-3 leading-tight">Automatiza tareas repetitivas y dedícale más tiempo a crecer</h3>
+                <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                    Crear informes, enviar recordatorios o gestionar presupuestos puede hacerse automáticamente. Empresas líderes como Amazon optimizan procesos para que sus equipos se enfoquen en lo importante. Cualquier negocio puede beneficiarse: menos errores, más eficiencia y equipos más productivos sin necesidad de grandes inversiones.
+                </p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Automatización</span>
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Productividad</span>
+                </div>
+                <a href="index.html#contacto" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center mb-2">
+                    Solicita Información
+                </a>
+                <div class="border-t-2 border-black pt-4 mt-auto">
+                    <p class="font-mono text-xs text-gray-600">
+                        ¿Quieres implementar estas soluciones? 
+                        <a href="index.html#contacto" class="font-bold underline hover:text-cd-magenta">Contáctanos aquí</a>
+                    </p>
+                </div>
+            </article>
+
+            <!-- Noticia 5 -->
+            <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col">
+                <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">CRM_ESTRATEGIA</span>
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800" alt="Analytics dashboard" class="w-full h-48 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                <h3 class="font-black text-2xl uppercase mb-3 leading-tight">¿Por qué las mejores empresas usan CRM?</h3>
+                <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                    Conocer el historial completo de cada cliente, personalizar el trato y mejorar el seguimiento ya no es lujo: es necesidad competitiva. Los CRM modernos centralizan información, mejoran colaboración entre equipos y ayudan a retener clientes. Resultado: más ventas, menos errores y procesos más ágiles sin complicaciones técnicas.
+                </p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#CRM</span>
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Estrategia</span>
+                </div>
+                <a href="index.html#contacto" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center mb-2">
+                    Solicita Información
+                </a>
+                <div class="border-t-2 border-black pt-4 mt-auto">
+                    <p class="font-mono text-xs text-gray-600">
+                        ¿Quieres implementar estas soluciones? 
+                        <a href="index.html#contacto" class="font-bold underline hover:text-cd-magenta">Contáctanos aquí</a>
+                    </p>
+                </div>
+            </article>
+
+            <!-- Noticia 6 -->
+            <article class="reveal bg-cd-cream text-black border-hard shadow-hard card-hover p-6 flex flex-col">
+                <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-3 pb-1">MITOS_REALIDADES</span>
+                <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800" alt="Future tech" class="w-full h-48 object-cover border-2 border-black mb-4 grayscale hover:grayscale-0 transition-all">
+                <h3 class="font-black text-2xl uppercase mb-3 leading-tight">¿Mitos sobre automatización? La realidad que nadie te cuenta</h3>
+                <p class="font-mono text-xs text-gray-500 mb-4">📅 24 NOV 2025</p>
+                <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                    No necesitas ser una gran empresa ni invertir millones: hoy existe automatización accesible para todos. Desde WhatsApp Business hasta herramientas sencillas de organización. El 66% de las empresas ya automatizan funciones y notan mejoras inmediatas en orden, reducción de estrés y mejor experiencia para sus clientes desde el primer contacto.
+                </p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Mitos</span>
+                    <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">#Automatización</span>
+                </div>
+                <a href="index.html#contacto" class="w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm text-center mb-2">
+                    Solicita Información
+                </a>
+                <div class="border-t-2 border-black pt-4 mt-auto">
+                    <p class="font-mono text-xs text-gray-600">
+                        ¿Quieres implementar estas soluciones? 
+                        <a href="index.html#contacto" class="font-bold underline hover:text-cd-magenta">Contáctanos aquí</a>
+                    </p>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer class="w-full p-8 md:p-12 bg-black text-cd-cream border-t-4 border-cd-purple-medium relative z-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-4xl mb-2 tracking-tighter">CD.</h4>
+                <p class="font-mono text-sm text-gray-400">Transformación digital radical.</p>
+            </div>
+            <div class="text-center md:text-right">
+                <div class="flex flex-col gap-1">
+                    <span class="font-mono text-xs text-gray-500">&copy; 2025 CAMBIO DIGITAL</span>
+                    <span class="font-mono text-xs text-gray-500">MANIZALES - COLOMBIA - WORLDWIDE</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Cursor
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let outlineX = 0, outlineY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            });
+
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+                cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Reveal Observer
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+            // Mobile Menu
+            const menuBtn = document.getElementById('menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('open');
+                document.body.classList.toggle('overflow-hidden');
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+        });
+    </script>
+</body>
+</html>
