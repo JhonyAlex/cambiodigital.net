@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio Digital | Transformación Digital</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        'cd-purple-dark': '#2a004f',
+                        'cd-purple-medium': '#5e2a84',
+                        'cd-purple-light': '#8a55c1',
+                        'cd-lavender': '#d7b5f2',
+                        'cd-magenta': '#c200b3',
+                        'cd-cream': '#f8f8f0',
+                        'cd-dark-grey': '#1a1a1a'
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --shadow-color: #2a004f;
+            --highlight-color: #c200b3;
+        }
+        
+        body {
+            transition: background-color 0.5s ease-out, color 0.5s ease-out;
+        }
+
+        /* --- Text Stroke Utility --- */
+        .text-stroke-black {
+            -webkit-text-stroke: 2px black;
+            color: transparent;
+        }
+
+        /* --- Custom Cursor --- */
+        @media (pointer: fine) {
+            body, a, button, input, textarea {
+                cursor: none;
+            }
+            #cursor-dot, #cursor-outline {
+                display: block;
+            }
+        }
+        @media (pointer: coarse) {
+            #cursor-dot, #cursor-outline {
+                display: none;
+            }
+        }
+        
+        #cursor-dot {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.4s;
+            z-index: 9999;
+        }
+        
+        #cursor-outline {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s linear, border-color 0.4s;
+            z-index: 9998;
+        }
+
+        body:has(a:hover, button:hover, input:hover, textarea:hover) #cursor-dot {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        /* --- Brutalist Components --- */
+        .shadow-hard {
+            box-shadow: 6px 6px 0 var(--shadow-color);
+            border: 3px solid var(--shadow-color);
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .btn-press:active, .card-hover:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--shadow-color);
+        }
+
+        .border-hard {
+            border: 3px solid var(--shadow-color);
+        }
+
+        /* --- Background Pattern --- */
+        .bg-grid {
+            background-image: radial-gradient(var(--shadow-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.08;
+            pointer-events: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* --- Marquee --- */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+
+        /* --- Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Mobile Menu --- */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden bg-cd-purple-medium text-cd-cream selection:bg-cd-magenta selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div id="cursor-outline"></div>
+    <div id="cursor-dot"></div>
+
+    <div class="fixed inset-0 z-0 bg-grid"></div>
+
+    <!-- 1. Navbar -->
+    <header class="fixed top-0 left-0 w-full p-4 z-50 transition-all duration-300" id="navbar">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 py-3 bg-cd-cream text-black shadow-hard z-50 relative">
+            <a href="#home" class="font-black text-2xl tracking-tighter btn-press flex items-center gap-2">
+                <div class="w-4 h-4 bg-black"></div> CD.
+            </a>
+            
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#somos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/QUIÉNES_SOMOS</a>
+                <a href="#servicios" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PAQUETES</a>
+                <a href="#proyectos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PROYECTOS</a>
+                <a href="#equipo" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/EQUIPO</a>
+                <a href="#contacto" class="font-bold text-sm py-2 px-5 bg-black text-cd-cream border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta hover:text-white transition-colors btn-press shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
+                    CONTACTAR
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden p-2 btn-press focus:outline-none">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-cd-purple-dark text-cd-cream z-40 flex flex-col items-center justify-center space-y-8 md:hidden border-l-4 border-black">
+            <button id="close-menu-btn" class="absolute top-6 right-6 p-2 btn-press">
+                <i data-lucide="x" class="w-10 h-10"></i>
+            </button>
+            <a href="#somos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Quiénes Somos</a>
+            <a href="#servicios" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Paquetes</a>
+            <a href="#proyectos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Proyectos</a>
+            <a href="#equipo" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Equipo</a>
+            <a href="#contacto" class="mobile-link text-3xl font-black uppercase bg-cd-magenta px-6 py-2 border-hard text-white">Contacto</a>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <!-- 2. Hero Area -->
+        <section 
+            id="home" 
+            class="min-h-screen w-full flex items-center justify-center p-4 pt-24"
+            data-bg="bg-cd-purple-medium"
+            data-text="text-cd-cream"
+            data-shadow="#2a004f"
+            data-highlight="#c200b3"
+        >
+            <div class="relative text-center max-w-5xl mx-auto">
+                <div class="reveal active inline-block mb-4 px-4 py-1 border-2 border-black bg-white text-black font-mono text-xs md:text-sm font-bold shadow-[4px_4px_0px_#000]">
+                    EST. 2025 // DIGITAL TRANSFORMATION
+                </div>
+                
+                <h1 class="reveal active font-black text-6xl sm:text-8xl lg:text-[10rem] leading-[0.85] uppercase break-words tracking-tighter mb-6">
+                    Cambio<br>
+                    <span class="text-stroke-black tracking-wide">Digital</span>
+                </h1>
+                
+                <p class="reveal active delay-200 font-mono text-lg md:text-2xl mt-8 max-w-2xl mx-auto bg-cd-cream text-black p-4 border-hard transform -rotate-1">
+                    No hacemos solo páginas web. <br>
+                    <strong>Construimos ecosistemas de negocio automatizados.</strong>
+                </p>
+                
+                <div class="reveal active delay-300 mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contacto" class="bg-black text-cd-cream font-bold text-xl py-4 px-8 border-hard shadow-hard btn-press hover:bg-cd-dark-grey uppercase flex items-center justify-center gap-2">
+                        Iniciar Transformación <i data-lucide="arrow-right"></i>
+                    </a>
+                    <a href="#servicios" class="bg-transparent text-cd-cream border-2 border-cd-cream font-bold text-xl py-4 px-8 shadow-none hover:shadow-hard hover:bg-cd-cream hover:text-black hover:border-cd-purple-medium btn-press uppercase transition-all">
+                        Ver Paquetes
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Marquee -->
+        <div class="w-full py-6 bg-black text-cd-cream border-y-4 border-black overflow-hidden rotate-1 scale-105 z-20 relative shadow-xl">
+            <div class="animate-marquee whitespace-nowrap flex items-center">
+                <span class="font-mono text-2xl font-bold mx-4 flex items-center gap-4">✦ AUTOMATIZACIÓN ✦ CRM ✦ MARKETING B2B ✦ INTELIGENCIA ARTIFICIAL ✦ CONSULTORÍA ✦ SOPORTE IT ✦</span>
+                <span class="font-mono text-2xl font-bold mx-4 flex items-center gap-4">✦ AUTOMATIZACIÓN ✦ CRM ✦ MARKETING B2B ✦ INTELIGENCIA ARTIFICIAL ✦ CONSULTORÍA ✦ SOPORTE IT ✦</span>
+            </div>
+        </div>
+
+        <!-- 4. Quiénes somos -->
+        <section 
+            id="somos" 
+            class="min-h-screen w-full flex flex-col items-center justify-center p-8 py-24"
+            data-bg="bg-cd-lavender"
+            data-text="text-black"
+            data-shadow="#2a004f"
+            data-highlight="#c200b3"
+        >
+            <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="reveal relative">
+                    <div class="absolute inset-0 bg-black translate-x-4 translate-y-4 border-hard z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80" alt="Equipo" class="relative z-10 w-full h-auto border-hard grayscale hover:grayscale-0 transition-all duration-500 object-cover aspect-square">
+                    <div class="absolute -top-6 -left-6 bg-cd-magenta text-white p-2 font-mono text-sm border-2 border-black shadow-[4px_4px_0_black] z-20">
+                        NUESTRA VISIÓN
+                    </div>
+                </div>
+
+                <div class="reveal">
+                    <h2 class="font-black text-5xl md:text-7xl uppercase mb-8 leading-none">
+                        Somos el <span class="bg-cd-purple-medium text-white px-2">Motor</span> de tu Cambio
+                    </h2>
+                    <div class="bg-cd-cream p-8 border-hard shadow-hard relative text-black">
+                        <i data-lucide="quote" class="absolute top-4 right-4 w-8 h-8 text-cd-purple-medium opacity-50"></i>
+                        <p class="font-mono text-lg leading-relaxed mb-6">
+                            Cambio Digital no es una agencia tradicional. Somos ingenieros de la eficiencia. Nos dedicamos a eliminar tareas repetitivas mediante <strong>Automatización e IA</strong> y a ser tu respaldo técnico robusto.
+                        </p>
+                        <ul class="space-y-2 font-bold font-sans text-xl">
+                            <li class="flex items-center gap-2"><i data-lucide="check-square" class="w-6 h-6"></i> Enfoque en Datos</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-square" class="w-6 h-6"></i> Resultados Medibles</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-square" class="w-6 h-6"></i> Tecnología de Punta</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Paquetes (Servicios) -->
+        <section 
+            id="servicios" 
+            class="min-h-screen w-full flex flex-col items-center justify-center p-8 py-24"
+            data-bg="bg-cd-magenta"
+            data-text="text-white"
+            data-shadow="#1a1a1a"
+            data-highlight="#d7b5f2"
+        >
+            <h2 class="reveal font-black text-6xl md:text-8xl uppercase text-center mb-16 text-cd-cream drop-shadow-[6px_6px_0_rgba(0,0,0,1)]">
+                Nuestros<br>Paquetes
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full">
+                <!-- Paquete 1: RRSS + CRM -->
+                <div class="reveal bg-cd-cream text-black p-8 border-hard shadow-hard card-hover flex flex-col relative overflow-hidden group h-full">
+                    <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-4 pb-1">SOCIAL_CRM_PACK</span>
+                    <h3 class="font-black text-3xl uppercase mb-4 leading-none">Gestión Social & CRM</h3>
+                    <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                        Atención al cliente de alto nivel. Contestamos mensajería, automatizamos comentarios y organizamos cada lead en tu CRM. Orden total en tus canales de venta.
+                    </p>
+                    <div class="flex gap-2 mb-6 flex-wrap">
+                        <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">Atención Cliente</span>
+                        <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">CRM</span>
+                    </div>
+                    <button class="mt-auto w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm">
+                        Ver Detalles
+                    </button>
+                </div>
+
+                <!-- Paquete 2: IA -->
+                <div class="reveal bg-cd-cream text-black p-8 border-hard shadow-hard card-hover flex flex-col relative overflow-hidden group h-full">
+                    <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-4 pb-1">AI_AGENTS_PACK</span>
+                    <h3 class="font-black text-3xl uppercase mb-4 leading-none">Agentes IA (Ventas)</h3>
+                    <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                        Creación de vendedores digitales inteligentes. Agentes que atienden, filtran y gestionan procesos de venta y post-venta 24/7 sin descanso humano.
+                    </p>
+                    <div class="flex gap-2 mb-6 flex-wrap">
+                        <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">Bots IA</span>
+                        <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">Automatización</span>
+                    </div>
+                    <button class="mt-auto w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm">
+                        Ver Detalles
+                    </button>
+                </div>
+
+                <!-- Paquete 3: Web -->
+                <div class="reveal bg-cd-cream text-black p-8 border-hard shadow-hard card-hover flex flex-col relative overflow-hidden group h-full">
+                    <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-4 pb-1">WEB_DEV_PACK</span>
+                    <h3 class="font-black text-3xl uppercase mb-4 leading-none">Web & E-Commerce</h3>
+                    <p class="font-mono text-sm leading-relaxed mb-6 flex-grow">
+                        Diseño a medida, tiendas online y plataformas web autogestionadas con IA. Tu escaparate digital optimizado para convertir visitas en dinero.
+                    </p>
+                    <div class="flex gap-2 mb-6 flex-wrap">
+                        <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">Diseño Web</span>
+                        <span class="bg-cd-lavender border border-black px-2 py-1 text-xs font-bold">E-commerce</span>
+                    </div>
+                    <button class="mt-auto w-full py-3 border-2 border-black font-bold uppercase hover:bg-black hover:text-white transition-colors text-sm">
+                        Ver Detalles
+                    </button>
+                </div>
+
+                <!-- Paquete 4: Soporte Técnico (Destacado) -->
+                <div class="reveal bg-white text-black p-8 border-hard border-4 border-cd-purple-dark shadow-[8px_8px_0_#2a004f] card-hover flex flex-col relative overflow-hidden group transform md:scale-105 h-full z-10">
+                    <div class="absolute top-4 right-4 text-cd-magenta animate-pulse">
+                        <i data-lucide="shield-check" class="w-8 h-8"></i>
+                    </div>
+                    <span class="font-mono text-xs border-b-2 border-black inline-block w-max mb-4 pb-1 text-cd-magenta font-bold">IT_PARTNER_SUBSCRIPTION</span>
+                    <h3 class="font-black text-3xl uppercase mb-2 leading-none">Tu Depto. IT</h3>
+                    <div class="font-black text-4xl mb-4 text-cd-purple-dark">$50 USD<span class="text-lg text-gray-400 font-mono">/mes</span></div>
+                    <div class="font-mono text-sm leading-relaxed mb-8 flex-grow text-gray-700">
+                        Convertimos a Cambio Digital en tu área de ingeniería y sistemas. Incluye:
+                        <ul class="list-disc list-inside mt-2 text-xs space-y-1 font-bold">
+                            <li>Soporte en plataformas empresariales</li>
+                            <li>Exportación y respaldo de información</li>
+                            <li>Integración de sistemas</li>
+                            <li>Resolución prioritaria de fallos técnicos</li>
+                        </ul>
+                    </div>
+                    <button class="mt-auto w-full py-3 bg-cd-purple-dark text-white font-bold hover:bg-cd-magenta transition-colors uppercase text-sm border-2 border-transparent shadow-lg">
+                        Suscribirse Ahora
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Proyectos (Centrados) -->
+        <section 
+            id="proyectos" 
+            class="min-h-screen w-full flex flex-col items-center justify-center p-8 py-24"
+            data-bg="bg-cd-purple-dark"
+            data-text="text-cd-cream"
+            data-shadow="#c200b3"
+            data-highlight="#d7b5f2"
+        >
+            <div class="flex items-end mb-16 gap-4">
+                <h2 class="reveal font-black text-5xl md:text-8xl uppercase text-center text-cd-cream">Proyectos</h2>
+                <i data-lucide="arrow-down-right" class="w-12 h-12 md:w-20 md:h-20 text-cd-magenta animate-bounce"></i>
+            </div>
+
+            <!-- Changed Grid to Flex Wrap + Justify Center -->
+            <div class="flex flex-wrap justify-center gap-6 max-w-7xl w-full">
+                
+                <!-- Angela's Vacation -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-cd-cream text-black border-hard shadow-hard flex flex-col group overflow-hidden">
+                    <div class="bg-black text-white px-4 py-2 flex justify-between items-center border-b-4 border-black">
+                        <span class="font-mono text-xs uppercase">USA • angelas_v.exe</span>
+                        <div class="w-3 h-3 bg-cd-magenta rounded-full"></div>
+                    </div>
+                    <div class="p-6 flex flex-col h-full">
+                        <h3 class="font-black text-2xl uppercase mb-2">Angela's Vacation</h3>
+                        <p class="font-mono text-sm mb-4 text-gray-600">Turismo & Viajes</p>
+                        <ul class="text-sm font-bold space-y-1 mb-4">
+                            <li>+ Automatización CRM</li>
+                            <li>+ Integración de Procesos</li>
+                            <li class="text-cd-purple-medium">+ Soporte Técnico Mensual</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Compusum -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-cd-cream text-black border-hard shadow-hard flex flex-col group overflow-hidden">
+                    <div class="bg-black text-white px-4 py-2 flex justify-between items-center border-b-4 border-black">
+                        <span class="font-mono text-xs uppercase">COL • compusum.exe</span>
+                        <div class="w-3 h-3 bg-cd-magenta rounded-full"></div>
+                    </div>
+                    <div class="p-6 flex flex-col h-full">
+                        <h3 class="font-black text-2xl uppercase mb-2">Compusum</h3>
+                        <p class="font-mono text-sm mb-4 text-gray-600">Tecnología & Seguridad</p>
+                        <ul class="text-sm font-bold space-y-1 mb-4">
+                            <li>+ Gestión Sist. Seguridad</li>
+                            <li>+ Avisos Automáticos CRM</li>
+                            <li class="text-cd-purple-medium">+ Soporte Técnico IT</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Vioka -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-cd-cream text-black border-hard shadow-hard flex flex-col group overflow-hidden">
+                    <div class="bg-black text-white px-4 py-2 flex justify-between items-center border-b-4 border-black">
+                        <span class="font-mono text-xs uppercase">PEREIRA • vioka_shop.exe</span>
+                        <div class="w-3 h-3 bg-cd-magenta rounded-full"></div>
+                    </div>
+                    <div class="p-6 flex flex-col h-full">
+                        <h3 class="font-black text-2xl uppercase mb-2">Vioka</h3>
+                        <p class="font-mono text-sm mb-4 text-gray-600">Moda & Retail</p>
+                        <ul class="text-sm font-bold space-y-1 mb-4">
+                            <li>+ E-commerce Management</li>
+                            <li>+ Respuestas Auto Instagram</li>
+                            <li>+ Gestión Atención Cliente</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Clínica Santa Clara -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-cd-cream text-black border-hard shadow-hard flex flex-col group overflow-hidden">
+                    <div class="bg-black text-white px-4 py-2 flex justify-between items-center border-b-4 border-black">
+                        <span class="font-mono text-xs uppercase">COL • sta_clara.exe</span>
+                        <div class="w-3 h-3 bg-cd-magenta rounded-full"></div>
+                    </div>
+                    <div class="p-6 flex flex-col h-full">
+                        <h3 class="font-black text-2xl uppercase mb-2">Clínica Santa Clara</h3>
+                        <p class="font-mono text-sm mb-4 text-gray-600">Salud</p>
+                        <ul class="text-sm font-bold space-y-1 mb-4">
+                            <li>+ Automatización Citas</li>
+                            <li>+ Gestión Pacientes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Rey Oblea -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-cd-cream text-black border-hard shadow-hard flex flex-col group overflow-hidden">
+                    <div class="bg-black text-white px-4 py-2 flex justify-between items-center border-b-4 border-black">
+                        <span class="font-mono text-xs uppercase">MEX • rey_oblea.exe</span>
+                        <div class="w-3 h-3 bg-cd-magenta rounded-full"></div>
+                    </div>
+                    <div class="p-6 flex flex-col h-full">
+                        <h3 class="font-black text-2xl uppercase mb-2">Rey Oblea</h3>
+                        <p class="font-mono text-sm mb-4 text-gray-600">Alimentos</p>
+                        <ul class="text-sm font-bold space-y-1 mb-4">
+                            <li>+ Chatbot IA "Oblein"</li>
+                            <li>+ Gestión de Pedidos</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 7. Contacto -->
+        <section 
+            id="contacto" 
+            class="min-h-screen w-full flex flex-col items-center justify-center text-center p-8 py-24"
+            data-bg="bg-cd-purple-medium"
+            data-text="text-cd-cream"
+            data-shadow="#2a004f"
+            data-highlight="#c200b3"
+        >
+            <div class="max-w-4xl w-full bg-cd-cream text-black p-8 md:p-12 border-hard shadow-hard reveal">
+                <h2 class="font-black text-4xl md:text-6xl mb-2 text-left uppercase">Hablemos</h2>
+                <p class="font-mono text-left mb-8 text-gray-600">Cuéntanos tu problema, nosotros diseñamos la solución.</p>
+                
+                <form class="space-y-6 text-left">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-bold text-sm uppercase mb-2">Nombre</label>
+                            <input type="text" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-sm uppercase mb-2">Empresa</label>
+                            <input type="text" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu empresa">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block font-bold text-sm uppercase mb-2">Email</label>
+                        <input type="email" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="tu@email.com">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-sm uppercase mb-2">¿Qué necesitas?</label>
+                        <textarea rows="4" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Breve descripción de tu proyecto..."></textarea>
+                    </div>
+
+                    <button type="button" class="w-full bg-black text-cd-cream font-black text-xl py-4 border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta transition-colors btn-press shadow-[6px_6px_0_var(--shadow-color)] uppercase">
+                        Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+            
+            <div class="mt-16 flex gap-6 text-2xl">
+                <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="linkedin"></i></a>
+                <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="instagram"></i></a>
+                <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="mail"></i></a>
+            </div>
+        </section>
+
+        <!-- 8. Equipo (Centrados) -->
+        <section 
+            id="equipo" 
+            class="w-full flex flex-col items-center justify-center p-8 py-24 border-t-4 border-black"
+            data-bg="bg-cd-lavender"
+            data-text="text-black"
+            data-shadow="#2a004f"
+            data-highlight="#c200b3"
+        >
+            <h2 class="reveal font-black text-5xl md:text-7xl uppercase text-center mb-12">Nuestro Equipo</h2>
+            
+            <!-- Changed Grid to Flex Wrap + Justify Center -->
+            <div class="flex flex-wrap justify-center gap-6 max-w-7xl w-full">
+                
+                <!-- Miembro 1 -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-white border-hard p-6 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-bold text-xl rounded-full">JA</div>
+                        <div>
+                            <h3 class="font-black text-lg uppercase">Jhony Alvarez</h3>
+                            <span class="text-xs font-mono bg-cd-purple-light text-white px-2 py-1">Coordinador General</span>
+                        </div>
+                    </div>
+                    <p class="font-mono text-sm text-gray-700">Gestión de proyectos, automatización y atención al cliente. Miembro de equipos Administrativo, AI y Asesoría.</p>
+                </div>
+
+                <!-- Miembro 2 -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-white border-hard p-6 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-cd-magenta text-white flex items-center justify-center font-bold text-xl rounded-full">LF</div>
+                        <div>
+                            <h3 class="font-black text-lg uppercase">Luisa F. Valencia</h3>
+                            <span class="text-xs font-mono bg-cd-purple-light text-white px-2 py-1">Administración</span>
+                        </div>
+                    </div>
+                    <p class="font-mono text-sm text-gray-700">Seguimiento de pagos, soporte al cliente y documentación. Miembro de equipos Administrativo y Asesoría.</p>
+                </div>
+
+                <!-- Miembro 3 -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-white border-hard p-6 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-cd-purple-medium text-white flex items-center justify-center font-bold text-xl rounded-full">JO</div>
+                        <div>
+                            <h3 class="font-black text-lg uppercase">Jimmy Ospina</h3>
+                            <span class="text-xs font-mono bg-cd-purple-light text-white px-2 py-1">Automatizaciones</span>
+                        </div>
+                    </div>
+                    <p class="font-mono text-sm text-gray-700">Especialista en automatizaciones, soporte técnico y gestión de incidencias.</p>
+                </div>
+
+                <!-- Miembro 4 -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-white border-hard p-6 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-bold text-xl rounded-full">JS</div>
+                        <div>
+                            <h3 class="font-black text-lg uppercase">Juan S. Galeano</h3>
+                            <span class="text-xs font-mono bg-cd-purple-light text-white px-2 py-1">Desarrollo AI</span>
+                        </div>
+                    </div>
+                    <p class="font-mono text-sm text-gray-700">Desarrollo e integración de soluciones de inteligencia artificial y automatización.</p>
+                </div>
+
+                <!-- Miembro 5 -->
+                <div class="reveal w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] bg-white border-hard p-6 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-cd-magenta text-white flex items-center justify-center font-bold text-xl rounded-full">CO</div>
+                        <div>
+                            <h3 class="font-black text-lg uppercase">Carlos Osorio</h3>
+                            <span class="text-xs font-mono bg-cd-purple-light text-white px-2 py-1">Asesor Comercial</span>
+                        </div>
+                    </div>
+                    <p class="font-mono text-sm text-gray-700">Gestión y seguimiento de proyectos comerciales.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full p-8 bg-black text-cd-cream border-t-4 border-cd-purple-medium relative z-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-8">
+            <div>
+                <h4 class="font-black text-3xl mb-2">CD.</h4>
+                <p class="font-mono text-sm text-gray-400 max-w-xs">Transformación digital radical.</p>
+            </div>
+            <div class="text-right">
+                <span class="font-mono text-xs text-gray-500 block mb-2">&copy; 2025 CAMBIO DIGITAL</span>
+                <span class="font-mono text-xs text-gray-500">MEDELLÍN - COLOMBIA - WORLDWIDE</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Cursor
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let outlineX = 0, outlineY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            });
+
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+                cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Theme Observer
+            const body = document.body;
+            const root = document.documentElement;
+            const sections = document.querySelectorAll('section[data-bg]');
+            
+            const themeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const newBg = entry.target.dataset.bg;
+                        const newText = entry.target.dataset.text;
+                        const newShadow = entry.target.dataset.shadow;
+                        const newHighlight = entry.target.dataset.highlight;
+
+                        body.className = `font-sans antialiased overflow-x-hidden selection:bg-cd-magenta selection:text-white ${newBg} ${newText}`;
+                        
+                        root.style.setProperty('--shadow-color', newShadow);
+                        root.style.setProperty('--highlight-color', newHighlight);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => themeObserver.observe(section));
+
+            // Reveal Observer
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+            // Mobile Menu
+            const menuBtn = document.getElementById('menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('open');
+                document.body.classList.toggle('overflow-hidden');
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+        });
+    </script>
+</body>
+</html>
