@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/otfidqlcuq/cambiodigital.net
+    - /usr/bin/git pull origin main
