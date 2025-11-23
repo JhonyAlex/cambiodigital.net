@@ -212,7 +212,7 @@
             data-highlight="#c200b3"
         >
             <div class="relative text-center max-w-5xl mx-auto">
-                <div class="reveal active inline-block mb-4 px-4 py-1 border-2 border-black bg-white text-black font-mono text-xs md:text-sm font-bold shadow-[4px_4px_0px_#000]">
+                <div class="reveal active inline-block mb-4 px-4 py-1 border-2 border-black bg-white text-black font-mono text-xs md:text-sm font-bold shadow-[4px_4px_0_#000]">
                     EST. 2025 // DIGITAL TRANSFORMATION
                 </div>
                 
@@ -480,42 +480,9 @@
             data-shadow="#2a004f"
             data-highlight="#c200b3"
         >
-            <div class="max-w-4xl w-full bg-cd-cream text-black p-8 md:p-12 border-hard shadow-hard reveal">
-                <h2 class="font-black text-4xl md:text-6xl mb-2 text-left uppercase">Hablemos</h2>
-                <p class="font-mono text-left mb-8 text-gray-600">Cuéntanos tu problema, nosotros diseñamos la solución.</p>
-                
-                <form class="space-y-6 text-left">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block font-bold text-sm uppercase mb-2">Nombre</label>
-                            <input type="text" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu nombre">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-sm uppercase mb-2">Empresa</label>
-                            <input type="text" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Tu empresa">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block font-bold text-sm uppercase mb-2">Email</label>
-                        <input type="email" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="tu@email.com">
-                    </div>
-
-                    <div>
-                        <label class="block font-bold text-sm uppercase mb-2">¿Qué necesitas?</label>
-                        <textarea rows="4" class="w-full p-4 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono" placeholder="Breve descripción de tu proyecto..."></textarea>
-                    </div>
-
-                    <button type="button" class="w-full bg-black text-cd-cream font-black text-xl py-4 border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta transition-colors btn-press shadow-[6px_6px_0_var(--shadow-color)] uppercase">
-                        Enviar Mensaje
-                    </button>
-                </form>
-            </div>
-            
-            <div class="mt-16 flex gap-6 text-2xl">
-                <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="linkedin"></i></a>
-                <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="instagram"></i></a>
-                <a href="#" class="p-4 bg-white text-black border-2 border-black hover:bg-cd-lavender transition-colors btn-press"><i data-lucide="mail"></i></a>
+            <!-- Dynamic Content Container -->
+            <div id="contact-container" class="w-full flex flex-col items-center">
+                <div class="animate-pulse font-mono text-xl">Cargando formulario...</div>
             </div>
         </section>
 
@@ -612,6 +579,109 @@
     </footer>
 
     <script>
+        // Form Switcher
+        window.switchForm = function(type) {
+            const btnSimple = document.getElementById('tab-simple');
+            const btnService = document.getElementById('tab-service');
+            const formSimple = document.getElementById('form-simple');
+            const formService = document.getElementById('form-service');
+
+            if (type === 'simple') {
+                formSimple.classList.remove('hidden');
+                formService.classList.add('hidden');
+                
+                // Estilos Activos
+                btnSimple.classList.add('bg-black', 'text-white');
+                btnSimple.classList.remove('bg-transparent', 'text-black');
+                
+                btnService.classList.add('bg-transparent', 'text-black');
+                btnService.classList.remove('bg-black', 'text-white');
+            } else {
+                formSimple.classList.add('hidden');
+                formService.classList.remove('hidden');
+
+                // Estilos Activos
+                btnService.classList.add('bg-black', 'text-white');
+                btnService.classList.remove('bg-transparent', 'text-black');
+
+                btnSimple.classList.add('bg-transparent', 'text-black');
+                btnSimple.classList.remove('bg-black', 'text-white');
+            }
+        };
+
+        // 2. Manejo del envío a n8n (ClickUp)
+        function initServiceForm() {
+            const serviceForm = document.getElementById('serviceRequestForm');
+            const messageDiv = document.getElementById('form-message');
+            const submitBtn = document.getElementById('btn-submit-task');
+
+            // REEMPLAZA ESTO CON TU URL DEL WEBHOOK DE N8N
+            const N8N_WEBHOOK_URL = 'https://n8n.cambiodigital.cloud/webhook-test/c1692d85-8ad6-4977-b484-541c16463d0a'; 
+
+            if(serviceForm) {
+                serviceForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    // Feedback visual de carga
+                    const originalBtnText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = 'Enviando... <i data-lucide="loader" class="animate-spin"></i>';
+                    submitBtn.disabled = true;
+                    lucide.createIcons(); // Ensure loader icon renders
+
+                    // Recopilar datos
+                    const formData = {
+                        requester: document.getElementById('req-name').value,
+                        title: document.getElementById('req-title').value,
+                        description: document.getElementById('req-desc').value,
+                        dueDate: document.getElementById('req-date').value,
+                        attachmentsLink: document.getElementById('req-link').value
+                    };
+
+                    // Estructura para enviar a ClickUp
+                    const payload = {
+                        taskName: formData.title,
+                        taskDescription: `
+**Solicitante:** ${formData.requester}
+**Fecha Límite:** ${formData.dueDate}
+**Enlace Archivos:** ${formData.attachmentsLink || 'N/A'}
+
+**Detalles:**
+${formData.description}
+                        `,
+                        dueDate: new Date(formData.dueDate).getTime()
+                    };
+
+                    try {
+                        const response = await fetch(N8N_WEBHOOK_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (response.ok) {
+                            messageDiv.classList.remove('hidden', 'bg-red-200');
+                            messageDiv.classList.add('bg-green-200');
+                            messageDiv.innerText = "¡Solicitud creada con éxito en nuestro sistema!";
+                            serviceForm.reset();
+                        } else {
+                            throw new Error('Error en el servidor');
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        messageDiv.classList.remove('hidden', 'bg-green-200');
+                        messageDiv.classList.add('bg-red-200');
+                        messageDiv.innerText = "Error al conectar. Por favor intenta de nuevo.";
+                    } finally {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        lucide.createIcons(); // Recargar iconos
+                    }
+                });
+            }
+        }
+
         lucide.createIcons();
 
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -669,6 +739,21 @@
             }, { threshold: 0.15 });
 
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+            // Load Contact Form
+            fetch('partials/contact.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('contact-container').innerHTML = data;
+                    lucide.createIcons();
+                    
+                    // Re-observe new reveal elements
+                    document.querySelectorAll('#contact-container .reveal').forEach(el => revealObserver.observe(el));
+
+                    // Initialize form logic
+                    initServiceForm();
+                })
+                .catch(error => console.error('Error loading contact form:', error));
 
             // Mobile Menu
             const menuBtn = document.getElementById('menu-btn');
