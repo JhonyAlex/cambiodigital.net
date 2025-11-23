@@ -621,6 +621,15 @@
             if(serviceForm) {
                 serviceForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+
+                    const fileInput = document.getElementById('req-file');
+                    const file = fileInput.files[0];
+
+                    // Validate file size (50MB)
+                    if (file && file.size > 50 * 1024 * 1024) {
+                        alert('El archivo es demasiado grande. El límite es 50MB.');
+                        return;
+                    }
                     
                     // Feedback visual de carga
                     const originalBtnText = submitBtn.innerHTML;
@@ -629,35 +638,31 @@
                     lucide.createIcons(); // Ensure loader icon renders
 
                     // Recopilar datos
-                    const formData = {
-                        requester: document.getElementById('req-name').value,
-                        title: document.getElementById('req-title').value,
-                        description: document.getElementById('req-desc').value,
-                        dueDate: document.getElementById('req-date').value,
-                        attachmentsLink: document.getElementById('req-link').value
-                    };
+                    const requester = document.getElementById('req-name').value;
+                    const title = document.getElementById('req-title').value;
+                    const description = document.getElementById('req-desc').value;
+                    const dueDate = document.getElementById('req-date').value;
 
-                    // Estructura para enviar a ClickUp
-                    const payload = {
-                        taskName: formData.title,
-                        taskDescription: `
-**Solicitante:** ${formData.requester}
-**Fecha Límite:** ${formData.dueDate}
-**Enlace Archivos:** ${formData.attachmentsLink || 'N/A'}
+                    // Prepare FormData for N8N (Multipart)
+                    const formData = new FormData();
+                    formData.append('taskName', title);
+                    formData.append('taskDescription', `
+**Solicitante:** ${requester}
+**Fecha Límite:** ${dueDate}
 
 **Detalles:**
-${formData.description}
-                        `,
-                        dueDate: new Date(formData.dueDate).getTime()
-                    };
+${description}
+                    `);
+                    formData.append('dueDate', new Date(dueDate).getTime());
+                    
+                    if (file) {
+                        formData.append('file', file);
+                    }
 
                     try {
                         const response = await fetch(N8N_WEBHOOK_URL, {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(payload)
+                            body: formData
                         });
 
                         if (response.ok) {
