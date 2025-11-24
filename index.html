@@ -856,19 +856,34 @@
                 }
             });
 
+            let activeForm = null;
+
             // Activate selected
             if (type === 'simple') {
                 formSimple.classList.remove('hidden');
                 btnSimple.classList.add('bg-black', 'text-white');
                 btnSimple.classList.remove('bg-transparent', 'text-black');
+                activeForm = formSimple;
             } else if (type === 'service') {
                 formService.classList.remove('hidden');
                 btnService.classList.add('bg-black', 'text-white');
                 btnService.classList.remove('bg-transparent', 'text-black');
+                activeForm = formService;
             } else if (type === 'schedule') {
                 formSchedule.classList.remove('hidden');
                 btnSchedule.classList.add('bg-black', 'text-white');
                 btnSchedule.classList.remove('bg-transparent', 'text-black');
+                activeForm = formSchedule;
+            }
+
+            // Scroll to title
+            if (activeForm) {
+                const title = activeForm.querySelector('h2');
+                if (title) {
+                    const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
+                    const y = title.getBoundingClientRect().top + window.scrollY - navbarHeight - 20;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
             }
         };
 
