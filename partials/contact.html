@@ -7,6 +7,9 @@
         <button id="tab-service" onclick="switchForm('service')" class="flex-1 py-3 font-black uppercase text-sm md:text-lg bg-transparent text-black hover:bg-cd-lavender transition-all">
             Solicitud de Servicio
         </button>
+        <button id="tab-schedule" onclick="switchForm('schedule')" class="flex-1 py-3 font-black uppercase text-sm md:text-lg bg-transparent text-black hover:bg-cd-lavender transition-all">
+            Agendar
+        </button>
     </div>
 
     <!-- FORMULARIO SIMPLE -->
@@ -207,6 +210,34 @@
                 <span>Crear Tarea</span> <i data-lucide="check-circle-2"></i>
             </button>
         </form>
+    </div>
+
+    <!-- SECCIÓN AGENDAR -->
+    <div id="form-schedule" class="hidden animate-fade-in">
+        <h2 class="font-black text-3xl md:text-5xl mb-2 text-left uppercase">Agenda tu Cita</h2>
+        <p class="font-mono text-left mb-8 text-gray-600 text-sm">Selecciona el tipo de reunión que necesitas.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Asesoría Comercial -->
+            <a href="https://calendar.app.google/YjUoafhrJEiVy5ph8" target="_blank" class="bg-white border-2 border-black p-6 shadow-[4px_4px_0_black] hover:shadow-[2px_2px_0_black] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-cd-magenta text-white rounded-full flex items-center justify-center mb-4 border-2 border-black group-hover:scale-110 transition-transform">
+                    <i data-lucide="briefcase" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl uppercase mb-2">Asesoría Comercial</h3>
+                <p class="font-mono text-sm text-gray-600 mb-4">Hablemos sobre cómo podemos potenciar tu negocio.</p>
+                <span class="mt-auto font-bold uppercase text-xs bg-black text-white px-4 py-2">Agendar Ahora</span>
+            </a>
+
+            <!-- Capacitación -->
+            <a href="https://calendar.app.google/4SP3buCZcpvkpP54A" target="_blank" class="bg-white border-2 border-black p-6 shadow-[4px_4px_0_black] hover:shadow-[2px_2px_0_black] hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-cd-purple-medium text-white rounded-full flex items-center justify-center mb-4 border-2 border-black group-hover:scale-110 transition-transform">
+                    <i data-lucide="graduation-cap" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl uppercase mb-2">Capacitación</h3>
+                <p class="font-mono text-sm text-gray-600 mb-4">Sesiones de entrenamiento y formación especializada.</p>
+                <span class="mt-auto font-bold uppercase text-xs bg-black text-white px-4 py-2">Agendar Ahora</span>
+            </a>
+        </div>
     </div>
 
 </div>

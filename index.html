@@ -252,8 +252,8 @@
                 </h1>
                 
                 <p class="reveal active delay-200 font-mono text-lg md:text-2xl mt-8 max-w-2xl mx-auto bg-cd-cream text-black p-4 border-hard transform -rotate-1">
-                    No hacemos solo páginas web. <br>
-                    <strong>Construimos ecosistemas de negocio automatizados.</strong>
+                    Tu negocio, potenciado al máximo. <br>
+                    <strong>Fusionamos IA, Automatización y Soporte IT para una eficiencia total.</strong>
                 </p>
                 
                 <div class="reveal active delay-300 mt-12 flex flex-col sm:flex-row gap-4 justify-center">
@@ -841,29 +841,34 @@
         window.switchForm = function(type) {
             const btnSimple = document.getElementById('tab-simple');
             const btnService = document.getElementById('tab-service');
+            const btnSchedule = document.getElementById('tab-schedule');
+            
             const formSimple = document.getElementById('form-simple');
             const formService = document.getElementById('form-service');
+            const formSchedule = document.getElementById('form-schedule');
 
+            // Reset all
+            [formSimple, formService, formSchedule].forEach(el => el?.classList.add('hidden'));
+            [btnSimple, btnService, btnSchedule].forEach(btn => {
+                if(btn) {
+                    btn.classList.remove('bg-black', 'text-white');
+                    btn.classList.add('bg-transparent', 'text-black');
+                }
+            });
+
+            // Activate selected
             if (type === 'simple') {
                 formSimple.classList.remove('hidden');
-                formService.classList.add('hidden');
-                
-                // Estilos Activos
                 btnSimple.classList.add('bg-black', 'text-white');
                 btnSimple.classList.remove('bg-transparent', 'text-black');
-                
-                btnService.classList.add('bg-transparent', 'text-black');
-                btnService.classList.remove('bg-black', 'text-white');
-            } else {
-                formSimple.classList.add('hidden');
+            } else if (type === 'service') {
                 formService.classList.remove('hidden');
-
-                // Estilos Activos
                 btnService.classList.add('bg-black', 'text-white');
                 btnService.classList.remove('bg-transparent', 'text-black');
-
-                btnSimple.classList.add('bg-transparent', 'text-black');
-                btnSimple.classList.remove('bg-black', 'text-white');
+            } else if (type === 'schedule') {
+                formSchedule.classList.remove('hidden');
+                btnSchedule.classList.add('bg-black', 'text-white');
+                btnSchedule.classList.remove('bg-transparent', 'text-black');
             }
         };
 
@@ -1077,6 +1082,49 @@ ${description}
             menuBtn.addEventListener('click', toggleMenu);
             closeMenuBtn.addEventListener('click', toggleMenu);
             mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // Mobile Grayscale Interaction
+            const isMobile = window.matchMedia("(max-width: 768px)").matches || window.matchMedia("(pointer: coarse)").matches;
+            
+            if (isMobile) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove('grayscale');
+                        } else {
+                            entry.target.classList.add('grayscale');
+                        }
+                    });
+                }, {
+                    rootMargin: '-35% 0px -35% 0px', // Center 30% of the screen
+                    threshold: 0
+                });
+
+                document.querySelectorAll('img.grayscale').forEach(img => imageObserver.observe(img));
+            }
+
+            // Handle Hash Navigation (Deep Linking)
+            function handleHash() {
+                const hash = window.location.hash;
+                if (hash === '#agendar') {
+                    const contactSection = document.getElementById('contacto');
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                        // Small delay to ensure form is loaded/ready if needed, though it's in DOM
+                        setTimeout(() => {
+                            if (typeof window.switchForm === 'function') {
+                                window.switchForm('schedule');
+                            }
+                        }, 100);
+                    }
+                }
+            }
+
+            // Check on load
+            handleHash();
+
+            // Check on hash change
+            window.addEventListener('hashchange', handleHash);
         });
     </script>
 </body>
