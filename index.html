@@ -1351,7 +1351,9 @@ ${description}
         window.openQuoteModal = function() {
             document.getElementById('quote-modal').classList.remove('hidden');
             document.body.classList.add('overflow-hidden');
-            lucide.createIcons();
+            document.documentElement.classList.add('overflow-hidden'); // Fix scroll on html
+            if(window.lucide) lucide.createIcons();
+            
             // Ensure grid is populated
             const grid = document.getElementById('services-grid');
             if(grid && grid.children.length === 0) {
@@ -1362,12 +1364,17 @@ ${description}
         window.closeQuoteModal = function() {
             document.getElementById('quote-modal').classList.add('hidden');
             document.body.classList.remove('overflow-hidden');
+            document.documentElement.classList.remove('overflow-hidden'); // Fix scroll on html
         }
 
         // Core Functions
         function initQuoteCalculator() {
+            console.log('Initializing Quote Calculator...');
             const grid = document.getElementById('services-grid');
-            if(!grid) return;
+            if(!grid) {
+                console.error('Services grid not found');
+                return;
+            }
 
             grid.innerHTML = SERVICES_DB.map(service => `
                 <div class="bg-white border-2 border-black shadow-[4px_4px_0_#ddd] p-6 transition-all duration-300 cursor-pointer group hover:shadow-[6px_6px_0_black] hover:-translate-y-1" 
@@ -1426,10 +1433,11 @@ ${description}
                 </div>
             `).join('');
             
-            lucide.createIcons();
+            if(window.lucide) lucide.createIcons();
         }
 
         window.toggleService = function(id) {
+            console.log('Toggling service:', id);
             const isSelected = !!quoteState.selected[id];
             
             if (isSelected) {
@@ -1474,7 +1482,7 @@ ${description}
                 // Show extras if any
                 const service = SERVICES_DB.find(s => s.id === id);
                 const extras = document.getElementById(`extras-${id}`);
-                if(service.extras.length > 0 && extras) {
+                if(service && service.extras.length > 0 && extras) {
                     extras.classList.remove('hidden');
                 }
             }
@@ -1646,7 +1654,7 @@ ${description}
 
             btn.disabled = true;
             btn.innerHTML = '<i data-lucide="loader" class="animate-spin"></i> Enviando...';
-            lucide.createIcons();
+            if(window.lucide) lucide.createIcons();
 
             // Prepare Data
             const payload = {
@@ -1690,7 +1698,7 @@ ${description}
                 setTimeout(() => {
                     btn.disabled = false;
                     btn.innerHTML = '<i data-lucide="send"></i> Recibir Cotización';
-                    lucide.createIcons();
+                    if(window.lucide) lucide.createIcons();
                 }, 3000);
 
             } catch (error) {
