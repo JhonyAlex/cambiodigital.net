@@ -35,6 +35,9 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -827,9 +830,6 @@
         </div>
     </div>
 
-    <!-- html2canvas for image export -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
     <script>
         // Popup Logic
         window.closePopup = function() {
@@ -1274,22 +1274,7 @@ ${description}
     <script>
         // --- COTIZADOR LOGIC ---
         
-        // Modal Logic
-        window.openQuoteModal = function() {
-            document.getElementById('quote-modal').classList.remove('hidden');
-            document.body.classList.add('overflow-hidden');
-            lucide.createIcons();
-            // Re-init if needed or just ensure grid is populated
-            if(document.getElementById('services-grid').children.length === 0) {
-                initQuoteCalculator();
-            }
-        }
-
-        window.closeQuoteModal = function() {
-            document.getElementById('quote-modal').classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-        }
-
+        // Database
         const SERVICES_DB = [
             {
                 id: 'web-essential',
@@ -1356,11 +1341,30 @@ ${description}
             }
         ];
 
+        // State
         let quoteState = {
-            selected: {}, // { 'web-essential': true }
-            extras: {}    // { 'web-essential': { 'copy': 1 } }
+            selected: {}, 
+            extras: {}
         };
 
+        // Modal Functions
+        window.openQuoteModal = function() {
+            document.getElementById('quote-modal').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            lucide.createIcons();
+            // Ensure grid is populated
+            const grid = document.getElementById('services-grid');
+            if(grid && grid.children.length === 0) {
+                initQuoteCalculator();
+            }
+        }
+
+        window.closeQuoteModal = function() {
+            document.getElementById('quote-modal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Core Functions
         function initQuoteCalculator() {
             const grid = document.getElementById('services-grid');
             if(!grid) return;
@@ -1430,57 +1434,74 @@ ${description}
             
             if (isSelected) {
                 delete quoteState.selected[id];
-                delete quoteState.extras[id]; // Reset extras
+                delete quoteState.extras[id];
                 
                 // UI Updates
                 const card = document.getElementById(`card-${id}`);
-                card.classList.remove('ring-4', 'ring-black', 'bg-cd-cream');
-                card.classList.add('bg-white');
+                if(card) {
+                    card.classList.remove('ring-4', 'ring-black', 'bg-cd-cream');
+                    card.classList.add('bg-white');
+                }
                 
-                document.getElementById(`check-${id}`).querySelector('i').classList.add('opacity-0');
-                document.getElementById(`check-${id}`).classList.remove('bg-black', 'text-white');
-                document.getElementById(`check-${id}`).classList.add('bg-white');
+                const check = document.getElementById(`check-${id}`);
+                if(check) {
+                    check.querySelector('i').classList.add('opacity-0');
+                    check.classList.remove('bg-black', 'text-white');
+                    check.classList.add('bg-white');
+                }
                 
-                document.getElementById(`extras-${id}`).classList.add('hidden');
+                const extras = document.getElementById(`extras-${id}`);
+                if(extras) extras.classList.add('hidden');
+
             } else {
                 quoteState.selected[id] = true;
-                quoteState.extras[id] = {}; // Init extras
+                quoteState.extras[id] = {};
                 
                 // UI Updates
                 const card = document.getElementById(`card-${id}`);
-                card.classList.remove('bg-white');
-                card.classList.add('ring-4', 'ring-black', 'bg-cd-cream');
+                if(card) {
+                    card.classList.remove('bg-white');
+                    card.classList.add('ring-4', 'ring-black', 'bg-cd-cream');
+                }
                 
-                document.getElementById(`check-${id}`).querySelector('i').classList.remove('opacity-0');
-                document.getElementById(`check-${id}`).classList.remove('bg-white');
-                document.getElementById(`check-${id}`).classList.add('bg-black', 'text-white');
+                const check = document.getElementById(`check-${id}`);
+                if(check) {
+                    check.querySelector('i').classList.remove('opacity-0');
+                    check.classList.remove('bg-white');
+                    check.classList.add('bg-black', 'text-white');
+                }
                 
                 // Show extras if any
                 const service = SERVICES_DB.find(s => s.id === id);
-                if(service.extras.length > 0) {
-                    document.getElementById(`extras-${id}`).classList.remove('hidden');
+                const extras = document.getElementById(`extras-${id}`);
+                if(service.extras.length > 0 && extras) {
+                    extras.classList.remove('hidden');
                 }
             }
             calculateQuote();
         };
 
         window.toggleExtra = function(serviceId, extraId) {
-            const current = quoteState.extras[serviceId]?.[extraId];
             if (!quoteState.extras[serviceId]) quoteState.extras[serviceId] = {};
+            const current = quoteState.extras[serviceId][extraId];
 
             const btn = document.getElementById(`btn-extra-${serviceId}-${extraId}`);
-            const icon = btn.querySelector('i');
+            const icon = btn ? btn.querySelector('i') : null;
 
             if (current) {
                 delete quoteState.extras[serviceId][extraId];
-                btn.classList.remove('bg-black', 'text-white');
-                icon.classList.add('opacity-0');
-                icon.classList.remove('text-white');
+                if(btn) btn.classList.remove('bg-black', 'text-white');
+                if(icon) {
+                    icon.classList.add('opacity-0');
+                    icon.classList.remove('text-white');
+                }
             } else {
                 quoteState.extras[serviceId][extraId] = true;
-                btn.classList.add('bg-black', 'text-white');
-                icon.classList.remove('opacity-0');
-                icon.classList.add('text-white');
+                if(btn) btn.classList.add('bg-black', 'text-white');
+                if(icon) {
+                    icon.classList.remove('opacity-0');
+                    icon.classList.add('text-white');
+                }
             }
             calculateQuote();
         };
@@ -1497,7 +1518,9 @@ ${description}
                 quoteState.extras[serviceId][extraId] = newValue;
             }
 
-            document.getElementById(`count-${serviceId}-${extraId}`).innerText = newValue;
+            const countEl = document.getElementById(`count-${serviceId}-${extraId}`);
+            if(countEl) countEl.innerText = newValue;
+            
             calculateQuote();
         };
 
@@ -1506,16 +1529,18 @@ ${description}
             let monthly = 0;
             let market = 0;
             const summaryList = document.getElementById('summary-items');
-            summaryList.innerHTML = '';
+            if(summaryList) summaryList.innerHTML = '';
 
             const selectedIds = Object.keys(quoteState.selected);
             
-            if (selectedIds.length === 0) {
+            if (selectedIds.length === 0 && summaryList) {
                 summaryList.innerHTML = '<div class="text-center py-8 text-gray-400 border-2 border-dashed border-gray-300">Selecciona servicios para comenzar</div>';
             }
 
             selectedIds.forEach(id => {
                 const service = SERVICES_DB.find(s => s.id === id);
+                if(!service) return;
+
                 oneTime += service.basePrice;
                 market += service.marketValue;
 
@@ -1525,13 +1550,15 @@ ${description}
                 
                 Object.keys(serviceExtras).forEach(exId => {
                     const exDef = service.extras.find(e => e.id === exId);
+                    if(!exDef) return;
+
                     const val = serviceExtras[exId];
                     const multiplier = typeof val === 'number' ? val : 1;
                     const cost = exDef.price * multiplier;
 
                     if (exDef.type === 'monthly') {
                         monthly += cost;
-                        market += (cost * 12); // Market value projection
+                        market += (cost * 12);
                     } else {
                         oneTime += cost;
                         market += (cost * 1.3);
@@ -1545,47 +1572,62 @@ ${description}
                     `;
                 });
 
-                summaryList.innerHTML += `
-                    <div class="border-b border-gray-200 pb-2 last:border-0">
-                        <div class="flex justify-between font-bold text-black">
-                            <span>${service.name}</span>
-                            <span>$${service.basePrice}</span>
+                if(summaryList) {
+                    summaryList.innerHTML += `
+                        <div class="border-b border-gray-200 pb-2 last:border-0">
+                            <div class="flex justify-between font-bold text-black">
+                                <span>${service.name}</span>
+                                <span>$${service.basePrice}</span>
+                            </div>
+                            ${extrasHtml ? `<div class="mt-1 space-y-1">${extrasHtml}</div>` : ''}
                         </div>
-                        ${extrasHtml ? `<div class="mt-1 space-y-1">${extrasHtml}</div>` : ''}
-                    </div>
-                `;
+                    `;
+                }
             });
 
             // Update Totals
-            document.getElementById('total-one-time').innerText = `$${oneTime}`;
-            document.getElementById('total-market').innerText = `$${market}`;
+            const elOneTime = document.getElementById('total-one-time');
+            const elMarket = document.getElementById('total-market');
+            const elMonthly = document.getElementById('total-monthly');
+            const elSavings = document.getElementById('total-savings');
+            const rowMonthly = document.getElementById('row-monthly');
+
+            if(elOneTime) elOneTime.innerText = `$${oneTime}`;
+            if(elMarket) elMarket.innerText = `$${market}`;
             
-            const monthlyRow = document.getElementById('row-monthly');
-            const totalMonthlyEl = document.getElementById('total-monthly');
             if (monthly > 0) {
-                monthlyRow.classList.remove('hidden');
-                monthlyRow.classList.add('flex');
-                totalMonthlyEl.innerText = `+$${monthly}/mes`;
+                if(rowMonthly) {
+                    rowMonthly.classList.remove('hidden');
+                    rowMonthly.classList.add('flex');
+                }
+                if(elMonthly) elMonthly.innerText = `+$${monthly}/mes`;
             } else {
-                monthlyRow.classList.add('hidden');
-                monthlyRow.classList.remove('flex');
+                if(rowMonthly) {
+                    rowMonthly.classList.add('hidden');
+                    rowMonthly.classList.remove('flex');
+                }
             }
 
             const savings = Math.max(0, market - oneTime - (monthly * 12));
-            document.getElementById('total-savings').innerText = `$${savings.toFixed(0)}`;
+            if(elSavings) elSavings.innerText = `$${savings.toFixed(0)}`;
         }
 
         window.downloadQuoteImage = function() {
-            const element = document.querySelector('#quote-modal .bg-cd-cream'); // Capture the modal content
+            if (typeof html2canvas === 'undefined') {
+                console.error('html2canvas not loaded');
+                return;
+            }
+            const element = document.querySelector('#quote-modal .bg-cd-cream');
             html2canvas(element, {
                 scale: 2,
-                backgroundColor: '#f8f8f0'
+                backgroundColor: '#f8f8f0',
+                useCORS: true
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'presupuesto-cambiodigital.png';
                 link.href = canvas.toDataURL();
                 link.click();
-            });
+            }).catch(err => console.error('Error generating image:', err));
         }
 
         window.sendQuote = async function() {
