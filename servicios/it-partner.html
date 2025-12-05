@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Partner - Tu Departamento IT sin pagar nómina | Cambio Digital</title>
+    <meta name="description" content="Soporte IT completo por $50 USD/mes. Deja de sufrir con la tecnología. Respuesta prioritaria, revisión semanal y capacitación incluida.">
+    <meta name="keywords" content="soporte IT, departamento tecnología, IT partner, soporte técnico, consultoría IT">
+    <meta name="author" content="Cambio Digital">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cambiodigital.net/servicios/it-partner.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cambiodigital.net/servicios/it-partner.html">
+    <meta property="og:title" content="Tu Departamento IT sin pagar nómina - Solo $50/mes">
+    <meta property="og:description" content="Soporte prioritario, revisión semanal y capacitación. Tu paz mental técnica por menos de lo que gastas en café.">
+    <meta property="og:image" content="https://cambiodigital.net/assets/og-it-partner.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cambiodigital.net/servicios/it-partner.html">
+    <meta property="twitter:title" content="Tu Departamento IT sin pagar nómina - Solo $50/mes">
+    <meta property="twitter:description" content="Soporte prioritario, revisión semanal y capacitación. Tu paz mental técnica por menos de lo que gastas en café.">
+    <meta property="twitter:image" content="https://cambiodigital.net/assets/og-it-partner.jpg">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        'cd-purple-dark': '#2a004f',
+                        'cd-purple-medium': '#5e2a84',
+                        'cd-purple-light': '#8a55c1',
+                        'cd-lavender': '#d7b5f2',
+                        'cd-magenta': '#c200b3',
+                        'cd-cream': '#f8f8f0',
+                        'cd-dark-grey': '#1a1a1a'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --shadow-color: #2a004f;
+            --highlight-color: #c200b3;
+        }
+        
+        body {
+            transition: background-color 0.5s ease-out, color 0.5s ease-out;
+        }
+
+        /* --- Custom Cursor --- */
+        @media (pointer: fine) {
+            body, a, button, input, textarea {
+                cursor: none;
+            }
+            #cursor-dot, #cursor-outline {
+                display: block;
+            }
+        }
+        @media (pointer: coarse) {
+            #cursor-dot, #cursor-outline {
+                display: none;
+            }
+        }
+        
+        #cursor-dot {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.4s;
+            z-index: 9999;
+        }
+        
+        #cursor-outline {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s linear, border-color 0.4s;
+            z-index: 9998;
+        }
+
+        body:has(a:hover, button:hover, input:hover, textarea:hover) #cursor-dot {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        /* --- Brutalist Components --- */
+        .shadow-hard {
+            box-shadow: 6px 6px 0 var(--shadow-color);
+            border: 3px solid var(--shadow-color);
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .btn-press:active, .card-hover:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--shadow-color);
+        }
+
+        .border-hard {
+            border: 3px solid var(--shadow-color);
+        }
+
+        /* --- Background Pattern --- */
+        .bg-grid {
+            background-image: radial-gradient(var(--shadow-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.08;
+            pointer-events: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* --- Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Mobile Menu --- */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden bg-cd-purple-medium text-cd-cream selection:bg-cd-magenta selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div id="cursor-outline"></div>
+    <div id="cursor-dot"></div>
+
+    <div class="fixed inset-0 z-0 bg-grid"></div>
+
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full p-4 z-50 transition-all duration-300" id="navbar">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 py-3 bg-cd-cream text-black shadow-hard z-50 relative">
+            <a href="../index.html" class="font-black text-2xl tracking-tighter btn-press flex items-center gap-2">
+                <div class="w-4 h-4 bg-black"></div> CD.
+            </a>
+            
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="../blog.html" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/BLOG</a>
+                <a href="../index.html#somos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/QUIÉNES_SOMOS</a>
+                <a href="../index.html#servicios" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PAQUETES</a>
+                <a href="../index.html#proyectos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PROYECTOS</a>
+                <a href="../index.html#equipo" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/EQUIPO</a>
+                <a href="../index.html#contacto" class="font-bold text-sm py-2 px-5 bg-black text-cd-cream border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta hover:text-white transition-colors btn-press shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
+                    AUDITORÍA GRATIS
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden p-2 btn-press focus:outline-none">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-cd-purple-dark text-cd-cream z-40 flex flex-col items-center justify-center space-y-8 md:hidden border-l-4 border-black">
+            <button id="close-menu-btn" class="absolute top-6 right-6 p-2 btn-press">
+                <i data-lucide="x" class="w-10 h-10"></i>
+            </button>
+            <a href="../blog.html" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Blog</a>
+            <a href="../index.html#somos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Quiénes Somos</a>
+            <a href="../index.html#servicios" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Paquetes</a>
+            <a href="../index.html#proyectos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Proyectos</a>
+            <a href="../index.html#equipo" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Equipo</a>
+            <a href="../index.html#contacto" class="mobile-link text-3xl font-black uppercase bg-cd-magenta px-6 py-2 border-hard text-white">Contacto</a>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="min-h-screen w-full flex items-center justify-center p-4 pt-32 pb-24 relative overflow-hidden">
+            <div class="relative z-10 text-center max-w-5xl mx-auto">
+                <div class="reveal active inline-block mb-6 px-6 py-2 border-2 border-black bg-cd-magenta text-white font-mono text-sm md:text-base font-bold shadow-[6px_6px_0_#000]">
+                    IT_PARTNER_SUBSCRIPTION // $50 USD
+                </div>
+                
+                <h1 class="reveal active font-black text-5xl sm:text-7xl lg:text-[7rem] leading-tight sm:leading-[0.9] uppercase break-words tracking-tighter mb-8">
+                    Tu Departamento<br>
+                    <span class="text-white" style="-webkit-text-stroke: 2px white; color: transparent;">IT</span> sin pagar<br>
+                    <span class="bg-black text-cd-cream px-4 inline-block">Nómina</span>
+                </h1>
+                
+                <p class="reveal active delay-200 font-mono text-lg md:text-2xl mt-8 max-w-4xl mx-auto text-cd-cream leading-relaxed">
+                    <strong class="text-white">Deja de sufrir con la tecnología.</strong><br>
+                    Nosotros nos encargamos de lo técnico, tú te encargas de vender.
+                </p>
+                
+                <div class="reveal active delay-300 mt-12">
+                    <a href="https://wa.me/573122908416?text=Quiero%20activar%20mi%20Departamento%20IT%20por%20$50%20al%20mes" target="_blank" class="inline-block bg-black text-cd-cream font-bold text-xl py-5 px-10 border-hard shadow-hard btn-press hover:bg-cd-magenta uppercase flex items-center justify-center gap-3 mx-auto max-w-max">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        Activar Mi Departamento IT
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problema vs Solución -->
+        <section class="min-h-screen w-full flex flex-col items-center justify-center p-8 py-24 bg-cd-lavender">
+            <h2 class="reveal font-black text-5xl md:text-7xl uppercase text-center mb-16 text-black">
+                Sin Nosotros<br>vs<br>Con Nosotros
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full">
+                <!-- Sin Nosotros -->
+                <div class="reveal bg-white text-black p-8 border-4 border-red-600 shadow-[8px_8px_0_#dc2626]">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="x-circle" class="w-12 h-12 text-red-600"></i>
+                        <h3 class="font-black text-3xl uppercase">Sin Soporte</h3>
+                    </div>
+                    <ul class="space-y-4 font-mono text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-600 font-black text-xl">✗</span>
+                            <span><strong>Pánico cuando algo falla:</strong> La web se cae un viernes a las 6pm y no sabes a quién llamar.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-600 font-black text-xl">✗</span>
+                            <span><strong>Sistemas lentos:</strong> Nadie revisa si todo funciona bien. Los problemas se acumulan hasta explotar.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-600 font-black text-xl">✗</span>
+                            <span><strong>Dudas técnicas sin resolver:</strong> Tu equipo pierde horas intentando arreglar cosas que no entiende.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-600 font-black text-xl">✗</span>
+                            <span><strong>Proveedores que no responden:</strong> El hosting dice una cosa, el desarrollador otra, y tú en medio sin entender nada.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Con Nosotros -->
+                <div class="reveal bg-cd-purple-dark text-cd-cream p-8 border-4 border-green-500 shadow-[8px_8px_0_#22c55e] md:transform md:scale-105">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="check-circle" class="w-12 h-12 text-green-400"></i>
+                        <h3 class="font-black text-3xl uppercase">Con Cambio Digital</h3>
+                    </div>
+                    <ul class="space-y-4 font-mono text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 font-black text-xl">✓</span>
+                            <span><strong>Respuesta prioritaria:</strong> Cuando algo falla, estamos ahí. Respuesta en menos de 2 horas.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 font-black text-xl">✓</span>
+                            <span><strong>Salud semanal:</strong> Revisamos actualizaciones, seguridad y rendimiento cada semana para prevenir crisis.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 font-black text-xl">✓</span>
+                            <span><strong>Capacitación mensual:</strong> 2 horas en vivo para entrenar a tu equipo o mejorar procesos.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 font-black text-xl">✓</span>
+                            <span><strong>Supervisión total:</strong> Intermediamos con todos tus proveedores técnicos. Tú solo hablas con nosotros.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="min-h-screen w-full flex flex-col items-center justify-center p-8 py-24 bg-cd-magenta">
+            <h2 class="reveal font-black text-6xl md:text-8xl uppercase text-center mb-16 text-cd-cream drop-shadow-[6px_6px_0_rgba(0,0,0,1)]">
+                Qué Incluye
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full">
+                <!-- Feature 1 -->
+                <div class="reveal bg-cd-cream text-black p-8 border-hard shadow-hard card-hover">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-cd-magenta border-2 border-black flex items-center justify-center">
+                            <i data-lucide="zap" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="font-black text-2xl uppercase">Soporte Prioritario</h3>
+                    </div>
+                    <p class="font-mono text-sm leading-relaxed">
+                        <strong>Atención preferencial en horario laboral.</strong> Cuando tienes un problema, no entras a una cola infinita. Eres prioridad. Respuesta garantizada en menos de 2 horas durante días hábiles.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="reveal bg-cd-cream text-black p-8 border-hard shadow-hard card-hover">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-cd-magenta border-2 border-black flex items-center justify-center">
+                            <i data-lucide="calendar-check" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="font-black text-2xl uppercase">Revisión Semanal</h3>
+                    </div>
+                    <p class="font-mono text-sm leading-relaxed">
+                        <strong>Un técnico revisa tu infraestructura cada semana.</strong> Actualizaciones, seguridad, rendimiento, backups. Prevenimos problemas antes de que exploten. No esperamos a que algo falle.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="reveal bg-cd-cream text-black p-8 border-hard shadow-hard card-hover">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-cd-magenta border-2 border-black flex items-center justify-center">
+                            <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="font-black text-2xl uppercase">Capacitación (2h/mes)</h3>
+                    </div>
+                    <p class="font-mono text-sm leading-relaxed">
+                        <strong>Sesiones mensuales en vivo para entrenar a tu equipo.</strong> ¿Necesitas que aprendan a usar una herramienta? ¿Mejorar un proceso? ¿Resolver dudas técnicas? Aquí lo hacemos.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="reveal bg-cd-cream text-black p-8 border-hard shadow-hard card-hover">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-cd-magenta border-2 border-black flex items-center justify-center">
+                            <i data-lucide="users" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="font-black text-2xl uppercase">Supervisión</h3>
+                    </div>
+                    <p class="font-mono text-sm leading-relaxed">
+                        <strong>Intermediación técnica con proveedores.</strong> Hosting, software, desarrolladores externos. Tú no pierdes tiempo traduciendo entre técnicos. Nosotros gestionamos todo.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="min-h-screen w-full flex flex-col items-center justify-center p-8 py-24 bg-cd-purple-medium">
+            <h2 class="reveal font-black text-6xl md:text-8xl uppercase text-center mb-16 text-cd-cream">
+                Inversión & Condiciones
+            </h2>
+            
+            <div class="max-w-4xl w-full">
+                <!-- Main Pricing Card -->
+                <div class="reveal bg-white text-black p-10 border-4 border-black shadow-[12px_12px_0_#2a004f] mb-8">
+                    <div class="text-center mb-8">
+                        <div class="font-black text-7xl text-cd-purple-dark mb-2">$50 USD</div>
+                        <div class="font-mono text-2xl text-gray-600">/mes después del mes 3</div>
+                    </div>
+
+                    <div class="bg-cd-lavender p-8 border-2 border-black mb-8">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="info" class="w-8 h-8 text-cd-purple-dark flex-shrink-0 mt-1"></i>
+                            <div>
+                                <h3 class="font-black text-2xl uppercase mb-3 text-cd-purple-dark">El Gancho (Importante)</h3>
+                                <p class="font-mono text-sm leading-relaxed mb-4">
+                                    <strong>Primer paso: Paquete inicial de 3 meses ($150 USD)</strong><br>
+                                    ¿Por qué? Porque necesitamos poner todo en orden primero. Inventario de tu infraestructura, configuración de monitoreo, documentación de accesos, optimización inicial. Es la <strong>"Fase de Estabilización"</strong>.
+                                </p>
+                                <p class="font-mono text-sm leading-relaxed">
+                                    Durante estos 3 meses construimos las bases para que tu sistema funcione sin sobresaltos. <strong>Después del mes 3, pagas mes a mes. Sin cláusula de permanencia.</strong> Te quedas porque funciona, no por obligación.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                            <span class="font-mono text-sm"><strong>Soporte prioritario</strong> en horario laboral (respuesta < 2h)</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                            <span class="font-mono text-sm"><strong>Revisión semanal</strong> de sistemas y seguridad</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                            <span class="font-mono text-sm"><strong>2 horas de capacitación</strong> al mes (no acumulables)</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                            <span class="font-mono text-sm"><strong>Intermediación con proveedores</strong> técnicos</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                            <span class="font-mono text-sm"><strong>Monitoreo de servidores 24/7</strong></span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                            <span class="font-mono text-sm"><strong>Sin permanencia</strong> después del mes 3</span>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/573122908416?text=Quiero%20activar%20mi%20Departamento%20IT.%20Entiendo%20que%20son%20$150%20por%20los%203%20primeros%20meses%20y%20luego%20$50/mes" target="_blank" class="block w-full py-5 bg-cd-purple-dark text-white font-bold text-xl uppercase text-center border-2 border-black hover:bg-cd-magenta transition-colors shadow-[4px_4px_0_black]">
+                        Activar Mi Departamento IT
+                    </a>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-cd-cream text-black p-4 border-2 border-black text-center">
+                        <div class="font-black text-3xl text-cd-magenta mb-1">< 2h</div>
+                        <div class="font-mono text-xs">Tiempo de Respuesta</div>
+                    </div>
+                    <div class="bg-cd-cream text-black p-4 border-2 border-black text-center">
+                        <div class="font-black text-3xl text-cd-magenta mb-1">24/7</div>
+                        <div class="font-mono text-xs">Monitoreo de Servidores</div>
+                    </div>
+                    <div class="bg-cd-cream text-black p-4 border-2 border-black text-center">
+                        <div class="font-black text-3xl text-cd-magenta mb-1">0</div>
+                        <div class="font-mono text-xs">Cláusulas de Permanencia</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="w-full flex flex-col items-center justify-center p-8 py-24 bg-cd-lavender">
+            <h2 class="reveal font-black text-5xl md:text-7xl uppercase text-center mb-16 text-black">
+                Preguntas Frecuentes
+            </h2>
+            
+            <div class="max-w-4xl w-full space-y-6">
+                <!-- FAQ 1 -->
+                <div class="reveal bg-white text-black p-8 border-hard shadow-hard">
+                    <h3 class="font-black text-xl uppercase mb-3 flex items-center gap-3">
+                        <i data-lucide="help-circle" class="w-6 h-6"></i>
+                        ¿Las horas de capacitación son acumulables?
+                    </h3>
+                    <p class="font-mono text-sm leading-relaxed">
+                        <strong>No.</strong> Son 2 horas mensuales disponibles cada mes. Si no las usas en enero, no se pasan a febrero. Es como una membresía de gimnasio: el beneficio está disponible, pero debes aprovecharlo.
+                    </p>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="reveal bg-white text-black p-8 border-hard shadow-hard">
+                    <h3 class="font-black text-xl uppercase mb-3 flex items-center gap-3">
+                        <i data-lucide="help-circle" class="w-6 h-6"></i>
+                        ¿El soporte es solo en horario laboral?
+                    </h3>
+                    <p class="font-mono text-sm leading-relaxed">
+                        <strong>La atención directa sí es en horario laboral</strong> (lunes a viernes, 8am-6pm hora Colombia). Pero tenemos monitoreo automático de servidores 24/7. Si algo crítico falla fuera de horario, nos enteramos y actuamos. No te vas a despertar con sorpresas.
+                    </p>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="reveal bg-white text-black p-8 border-hard shadow-hard">
+                    <h3 class="font-black text-xl uppercase mb-3 flex items-center gap-3">
+                        <i data-lucide="help-circle" class="w-6 h-6"></i>
+                        ¿Por qué 3 meses mínimos?
+                    </h3>
+                    <p class="font-mono text-sm leading-relaxed">
+                        Porque no podemos hacer milagros en 30 días. Necesitamos tiempo para conocer tu infraestructura, documentar todo, configurar monitoreo, optimizar procesos y establecer rutinas. <strong>La estabilidad real requiere un mínimo de 3 meses.</strong> Después de eso, mes a mes sin ataduras.
+                    </p>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="reveal bg-white text-black p-8 border-hard shadow-hard">
+                    <h3 class="font-black text-xl uppercase mb-3 flex items-center gap-3">
+                        <i data-lucide="help-circle" class="w-6 h-6"></i>
+                        ¿Qué pasa si necesito más horas de soporte?
+                    </h3>
+                    <p class="font-mono text-sm leading-relaxed">
+                        El paquete cubre soporte estándar y mantenimiento preventivo. Si necesitas proyectos adicionales (migración de servidor, desarrollo custom, etc.), se cotizan por separado. Pero <strong>la mayoría de clientes nunca necesita más</strong> porque prevenimos problemas antes de que ocurran.
+                    </p>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="reveal bg-white text-black p-8 border-hard shadow-hard">
+                    <h3 class="font-black text-xl uppercase mb-3 flex items-center gap-3">
+                        <i data-lucide="help-circle" class="w-6 h-6"></i>
+                        ¿Qué incluye la "Fase de Estabilización"?
+                    </h3>
+                    <p class="font-mono text-sm leading-relaxed">
+                        <strong>Los primeros 3 meses nos enfocamos en:</strong> inventario completo de tu infraestructura, configuración de backups automáticos, optimización de rendimiento, documentación de accesos y credenciales, implementación de monitoreo 24/7, y capacitación inicial de tu equipo. Al final del mes 3, tienes un sistema predecible y documentado.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="w-full flex flex-col items-center justify-center p-8 py-24 bg-cd-purple-dark text-cd-cream">
+            <div class="max-w-4xl w-full text-center">
+                <h2 class="reveal font-black text-5xl md:text-7xl uppercase mb-8 leading-tight">
+                    Deja de Apagar<br>Incendios
+                </h2>
+                <p class="reveal font-mono text-xl md:text-2xl mb-12 leading-relaxed">
+                    Tu competencia sigue perdiendo ventas por problemas técnicos.<br>
+                    <strong class="text-cd-magenta">Tú puedes enfocarte en crecer.</strong>
+                </p>
+                <div class="reveal">
+                    <a href="https://wa.me/573122908416?text=Quiero%20activar%20mi%20Departamento%20IT.%20Entiendo%20que%20son%20$150%20por%20los%203%20primeros%20meses%20y%20luego%20$50/mes" target="_blank" class="inline-block bg-cd-magenta text-white font-bold text-2xl py-6 px-12 border-4 border-white shadow-[8px_8px_0_rgba(255,255,255,0.3)] hover:bg-white hover:text-cd-magenta transition-all uppercase">
+                        Activar Ahora
+                    </a>
+                </div>
+                <p class="reveal mt-8 font-mono text-sm text-gray-400">
+                    $150 USD por 3 meses de estabilización. Luego $50/mes sin permanencia.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full p-8 md:p-12 bg-black text-cd-cream border-t-4 border-cd-purple-medium relative z-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-4xl mb-2 tracking-tighter">CD.</h4>
+                <p class="font-mono text-sm text-gray-400">Transformación digital radical.</p>
+            </div>
+            <div class="text-center md:text-right">
+                <div class="flex flex-col gap-1">
+                    <span class="font-mono text-xs text-gray-500">&copy; 2025 CAMBIO DIGITAL</span>
+                    <span class="font-mono text-xs text-gray-500">MANIZALES - COLOMBIA - WORLDWIDE</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Custom Cursor
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+            
+            cursorOutline.style.left = e.clientX + 'px';
+            cursorOutline.style.top = e.clientY + 'px';
+        });
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Reveal on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight * 0.85;
+                if (isVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Initialize Lucide Icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
