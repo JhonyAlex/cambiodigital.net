@@ -36,7 +36,21 @@ Se ha realizado una optimización exhaustiva del sitio web enfocada en mejorar l
 ### Blog
 - Se aplicaron mejoras de diseño y usabilidad en todas las entradas del blog (`blog/*.html`), asegurando consistencia en la navegación y lectura.
 
-## 4. Funcionalidad y PWA
+## 4. Funcionalidad, URLs y PWA
+
+### Limpieza de URLs y Navegación
+- **URLs Limpias**: Se eliminaron las extensiones `.html` de todos los enlaces internos para mejorar el SEO y la estética de la URL (ej. `/blog.html` -> `/blog`).
+- **Rutas Absolutas**: Se reemplazaron enlaces relativos (ej. `../blog.html`) por rutas absolutas limpias para garantizar una navegación consistente desde cualquier profundidad del sitio.
+- **Redirecciones**: Se implementó la lógica necesaria en los botones de acción, como "Ver Documentación Completa" redirigiendo correctamente a `/servicios/it-partner`.
+
+### Página de Bienvenida Post-Registro (`bienvenida.html`)
+- **Desarrollo Completo**: Se creó una nueva página de bienvenida siguiendo el sistema de diseño "Brutalista" del sitio.
+- **Funcionalidades Clave**:
+  - Mensaje personalizado y logo.
+  - Sección de contacto con botón "espejo" al formulario principal.
+  - Lista de códigos de país sincronizada con el formulario de `index.html`.
+  - Enlace directo a WhatsApp (+57 3122908416).
+  - Resumen de beneficios, políticas y recordatorios de reportes semanales.
 
 ### Progressive Web App (PWA)
 - **Manifest**: Se creó el archivo `manifest.json` para permitir que el sitio se instale como una aplicación en dispositivos móviles.
@@ -45,6 +59,7 @@ Se ha realizado una optimización exhaustiva del sitio web enfocada en mejorar l
 ## 5. Archivos Modificados
 
 - `index.html`
+- `bienvenida.html` (Nuevo)
 - `blog.html`
 - `servicios/it-partner.html`
 - `partials/contact.html`
