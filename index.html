@@ -1718,30 +1718,49 @@ ${description}
         document.addEventListener('DOMContentLoaded', initQuoteCalculator);
     </script>
 
-    <!-- Banner de Cookies -->
-    <div id="cookiesBannerContainer"></div>
+    <!-- Banner de Cookies - RGPD/GDPR Compliant -->
+    <div id="cookiesBanner" class="cookies-banner" style="display: none;">
+        <div class="cookies-container">
+            <div class="cookies-content">
+                <div class="cookies-icon">🍪</div>
+                <div class="cookies-text">
+                    <h3 class="cookies-title">Usamos cookies</h3>
+                    <p class="cookies-message">
+                        Utilizamos cookies para mejorar tu experiencia de navegación y analizar el tráfico del sitio. 
+                        Al hacer clic en "Aceptar", consientes el uso de todas las cookies.
+                    </p>
+                </div>
+            </div>
+            <div class="cookies-actions">
+                <button class="cookies-btn cookies-btn-accept" onclick="aceptarCookies()">Aceptar</button>
+                <button class="cookies-btn cookies-btn-decline" onclick="rechazarCookies()">Rechazar</button>
+            </div>
+        </div>
+    </div>
     
-    <!-- Popup Navideño -->
-    <div id="popupNavidadContainer"></div>
+    <!-- Popup Navideño - Promoción Precios 2025 -->
+    <div id="popupNavidad" class="popup-overlay" style="display: none;">
+        <div class="popup-container">
+            <button class="popup-close" onclick="cerrarPopupNavidad()" aria-label="Cerrar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="popup-content">
+                <div class="popup-decoration">🎄✨</div>
+                <h2 class="popup-title">¡Felices Fiestas! 🎅</h2>
+                <p class="popup-message">
+                    Termina el año con el mejor regalo para tu negocio:<br>
+                    <strong>Precios especiales 2025</strong> en todos nuestros servicios
+                </p>
+                <a href="#contacto" class="popup-cta" onclick="cerrarPopupNavidad()">🎁 Ver Promoción</a>
+                <p class="popup-footer">Válido hasta el 31 de enero de 2025</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts del Banner de Cookies y Popup Navideño -->
-    <script>
-        // Cargar banner de cookies
-        fetch('/partials/cookies-banner.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('cookiesBannerContainer').innerHTML = html;
-            })
-            .catch(error => console.error('Error cargando banner de cookies:', error));
-        
-        // Cargar popup navideño
-        fetch('/partials/popup-navidad.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('popupNavidadContainer').innerHTML = html;
-            })
-            .catch(error => console.error('Error cargando popup navideño:', error));
-    </script>
     <script src="/assets/js/cookies-banner.js"></script>
     <script src="/assets/js/popup-navidad.js"></script>
 </body>
