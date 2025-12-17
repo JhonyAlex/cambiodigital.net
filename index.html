@@ -39,6 +39,10 @@
     <!-- html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+    <!-- Popup Navideño y Banner de Cookies -->
+    <link rel="stylesheet" href="/assets/css/popup-navidad.css">
+    <link rel="stylesheet" href="/assets/css/cookies-banner.css">
+
     <script>
         tailwind.config = {
             theme: {
@@ -1713,5 +1717,32 @@ ${description}
         // Initialize
         document.addEventListener('DOMContentLoaded', initQuoteCalculator);
     </script>
+
+    <!-- Banner de Cookies -->
+    <div id="cookiesBannerContainer"></div>
+    
+    <!-- Popup Navideño -->
+    <div id="popupNavidadContainer"></div>
+
+    <!-- Scripts del Banner de Cookies y Popup Navideño -->
+    <script>
+        // Cargar banner de cookies
+        fetch('/partials/cookies-banner.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('cookiesBannerContainer').innerHTML = html;
+            })
+            .catch(error => console.error('Error cargando banner de cookies:', error));
+        
+        // Cargar popup navideño
+        fetch('/partials/popup-navidad.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('popupNavidadContainer').innerHTML = html;
+            })
+            .catch(error => console.error('Error cargando popup navideño:', error));
+    </script>
+    <script src="/assets/js/cookies-banner.js"></script>
+    <script src="/assets/js/popup-navidad.js"></script>
 </body>
 </html>

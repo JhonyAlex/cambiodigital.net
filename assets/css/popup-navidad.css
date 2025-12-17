@@ -1,0 +1,254 @@
+/* ================================================
+   POPUP NAVIDEÑO - PROMOCIÓN PRECIOS 2025
+   ================================================ */
+
+/* Overlay - Fondo semitransparente */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9998; /* Debajo del banner de cookies */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Container del popup */
+.popup-container {
+    position: relative;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    padding: 40px 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s ease-out;
+    border: 2px solid rgba(34, 211, 238, 0.3);
+    overflow: hidden;
+}
+
+/* Efecto nieve decorativo */
+.popup-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, 
+        #dc2626 0%, 
+        #22c55e 33%, 
+        #22c55e 66%, 
+        #dc2626 100%
+    );
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Botón de cierre */
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.popup-close:focus {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+}
+
+/* Contenido del popup */
+.popup-content {
+    text-align: center;
+    color: #fff;
+}
+
+/* Decoración */
+.popup-decoration {
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Título */
+.popup-title {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #22d3ee, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+/* Mensaje */
+.popup-message {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #e2e8f0;
+}
+
+.popup-message strong {
+    color: #22d3ee;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* CTA Button */
+.popup-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #22d3ee, #a855f7);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(34, 211, 238, 0.4);
+    min-width: 200px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(34, 211, 238, 0.6);
+}
+
+.popup-cta:active {
+    transform: translateY(-1px);
+}
+
+.popup-cta:focus {
+    outline: 3px solid #22d3ee;
+    outline-offset: 3px;
+}
+
+/* Footer */
+.popup-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* ================================================
+   RESPONSIVE - MOBILE FIRST
+   ================================================ */
+
+/* Mobile (< 640px) */
+@media (max-width: 640px) {
+    .popup-container {
+        padding: 30px 20px;
+        margin: 10px;
+        border-radius: 15px;
+    }
+    
+    .popup-decoration {
+        font-size: 36px;
+        margin-bottom: 15px;
+    }
+    
+    .popup-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .popup-message {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    
+    .popup-message strong {
+        font-size: 18px;
+    }
+    
+    .popup-cta {
+        font-size: 16px;
+        padding: 14px 30px;
+        width: 100%;
+    }
+    
+    .popup-footer {
+        font-size: 12px;
+        margin-top: 15px;
+    }
+}
+
+/* Tablet (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .popup-container {
+        max-width: 450px;
+    }
+}
+
+/* Accesibilidad - Reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .popup-overlay,
+    .popup-container,
+    .popup-decoration {
+        animation: none;
+    }
+    
+    .popup-close:hover {
+        transform: none;
+    }
+    
+    .popup-cta:hover {
+        transform: none;
+    }
+}

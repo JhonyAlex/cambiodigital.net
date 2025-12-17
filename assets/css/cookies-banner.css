@@ -1,0 +1,209 @@
+/* ================================================
+   BANNER DE COOKIES - RGPD/GDPR COMPLIANT
+   ================================================ */
+
+/* Banner principal */
+.cookies-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 20px;
+    z-index: 9999; /* Por encima del popup navideño */
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+    border-top: 3px solid #22d3ee;
+    animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+/* Container */
+.cookies-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Contenido */
+.cookies-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Icono */
+.cookies-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+/* Texto */
+.cookies-text {
+    color: #fff;
+}
+
+.cookies-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #22d3ee;
+}
+
+.cookies-message {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #e2e8f0;
+    margin: 0;
+}
+
+/* Botones */
+.cookies-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.cookies-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cookies-btn-accept {
+    background: linear-gradient(135deg, #22d3ee, #a855f7);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(34, 211, 238, 0.4);
+}
+
+.cookies-btn-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(34, 211, 238, 0.6);
+}
+
+.cookies-btn-decline {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.cookies-btn-decline:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cookies-btn:focus {
+    outline: 3px solid #22d3ee;
+    outline-offset: 2px;
+}
+
+.cookies-btn:active {
+    transform: translateY(0);
+}
+
+/* ================================================
+   RESPONSIVE - MOBILE FIRST
+   ================================================ */
+
+/* Mobile (< 640px) */
+@media (max-width: 640px) {
+    .cookies-banner {
+        padding: 15px;
+    }
+    
+    .cookies-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .cookies-content {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .cookies-icon {
+        font-size: 28px;
+    }
+    
+    .cookies-title {
+        font-size: 16px;
+    }
+    
+    .cookies-message {
+        font-size: 13px;
+    }
+    
+    .cookies-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .cookies-btn {
+        width: 100%;
+        padding: 14px 20px;
+    }
+}
+
+/* Tablet (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .cookies-container {
+        gap: 15px;
+    }
+    
+    .cookies-content {
+        flex: 1 1 60%;
+    }
+    
+    .cookies-actions {
+        flex: 1 1 auto;
+    }
+}
+
+/* Accesibilidad - Reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .cookies-banner {
+        animation: none;
+    }
+    
+    .cookies-btn-accept:hover,
+    .cookies-btn:active {
+        transform: none;
+    }
+}
