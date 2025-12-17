@@ -9,7 +9,11 @@ DirectoryIndex index.html
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.html [NC]
     RewriteRule ^ %1 [R=301,L]
     
-    # Agregar .html internamente si el archivo existe
+    # Si existe archivo.html, priorizarlo sobre directorio del mismo nombre
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*?)/?$ $1.html [L]
+    
+    # Si no existe como archivo, verificar si existe directorio
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}.html -f
