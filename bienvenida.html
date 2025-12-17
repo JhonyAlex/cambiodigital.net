@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido | Cambio Digital</title>
+    <meta name="description" content="Bienvenido a tu ecosistema digital. Gestiona tus solicitudes, contacta soporte y revisa tus beneficios.">
+    <meta name="robots" content="noindex, nofollow"> <!-- Private page -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#5e2a84">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        'cd-purple-dark': '#2a004f',
+                        'cd-purple-medium': '#5e2a84',
+                        'cd-purple-light': '#8a55c1',
+                        'cd-lavender': '#d7b5f2',
+                        'cd-magenta': '#c200b3',
+                        'cd-cream': '#f8f8f0',
+                        'cd-dark-grey': '#1a1a1a'
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --shadow-color: #2a004f;
+            --highlight-color: #c200b3;
+        }
+        
+        body {
+            transition: background-color 0.5s ease-out, color 0.5s ease-out;
+        }
+
+        /* --- Brutalist Components --- */
+        .shadow-hard {
+            box-shadow: 6px 6px 0 var(--shadow-color);
+            border: 3px solid var(--shadow-color);
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .btn-press:active, .card-hover:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--shadow-color);
+        }
+
+        .border-hard {
+            border: 3px solid var(--shadow-color);
+        }
+
+        /* --- Background Pattern --- */
+        .bg-grid {
+            background-image: radial-gradient(var(--shadow-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.08;
+            pointer-events: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* --- Custom Cursor --- */
+        @media (pointer: fine) {
+            body, a, button, input, textarea {
+                cursor: none;
+            }
+            #cursor-dot, #cursor-outline {
+                display: block;
+            }
+        }
+        @media (pointer: coarse) {
+            #cursor-dot, #cursor-outline {
+                display: none;
+            }
+        }
+        
+        #cursor-dot {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.4s;
+            z-index: 9999;
+        }
+        
+        #cursor-outline {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--highlight-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s linear, border-color 0.4s;
+            z-index: 9998;
+        }
+
+        body:has(a:hover, button:hover, input:hover, textarea:hover) #cursor-dot {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        /* --- Mobile Menu --- */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden bg-cd-purple-medium text-cd-cream selection:bg-cd-magenta selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div id="cursor-outline"></div>
+    <div id="cursor-dot"></div>
+
+    <div class="fixed inset-0 z-0 bg-grid"></div>
+
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full p-4 z-50 transition-all duration-300" id="navbar">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 py-3 bg-cd-cream text-black shadow-hard z-50 relative">
+            <a href="index.html" class="font-black text-2xl tracking-tighter btn-press flex items-center gap-2">
+                <div class="w-4 h-4 bg-black"></div> CD.
+            </a>
+            
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/INICIO</a>
+                <a href="blog.html" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/BLOG</a>
+                <a href="#" class="font-bold text-sm py-2 px-5 bg-black text-cd-cream border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta hover:text-white transition-colors btn-press shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
+                    SOPORTE
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden p-2 btn-press focus:outline-none min-w-[48px] min-h-[48px] flex items-center justify-center">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-cd-purple-dark text-cd-cream z-40 flex flex-col items-center justify-center space-y-8 md:hidden border-l-4 border-black">
+            <button id="close-menu-btn" class="absolute top-6 right-6 p-2 btn-press min-w-[48px] min-h-[48px] flex items-center justify-center">
+                <i data-lucide="x" class="w-10 h-10"></i>
+            </button>
+            <a href="index.html" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors py-4 px-6 block">Inicio</a>
+            <a href="blog.html" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors py-4 px-6 block">Blog</a>
+            <a href="#" class="mobile-link text-3xl font-black uppercase bg-cd-magenta px-6 py-4 border-hard text-white block">Soporte</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-32 pb-24 px-4 md:px-8">
+        
+        <!-- Welcome Hero -->
+        <section class="max-w-7xl mx-auto mb-16 text-center">
+            <div class="inline-block mb-4 px-4 py-1 border-2 border-cd-cream bg-transparent text-cd-cream font-mono text-xs md:text-sm font-bold uppercase">
+                Registro Exitoso
+            </div>
+            <h1 class="font-black text-5xl md:text-7xl uppercase mb-6 leading-none">
+                Bienvenido al <span class="text-cd-magenta">Equipo</span>
+            </h1>
+            <p class="font-mono text-lg md:text-xl max-w-2xl mx-auto text-cd-lavender">
+                Tu ecosistema digital está listo. Aquí puedes gestionar tus solicitudes, contactar soporte y ver el estado de tu servicio.
+            </p>
+        </section>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            
+            <!-- Left Column: Info & Links -->
+            <div class="space-y-8">
+                
+                <!-- Contact Section -->
+                <div class="bg-white text-black p-8 border-hard shadow-hard relative overflow-hidden">
+                    <h2 class="font-black text-3xl uppercase mb-6 flex items-center gap-3">
+                        <i data-lucide="message-circle" class="w-8 h-8 text-cd-magenta"></i>
+                        Canales Directos
+                    </h2>
+                    
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/573122908416" target="_blank" class="block w-full bg-[#25D366] text-white font-bold text-lg py-4 px-6 border-2 border-black shadow-[4px_4px_0_black] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_black] transition-all mb-6 flex items-center justify-between group">
+                        <span class="flex items-center gap-3"><i data-lucide="phone" class="fill-current"></i> WhatsApp Soporte</span>
+                        <span class="font-mono text-sm opacity-90 group-hover:underline">+57 312 290 8416</span>
+                    </a>
+
+                    <!-- Google Chat Info -->
+                    <div class="bg-cd-lavender border-2 border-black p-6 mb-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white p-2 border-2 border-black shadow-[2px_2px_0_black]">
+                                <i data-lucide="users" class="w-6 h-6 text-cd-purple-dark"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-black uppercase text-lg mb-2">Google Chat Group</h3>
+                                <p class="font-mono text-sm leading-relaxed mb-2">
+                                    Te hemos añadido a un grupo privado de Google Chat.
+                                </p>
+                                <ul class="list-disc list-inside font-mono text-xs space-y-1 font-bold">
+                                    <li>Reportes de estado</li>
+                                    <li>Comunicación corporativa</li>
+                                    <li>Coordinación de equipos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policies & Reminders -->
+                <div class="bg-cd-purple-dark text-white p-8 border-hard shadow-[6px_6px_0_#c200b3]">
+                    <h2 class="font-black text-3xl uppercase mb-6 flex items-center gap-3 text-cd-cream">
+                        <i data-lucide="info" class="w-8 h-8 text-cd-magenta"></i>
+                        Info Clave
+                    </h2>
+
+                    <div class="space-y-4">
+                        <!-- Weekly Report -->
+                        <div class="flex items-start gap-4 p-4 border-2 border-white/20 bg-white/5">
+                            <i data-lucide="calendar" class="w-6 h-6 text-cd-magenta mt-1 shrink-0"></i>
+                            <div>
+                                <h3 class="font-bold uppercase text-cd-cream mb-1">Informes Semanales</h3>
+                                <p class="font-mono text-sm text-gray-300">
+                                    Recibirás un reporte detallado de actividad y rendimiento cada <strong>Viernes</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Benefits -->
+                        <div class="flex items-start gap-4 p-4 border-2 border-white/20 bg-white/5">
+                            <i data-lucide="gift" class="w-6 h-6 text-cd-magenta mt-1 shrink-0"></i>
+                            <div>
+                                <h3 class="font-bold uppercase text-cd-cream mb-1">Tus Beneficios</h3>
+                                <ul class="font-mono text-xs text-gray-300 space-y-1 ml-1">
+                                    <li>✓ Soporte Prioritario 24/7</li>
+                                    <li>✓ Auditoría Mensual de Procesos</li>
+                                    <li>✓ Acceso a Herramientas Premium</li>
+                                    <li>✓ Consultoría Estratégica Trimestral</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Policies -->
+                        <div class="flex items-start gap-4 p-4 border-2 border-white/20 bg-white/5">
+                            <i data-lucide="shield" class="w-6 h-6 text-cd-magenta mt-1 shrink-0"></i>
+                            <div>
+                                <h3 class="font-bold uppercase text-cd-cream mb-1">Políticas & Términos</h3>
+                                <p class="font-mono text-xs text-gray-300">
+                                    Al usar la plataforma aceptas nuestros términos de servicio y política de privacidad de datos.
+                                </p>
+                                <a href="#" class="inline-block mt-2 text-xs font-bold underline decoration-cd-magenta underline-offset-4 hover:text-cd-magenta transition-colors">Ver Documentación Completa</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Service Form -->
+            <div class="relative">
+                <div class="absolute -top-6 -right-6 bg-cd-magenta text-white font-mono text-xs px-4 py-2 border-2 border-black shadow-[4px_4px_0_black] z-20 hidden md:block animate-bounce">
+                    ¡ESTAMOS LISTOS!
+                </div>
+
+                <div class="bg-cd-cream text-black p-6 md:p-8 border-hard shadow-hard">
+                    <h2 class="font-black text-3xl md:text-4xl mb-2 text-left uppercase">Tu Primer Servicio</h2>
+                    <p class="font-mono text-left mb-6 text-gray-600 text-sm">Configura tu solicitud inicial para comenzar.</p>
+                    
+                    <form id="serviceRequestForm" class="space-y-5 text-left">
+                        <div>
+                            <label class="block font-bold text-sm uppercase mb-2">Nombre Completo <span class="text-cd-magenta">*</span></label>
+                            <input type="text" id="req-name" required class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono text-base" placeholder="Tu nombre completo">
+                        </div>
+
+                        <!-- Selector de Contacto -->
+                        <div>
+                            <label class="block font-bold text-sm uppercase mb-2">Datos de Contacto <span class="text-cd-magenta">*</span></label>
+                            
+                            <div class="mb-4">
+                                <label class="block font-bold text-xs uppercase mb-1 text-gray-600">Correo Electrónico (Google/Gmail Obligatorio) <span class="text-cd-magenta">*</span></label>
+                                <input type="email" id="req-email" required class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono text-base" placeholder="usuario@gmail.com">
+                                <p class="text-xs font-mono text-cd-magenta mt-1">* Necesario para acceso al grupo de chat y Drive.</p>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="block font-bold text-xs uppercase mb-1 text-gray-600">Teléfono / WhatsApp <span class="text-cd-magenta">*</span></label>
+                                <div class="flex gap-2">
+                                    <select id="req-country-code" class="w-1/3 p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender font-mono text-base">
+                                        <option value="+57" selected>🇨🇴 (+57)</option>
+                                        <option value="+1">🇺🇸 (+1)</option>
+                                        <option value="+52">🇲🇽 (+52)</option>
+                                        <option value="+34">�� (+34)</option>
+                                        <option value="+54">�� (+54)</option>
+                                        <option value="+56">�� (+56)</option>
+                                        <option value="+51">🇵🇪 (+51)</option>
+                                    </select>
+                                    <input type="tel" id="req-phone" required pattern="[0-9\s\-\.]+" class="w-2/3 p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono text-base" placeholder="300 123 4567">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-sm uppercase mb-2">Título del requerimiento <span class="text-cd-magenta">*</span></label>
+                            <input type="text" id="req-title" required class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono text-base" placeholder="Ej: Configuración Inicial de CRM">
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-sm uppercase mb-2">Descripción Ampliada y Requisitos <span class="text-cd-magenta">*</span></label>
+                            <textarea id="req-desc" required rows="6" class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono text-base" placeholder="Por favor detalla:
+- Objetivo principal del servicio
+- Accesos o credenciales necesarias (si aplica)
+- Requisitos específicos o restricciones
+- Cualquier otra información relevante"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold text-sm uppercase mb-2">Fecha de Inicio Deseada <span class="text-cd-magenta">*</span></label>
+                                <input type="date" id="req-date" required class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono text-base">
+                            </div>
+                            
+                            <div>
+                                <label class="block font-bold text-sm uppercase mb-2">Adjunto</label>
+                                <input type="file" id="req-file" accept="image/*,application/pdf" class="w-full p-3 bg-white border-2 border-black focus:outline-none focus:bg-cd-lavender focus:shadow-[4px_4px_0_black] transition-all font-mono text-sm">
+                            </div>
+                        </div>
+
+                        <button type="submit" id="btn-submit-task" class="w-full bg-black text-white font-black text-xl py-4 border-2 border-black hover:bg-cd-magenta transition-colors btn-press shadow-[6px_6px_0_var(--shadow-color)] uppercase flex justify-center items-center gap-2 min-h-[48px]">
+                            <span>Iniciar Servicio</span> <i data-lucide="rocket"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full p-8 md:p-12 bg-black text-cd-cream border-t-4 border-cd-purple-medium relative z-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-4xl mb-2 tracking-tighter">CD.</h4>
+                <p class="font-mono text-sm text-gray-400">Transformación digital radical.</p>
+            </div>
+            <div class="text-center md:text-right">
+                <div class="flex flex-col gap-1">
+                    <span class="font-mono text-xs text-gray-500">&copy; 2025 CAMBIO DIGITAL</span>
+                    <a href="#" class="font-mono text-xs text-gray-500 hover:text-white transition-colors">Términos y Condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+        <div class="bg-cd-cream border-4 border-black p-8 max-w-md w-full shadow-[8px_8px_0_#c200b3] text-center relative animate-fade-in">
+            <button onclick="closePopup()" class="absolute top-4 right-4 p-2 hover:bg-black hover:text-white transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center">
+                <i data-lucide="x" class="w-6 h-6 text-black hover:text-white"></i>
+            </button>
+            <div class="w-20 h-20 bg-green-400 rounded-full border-4 border-black flex items-center justify-center mx-auto mb-6 shadow-[4px_4px_0_black]">
+                <i data-lucide="check" class="w-10 h-10 text-black"></i>
+            </div>
+            <h3 class="font-black text-3xl uppercase mb-4 text-black">¡Recibido!</h3>
+            <p id="popup-message" class="font-mono text-sm mb-6 text-black">Tu solicitud ha sido creada en nuestro sistema.</p>
+            <button onclick="closePopup()" class="w-full bg-black text-white font-bold py-3 uppercase border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta transition-colors shadow-[4px_4px_0_black] min-h-[48px]">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+
+        // --- FORM LOGIC ---
+        
+        // Popup Logic
+        window.closePopup = function() {
+            document.getElementById('success-popup').classList.add('hidden');
+        }
+
+        window.showSuccessPopup = function(contactMethod) {
+            const popup = document.getElementById('success-popup');
+            const messageEl = document.getElementById('popup-message');
+            
+            if (contactMethod === 'email') {
+                messageEl.textContent = "Solicitud creada correctamente. Te hemos enviado un correo de confirmación.";
+            } else {
+                messageEl.textContent = "Solicitud creada correctamente. Te contactaremos vía WhatsApp.";
+            }
+            
+            popup.classList.remove('hidden');
+        }
+
+        // Toggle Contact Method
+        // (Removed as we now show both fields permanently)
+
+        // Form Submission Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const serviceForm = document.getElementById('serviceRequestForm');
+            const N8N_WEBHOOK_URL = 'https://n8n.cambiodigital.cloud/webhook/c1692d85-8ad6-4977-b484-541c16463d0a'; 
+
+            if(serviceForm) {
+                serviceForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const submitBtn = document.getElementById('btn-submit-task');
+                    const originalBtnText = submitBtn.innerHTML;
+                    
+                    const fileInput = document.getElementById('req-file');
+                    const file = fileInput.files[0];
+
+                    if (file && file.size > 50 * 1024 * 1024) {
+                        alert('El archivo es demasiado grande. El límite es 50MB.');
+                        return;
+                    }
+                    
+                    submitBtn.innerHTML = 'Enviando... <i data-lucide="loader" class="animate-spin"></i>';
+                    submitBtn.disabled = true;
+                    lucide.createIcons();
+
+                    // Get values
+                    const requester = document.getElementById('req-name').value;
+                    const email = document.getElementById('req-email').value;
+                    const countryCode = document.getElementById('req-country-code').value;
+                    const phoneNumber = document.getElementById('req-phone').value;
+                    const fullPhone = `${countryCode} ${phoneNumber}`;
+                    
+                    const title = document.getElementById('req-title').value;
+                    const description = document.getElementById('req-desc').value;
+                    const dueDate = document.getElementById('req-date').value;
+
+                    const formData = new FormData();
+                    formData.append('formType', 'service-initial'); // Tagged as initial
+                    formData.append('taskName', title);
+                    formData.append('requester', requester);
+                    
+                    // We use Email as primary contact for the system
+                    formData.append('contactMethod', 'email');
+                    formData.append('contactValue', email);
+                    
+                    formData.append('dueDate', new Date(dueDate).getTime());
+                    
+                    // Rich description with all details
+                    formData.append('taskDescription', `
+**SOLICITUD INICIAL DE SERVICIO**
+--------------------------------
+**Solicitante:** ${requester}
+**Email (Google):** ${email}
+**Teléfono:** ${fullPhone}
+**Fecha Inicio:** ${dueDate}
+
+**DETALLES DEL REQUERIMIENTO:**
+${description}
+                    `);
+                    
+                    if (file) formData.append('file', file);
+
+                    try {
+                        const response = await fetch(N8N_WEBHOOK_URL, { method: 'POST', body: formData });
+                        if (response.ok) {
+                            serviceForm.reset();
+                            showSuccessPopup('email');
+                        } else throw new Error('Error en el servidor');
+                    } catch (error) {
+                        console.error(error);
+                        alert("Error al conectar. Por favor intenta de nuevo.");
+                    } finally {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        lucide.createIcons();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
