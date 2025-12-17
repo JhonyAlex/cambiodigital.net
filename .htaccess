@@ -1,0 +1,18 @@
+# Habilitar el motor de reescritura
+RewriteEngine On
+
+# Redirigir URLs con .html a URLs sin extensión
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Redirigir permanentemente si alguien accede con .html
+RewriteCond %{THE_REQUEST} ^GET\ /[^?\s]+\.html
+RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
+# Manejar index.html como página raíz
+DirectoryIndex index.html
+
+# Opcional: Forzar HTTPS (descomenta si tienes SSL)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
