@@ -1,0 +1,35 @@
+<!-- Navbar -->
+<header class="fixed top-0 left-0 w-full p-4 z-50 transition-all duration-300" id="navbar">
+    <nav class="flex justify-between items-center max-w-7xl mx-auto px-6 py-3 bg-cd-cream text-black shadow-hard z-50 relative">
+        <a href="#home" class="font-black text-2xl tracking-tighter btn-press flex items-center gap-2">
+            <div class="w-4 h-4 bg-black"></div> CD.
+        </a>
+        
+        <div class="hidden md:flex space-x-6 items-center">
+            <a href="blog" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/BLOG</a>
+            <a href="#somos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/QUIÉNES_SOMOS</a>
+            <a href="#servicios" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PAQUETES</a>
+            <a href="#proyectos" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/PROYECTOS</a>
+            <a href="#equipo" class="font-bold text-sm hover:underline decoration-2 underline-offset-4">/EQUIPO</a>
+            <a href="#contacto" class="font-bold text-sm py-2 px-5 bg-black text-cd-cream border-2 border-black hover:bg-cd-magenta hover:border-cd-magenta hover:text-white transition-colors btn-press shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
+                CONTACTO
+            </a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden p-2 btn-press focus:outline-none">
+            <i data-lucide="menu" class="w-8 h-8"></i>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-cd-purple-dark text-cd-cream z-40 flex flex-col items-center justify-center space-y-8 md:hidden border-l-4 border-black">
+        <button id="close-menu-btn" class="absolute top-6 right-6 p-2 btn-press">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <a href="blog" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Blog</a>
+        <a href="#somos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Quiénes Somos</a>
+        <a href="#servicios" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Paquetes</a>
+        <a href="#proyectos" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Proyectos</a>
+        <a href="#equipo" class="mobile-link text-3xl font-black uppercase hover:text-cd-magenta transition-colors">Equipo</a>
+        <a href="#contacto" class="mobile-link text-3xl font-black uppercase bg-cd-magenta px-6 py-2 border-hard text-white">Contacto</a>
+    </div>
+</header>
