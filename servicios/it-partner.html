@@ -327,103 +327,142 @@
         <!-- Pricing Section -->
         <section class="min-h-screen w-full flex flex-col items-center justify-center px-4 py-16 md:p-8 md:py-24 bg-cd-purple-medium">
             <h2 class="reveal font-black text-4xl md:text-8xl uppercase text-center mb-12 md:mb-16 text-cd-cream">
-                Inversión & Condiciones
+                Planes de Inversión
             </h2>
             
-            <div class="max-w-4xl w-full">
-                <!-- Main Pricing Card -->
-                <div class="reveal bg-white text-black p-4 md:p-10 border-4 border-black shadow-[6px_6px_0_#2a004f] md:shadow-[12px_12px_0_#2a004f] mb-8">
-                    <div class="text-center mb-8">
-                        <div class="font-black text-5xl md:text-7xl text-cd-purple-dark mb-2">$50 USD</div>
-                        <div class="font-mono text-xl md:text-2xl text-gray-600">/mes después del mes 3</div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl w-full mb-16">
+
+                <!-- Plan $50 -->
+                <div class="reveal bg-white text-black p-6 md:p-8 border-4 border-black shadow-[6px_6px_0_#2a004f] flex flex-col h-full">
+                    <div class="text-center mb-6">
+                        <h3 class="font-black text-3xl uppercase mb-2">Estándar</h3>
+                        <div class="font-black text-5xl md:text-6xl text-cd-purple-dark mb-2">$50 USD</div>
+                        <div class="font-mono text-sm text-gray-600">/mes (Pago trimestral inicio)</div>
                     </div>
 
-                    <div class="bg-cd-lavender p-4 md:p-8 border-2 border-black mb-8">
-                        <div class="flex flex-col md:flex-row items-start gap-4">
-                            <i data-lucide="info" class="w-8 h-8 text-cd-purple-dark flex-shrink-0 mt-1"></i>
-                            <div>
-                                <h3 class="font-black text-xl md:text-2xl uppercase mb-3 text-cd-purple-dark">El Gancho (Importante)</h3>
-                                <p class="font-mono text-sm leading-relaxed mb-4">
-                                    <strong>Primer paso: Paquete inicial de 3 meses ($150 USD)</strong><br>
-                                    ¿Por qué? Porque necesitamos poner todo en orden primero. Inventario de tu infraestructura, configuración de monitoreo, documentación de accesos, optimización inicial. Es la <strong>"Fase de Estabilización"</strong>.
-                                </p>
-                                <p class="font-mono text-sm leading-relaxed">
-                                    Durante estos 3 meses construimos las bases para que tu sistema funcione sin sobresaltos. <strong>Después del mes 3, pagas mes a mes. Sin cláusula de permanencia.</strong> Te quedas porque funciona, no por obligación.
-                                </p>
-                            </div>
+                    <div class="bg-cd-lavender p-4 border-2 border-black mb-6 flex-grow">
+                        <p class="font-mono text-xs md:text-sm leading-relaxed">
+                            <strong>Ideal para mantenimiento y estabilidad.</strong><br>
+                            Incluye la "Fase de Estabilización" de 3 meses ($150 USD iniciales). Después, mes a mes sin permanencia.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 mb-8 font-mono text-sm">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-600 flex-shrink-0"></i>
+                            <span>Soporte prioritario (< 2h)</span>
                         </div>
-                    </div>
-
-                    <div class="bg-cd-cream p-4 md:p-8 border-2 border-black mb-8">
-                        <div class="flex flex-col md:flex-row items-start gap-4">
-                            <i data-lucide="settings" class="w-8 h-8 text-black flex-shrink-0 mt-1"></i>
-                            <div>
-                                <h3 class="font-black text-xl md:text-2xl uppercase mb-3 text-black">Personalización del Servicio</h3>
-                                <p class="font-mono text-sm leading-relaxed mb-4">
-                                    Al iniciar (tras el pago del paquete trimestral), definiremos juntos <strong>hasta 3 servicios clave</strong> para monitorear y gestionar. Evaluaremos su complejidad y definiremos un plan de acción claro: <strong>qué haremos a diario, semanal y mensualmente</strong>.
-                                </p>
-                                <p class="font-mono text-sm leading-relaxed">
-                                    <strong>Servicios elegibles:</strong>
-                                </p>
-                                <ul class="list-disc list-inside font-mono text-sm mt-2 space-y-1">
-                                    <li>Implementación y soporte de <strong>IA</strong></li>
-                                    <li>Gestión de <strong>CRM</strong></li>
-                                    <li>Mantenimiento de <strong>Páginas Web</strong></li>
-                                    <li>Monitoreo de <strong>Automatizaciones</strong></li>
-                                    <li>Gestión de <strong>Soporte Técnico IT</strong> general</li>
-                                </ul>
-                            </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-600 flex-shrink-0"></i>
+                            <span>Revisión semanal de salud</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-600 flex-shrink-0"></i>
+                            <span><strong>2 horas</strong> capacitación/mes</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-600 flex-shrink-0"></i>
+                            <span>Monitoreo 24/7</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-600 flex-shrink-0"></i>
+                            <span>Personalización (3 servicios)</span>
                         </div>
                     </div>
 
-                    <div class="space-y-4 mb-8">
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
-                            <span class="font-mono text-sm"><strong>Soporte prioritario</strong> en horario laboral (respuesta < 2h)</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
-                            <span class="font-mono text-sm"><strong>Revisión semanal</strong> de sistemas y seguridad</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
-                            <span class="font-mono text-sm"><strong>2 horas de capacitación</strong> al mes (no acumulables)</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
-                            <span class="font-mono text-sm"><strong>Intermediación con proveedores</strong> técnicos</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
-                            <span class="font-mono text-sm"><strong>Monitoreo de servidores 24/7</strong></span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
-                            <span class="font-mono text-sm"><strong>Sin permanencia</strong> después del mes 3</span>
-                        </div>
-                    </div>
-
-                    <a href="https://buy.stripe.com/aFa5kE0q23HaaUn7o31sQ0g" target="_blank" class="block w-full py-5 bg-cd-purple-dark text-white font-bold text-xl uppercase text-center border-2 border-black hover:bg-cd-magenta transition-colors shadow-[4px_4px_0_black]">
-                        Activar Mi Departamento IT
+                    <a href="https://buy.stripe.com/aFa5kE0q23HaaUn7o31sQ0g" target="_blank" class="block w-full py-4 bg-white text-black font-bold text-lg uppercase text-center border-2 border-black hover:bg-gray-100 transition-colors shadow-[4px_4px_0_black] mt-auto">
+                        Elegir Estándar
                     </a>
                 </div>
 
-                <!-- Trust Badges -->
-                <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-cd-cream text-black p-4 border-2 border-black text-center">
-                        <div class="font-black text-3xl text-cd-magenta mb-1">< 2h</div>
-                        <div class="font-mono text-xs">Tiempo de Respuesta</div>
+                <!-- Plan $200 -->
+                <div class="reveal bg-cd-purple-dark text-white p-6 md:p-8 border-4 border-cd-magenta shadow-[6px_6px_0_#c200b3] relative overflow-hidden flex flex-col h-full transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 bg-cd-magenta text-white text-xs font-bold px-3 py-1 border-l-2 border-b-2 border-black">
+                        MÁS POTENCIA
                     </div>
-                    <div class="bg-cd-cream text-black p-4 border-2 border-black text-center">
-                        <div class="font-black text-3xl text-cd-magenta mb-1">24/7</div>
-                        <div class="font-mono text-xs">Monitoreo de Servidores</div>
+
+                    <div class="text-center mb-6">
+                        <h3 class="font-black text-3xl uppercase mb-2 text-cd-magenta">Evolución</h3>
+                        <div class="font-black text-5xl md:text-6xl text-white mb-2">$200 USD</div>
+                        <div class="font-mono text-sm text-gray-300">/mes (Solo 2 meses adelanto)</div>
                     </div>
-                    <div class="bg-cd-cream text-black p-4 border-2 border-black text-center">
-                        <div class="font-black text-3xl text-cd-magenta mb-1">0</div>
-                        <div class="font-mono text-xs">Cláusulas de Permanencia</div>
+
+                    <div class="bg-cd-magenta/20 p-4 border-2 border-cd-magenta mb-6 flex-grow">
+                        <p class="font-mono text-xs md:text-sm leading-relaxed">
+                            <strong>Para empresas que quieren mejorar, no solo mantener.</strong><br>
+                            Doble capacidad de respuesta y nuevas implementaciones cada mes.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 mb-8 font-mono text-sm">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="star" class="w-5 h-5 text-cd-magenta flex-shrink-0"></i>
+                            <span class="font-bold text-cd-magenta">1 Configuración Nueva / Mes</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <span>Soporte <strong>VIP Inmediato</strong></span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <span>Revisión <strong>Diaria</strong> de salud</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <span><strong>4 horas</strong> capacitación/mes</span>
+                        </div>
+                         <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <span>Personalización Ilimitada</span>
+                        </div>
+                    </div>
+
+                    <a href="https://buy.stripe.com/6oU5kEgp07Xq8MfdMr1sQ0h" target="_blank" class="block w-full py-4 bg-cd-magenta text-white font-bold text-lg uppercase text-center border-2 border-white hover:bg-white hover:text-cd-magenta transition-colors shadow-[4px_4px_0_white] mt-auto">
+                        Activar Evolución
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Scope Clarification Section -->
+             <div class="max-w-5xl w-full bg-cd-cream text-black border-4 border-black p-6 md:p-10 shadow-hard">
+                <h3 class="font-black text-2xl md:text-4xl uppercase text-center mb-8">
+                    ¿Qué cubre tu plan? (La regla del peso)
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-sm">
+                    <div>
+                        <h4 class="font-bold text-xl mb-4 text-green-700 flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-6 h-6"></i> INCLUIDO (Soporte)
+                        </h4>
+                        <p class="mb-4">Todo lo que entra en la operatividad diaria y mantenimiento.</p>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Resolución de incidentes y caídas.</li>
+                            <li>Ajustes rápidos de configuración (< 2 horas).</li>
+                            <li>Consultas y dudas operativas.</li>
+                            <li>Mantenimiento preventivo y actualizaciones.</li>
+                            <li><strong>Plan Evolución:</strong> 1 Mejora/Configuración nueva al mes (ej: Integrar un plugin, ajustar una automatización).</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-t-2 md:border-t-0 md:border-l-2 border-black pt-8 md:pt-0 md:pl-8">
+                        <h4 class="font-bold text-xl mb-4 text-red-700 flex items-center gap-2">
+                            <i data-lucide="alert-circle" class="w-6 h-6"></i> PROYECTOS (Cotización Aparte)
+                        </h4>
+                        <p class="mb-4">Trabajos que requieren dedicación exclusiva por días o cambios estructurales.</p>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Desarrollo de software a medida.</li>
+                            <li>Migraciones completas de servidor/infraestructura.</li>
+                            <li>Implementaciones masivas desde cero.</li>
+                            <li>Cualquier tarea que tome más de 1 día completo de trabajo continuo.</li>
+                        </ul>
+                        <div class="mt-4 bg-yellow-100 text-yellow-900 p-3 border border-yellow-500 text-xs">
+                            <strong>Nota:</strong> Siempre te avisaremos antes si algo se considera "Proyecto" y te daremos un presupuesto. Nunca habrá cobros sorpresa.
+                        </div>
                     </div>
                 </div>
             </div>
+
         </section>
 
         <!-- FAQ Section -->
