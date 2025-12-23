@@ -1,8 +1,7 @@
 (() => {
     const PROMO_CONFIG = {
         sessionKey: 'cd_promo_endyear_seen',
-        consentKey: 'cd_cookie_consent',
-        delayMs: 700
+        delayMs: 5000
     };
 
     let initialized = false;
@@ -20,7 +19,6 @@
         )
     ).filter((el) => !el.hasAttribute('disabled'));
 
-    const isConsentResolved = () => localStorage.getItem(PROMO_CONFIG.consentKey) !== null;
     const hasSeenPromo = () => sessionStorage.getItem(PROMO_CONFIG.sessionKey) === '1';
 
     const setSeenPromo = () => sessionStorage.setItem(PROMO_CONFIG.sessionKey, '1');
@@ -120,7 +118,7 @@
 
     const schedulePromo = () => {
         setTimeout(() => {
-            if (hasSeenPromo() || !isConsentResolved()) {
+            if (hasSeenPromo()) {
                 return;
             }
             openPromo();
@@ -154,10 +152,10 @@
             return;
         }
 
-        if (isConsentResolved()) {
+        if (document.readyState === 'complete') {
             schedulePromo();
         } else {
-            window.addEventListener('cd:cookie-consent-resolved', schedulePromo, { once: true });
+            window.addEventListener('load', schedulePromo, { once: true });
         }
     };
 
