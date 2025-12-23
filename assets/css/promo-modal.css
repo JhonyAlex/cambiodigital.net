@@ -1,0 +1,170 @@
+/* ================================================
+   PROMO MODAL - FIN DE ANO
+   ================================================ */
+.cd-promo {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(8, 10, 16, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+}
+
+.cd-promo.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cd-promo__dialog {
+    position: relative;
+    width: min(520px, 100%);
+    background: #f8f8f0;
+    color: #0f172a;
+    border: 3px solid var(--shadow-color, #2a004f);
+    box-shadow: 12px 12px 0 var(--shadow-color, #2a004f);
+    padding: 32px;
+    transform: translateY(18px) scale(0.98);
+    transition: transform 200ms ease;
+}
+
+.cd-promo.is-open .cd-promo__dialog {
+    transform: translateY(0) scale(1);
+}
+
+.cd-promo__eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #0f172a;
+    padding: 6px 10px;
+    margin: 0 0 16px;
+}
+
+.cd-promo__title {
+    font-size: 30px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    color: #0f172a;
+}
+
+.cd-promo__message {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 22px;
+    color: #1f2937;
+}
+
+.cd-promo__message strong {
+    color: var(--highlight-color, #c200b3);
+}
+
+.cd-promo__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.cd-promo__cta,
+.cd-promo__secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border: 2px solid #0f172a;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.cd-promo__cta {
+    background: var(--highlight-color, #c200b3);
+    color: #ffffff;
+    border-color: var(--highlight-color, #c200b3);
+    box-shadow: 4px 4px 0 var(--shadow-color, #2a004f);
+}
+
+.cd-promo__secondary {
+    background: #ffffff;
+    color: #0f172a;
+}
+
+.cd-promo__cta:hover,
+.cd-promo__cta:focus-visible {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--shadow-color, #2a004f);
+}
+
+.cd-promo__secondary:hover,
+.cd-promo__secondary:focus-visible {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.cd-promo__note {
+    margin: 18px 0 0;
+    font-size: 12px;
+    color: #475569;
+}
+
+.cd-promo__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 2px solid #0f172a;
+    background: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cd-promo__close:focus-visible {
+    outline: 3px solid var(--highlight-color, #c200b3);
+    outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+    .cd-promo {
+        padding: 16px;
+    }
+
+    .cd-promo__dialog {
+        padding: 24px;
+    }
+
+    .cd-promo__title {
+        font-size: 24px;
+    }
+
+    .cd-promo__actions {
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cd-promo,
+    .cd-promo__dialog,
+    .cd-promo__cta,
+    .cd-promo__secondary {
+        transition: none;
+    }
+}
