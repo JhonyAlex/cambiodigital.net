@@ -2,7 +2,7 @@
     const PROMO_CONFIG = {
         sessionKey: 'cd_promo_endyear_seen',
         consentKey: 'cd_cookie_consent',
-        delayMs: 1800
+        delayMs: 700
     };
 
     let initialized = false;
