@@ -7,9 +7,6 @@ module.exports = {
     './servicios/**/*.html',
     './assets/js/**/*.js'
   ],
-  corePlugins: {
-    preflight: false
-  },
   theme: {
     extend: {
       fontFamily: {
