@@ -8,14 +8,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/assets/favicon.png",
-      "sizes": "192x192",
+      "src": "/assets/images/LogoCDFondoClaro.png",
+      "sizes": "794x414",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/assets/favicon.png",
-      "sizes": "512x512",
+      "src": "/assets/images/LogoCDFondoOscuro.png",
+      "sizes": "794x414",
       "type": "image/png",
       "purpose": "any maskable"
     }
