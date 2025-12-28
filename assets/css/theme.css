@@ -1,0 +1,150 @@
+:root {
+    --cd-base: #1c2143;
+    --cd-base-dark: #0f172a;
+    --cd-base-light: #1e293b;
+    --cd-base-lighter: #2a315d;
+    --cd-purple-dark: #2a004f;
+    --cd-purple-medium: #5e2a84;
+    --cd-purple-light: #8a55c1;
+    --cd-lavender: #d7b5f2;
+    --cd-magenta: #c200b3;
+    --cd-cream: #f8f8f0;
+    --cd-dark-grey: #1a1a1a;
+    --cd-white: #ffffff;
+    --cd-shadow-color: var(--cd-purple-dark);
+    --cd-highlight-color: var(--cd-magenta);
+    --cd-accent-cyan: #22d3ee;
+    --cd-accent-green: #22c55e;
+    --cd-accent-purple: #a855f7;
+    --cd-alert-red: #dc2626;
+    --cd-text-strong: #0f172a;
+    --cd-text-muted: #e2e8f0;
+    --cd-text-dim: #475569;
+    --cd-slate: #94a3b8;
+    --shadow-color: var(--cd-shadow-color);
+    --highlight-color: var(--cd-highlight-color);
+}
+
+body {
+    background-color: var(--cd-base);
+    color: var(--cd-cream);
+    transition: background-color 0.5s ease-out, color 0.5s ease-out;
+}
+
+/* --- Text Stroke Utility --- */
+.text-stroke-black {
+    -webkit-text-stroke: 2px black;
+    color: transparent;
+}
+
+/* --- Custom Cursor --- */
+@media (pointer: fine) {
+    body, a, button, input, textarea {
+        cursor: none;
+    }
+    #cursor-dot, #cursor-outline {
+        display: block;
+    }
+}
+
+@media (pointer: coarse) {
+    #cursor-dot, #cursor-outline {
+        display: none;
+    }
+}
+
+#cursor-dot {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background-color: var(--cd-highlight-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.4s;
+    z-index: 10003;
+}
+
+#cursor-outline {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--cd-highlight-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s linear, border-color 0.4s;
+    z-index: 10002;
+}
+
+body:has(a:hover, button:hover, input:hover, textarea:hover) #cursor-dot {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+
+/* --- Brutalist Components --- */
+.shadow-hard {
+    box-shadow: 6px 6px 0 var(--cd-shadow-color);
+    border: 3px solid var(--cd-shadow-color);
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-press:active,
+.card-hover:hover {
+    transform: translate(4px, 4px);
+    box-shadow: 2px 2px 0 var(--cd-shadow-color);
+}
+
+.border-hard {
+    border: 3px solid var(--cd-shadow-color);
+}
+
+/* --- Background Pattern --- */
+.bg-grid {
+    background-image: radial-gradient(var(--cd-shadow-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.08;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Marquee --- */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+
+/* --- Reveal Animations --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Mobile Menu --- */
+#mobile-menu {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+#mobile-menu.open {
+    transform: translateX(0);
+}

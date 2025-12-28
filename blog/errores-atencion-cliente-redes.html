@@ -8,7 +8,7 @@
     <meta name="keywords" content="errores atención cliente, servicio cliente redes sociales, mejorar atención Instagram, respuestas efectivas">
     <meta name="author" content="Cambio Digital">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#5e2a84">
+    <meta name="theme-color" content="#1c2143">
     <link rel="manifest" href="/manifest.json">
     <link rel="canonical" href="https://cambiodigital.net/blog/errores-atencion-cliente-redes">
     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
@@ -27,9 +27,12 @@
     <meta property="twitter:description" content="Evita los errores que alejan clientes: respuestas tardías, mensajes robóticos y discusiones públicas. Guía práctica 2025.">
     <meta property="twitter:image" content="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800">
     
+    <link rel="stylesheet" href="/assets/css/theme.css">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <script src="/assets/js/tailwind-theme.js"></script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,138 +41,8 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Space Mono', 'monospace'],
-                    },
-                    colors: {
-                        'cd-purple-dark': '#2a004f',
-                        'cd-purple-medium': '#5e2a84',
-                        'cd-purple-light': '#8a55c1',
-                        'cd-lavender': '#d7b5f2',
-                        'cd-magenta': '#c200b3',
-                        'cd-cream': '#f8f8f0',
-                        'cd-dark-grey': '#1a1a1a'
-                    },
-                    animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                    }
-                }
-            }
-        }
-    </script>
     
     <style>
-        :root {
-            --shadow-color: #2a004f;
-            --highlight-color: #c200b3;
-        }
-        
-        body {
-            transition: background-color 0.5s ease-out, color 0.5s ease-out;
-        }
-
-        /* --- Text Stroke Utility --- */
-        .text-stroke-black {
-            -webkit-text-stroke: 2px black;
-            color: transparent;
-        }
-
-        /* --- Custom Cursor --- */
-        @media (pointer: fine) {
-            body, a, button, input, textarea {
-                cursor: none;
-            }
-            #cursor-dot, #cursor-outline {
-                display: block;
-            }
-        }
-        @media (pointer: coarse) {
-            #cursor-dot, #cursor-outline {
-                display: none;
-            }
-        }
-        
-        #cursor-dot {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background-color: var(--highlight-color);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.4s;
-            z-index: 9999;
-        }
-        
-        #cursor-outline {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--highlight-color);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s linear, border-color 0.4s;
-            z-index: 9998;
-        }
-
-        body:has(a:hover, button:hover, input:hover, textarea:hover) #cursor-dot {
-            width: 20px;
-            height: 20px;
-            opacity: 0.8;
-        }
-
-        /* --- Brutalist Components --- */
-        .shadow-hard {
-            box-shadow: 6px 6px 0 var(--shadow-color);
-            border: 3px solid var(--shadow-color);
-            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .btn-press:active, .card-hover:hover {
-            transform: translate(4px, 4px);
-            box-shadow: 2px 2px 0 var(--shadow-color);
-        }
-
-        .border-hard {
-            border: 3px solid var(--shadow-color);
-        }
-
-        /* --- Background Pattern --- */
-        .bg-grid {
-            background-image: radial-gradient(var(--shadow-color) 1px, transparent 1px);
-            background-size: 24px 24px;
-            opacity: 0.08;
-            pointer-events: none;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
-
-        /* --- Reveal Animations --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- Mobile Menu --- */
-        #mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        #mobile-menu.open {
-            transform: translateX(0);
-        }
-        
         /* --- Typography for Blog Post --- */
         article h2 {
             font-family: 'Inter', sans-serif;

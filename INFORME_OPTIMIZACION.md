@@ -54,7 +54,7 @@ Se ha realizado una optimización exhaustiva del sitio web enfocada en mejorar l
 
 ### Progressive Web App (PWA)
 - **Manifest**: Se creó el archivo `manifest.json` para permitir que el sitio se instale como una aplicación en dispositivos móviles.
-- **Meta Tags**: Se añadió la etiqueta `<meta name="theme-color" content="#5e2a84">` en todas las páginas para integrar el color de la barra de estado del navegador con la marca.
+- **Meta Tags**: Se añadió la etiqueta `<meta name="theme-color" content="#1c2143">` en todas las páginas para integrar el color de la barra de estado del navegador con la marca.
 
 ## 5. Archivos Modificados
 

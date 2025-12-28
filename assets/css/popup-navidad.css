@@ -30,7 +30,7 @@
 /* Container del popup */
 .popup-container {
     position: relative;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: linear-gradient(135deg, var(--cd-base-dark) 0%, var(--cd-base-light) 100%);
     border-radius: 20px;
     max-width: 500px;
     width: 100%;
@@ -50,10 +50,10 @@
     right: 0;
     height: 8px;
     background: linear-gradient(90deg, 
-        #dc2626 0%, 
-        #22c55e 33%, 
-        #22c55e 66%, 
-        #dc2626 100%
+        var(--cd-alert-red) 0%, 
+        var(--cd-accent-green) 33%, 
+        var(--cd-accent-green) 66%, 
+        var(--cd-alert-red) 100%
     );
 }
 
@@ -82,7 +82,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #fff;
+    color: var(--cd-cream);
     transition: all 0.3s ease;
     z-index: 10;
 }
@@ -93,14 +93,14 @@
 }
 
 .popup-close:focus {
-    outline: 2px solid #22d3ee;
+    outline: 2px solid var(--cd-accent-cyan);
     outline-offset: 2px;
 }
 
 /* Contenido del popup */
 .popup-content {
     text-align: center;
-    color: #fff;
+    color: var(--cd-cream);
 }
 
 /* Decoración */
@@ -124,7 +124,7 @@
     font-size: 32px;
     font-weight: 900;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #22d3ee, #a855f7);
+    background: linear-gradient(135deg, var(--cd-accent-cyan), var(--cd-accent-purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -136,11 +136,11 @@
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 30px;
-    color: #e2e8f0;
+    color: var(--cd-text-muted);
 }
 
 .popup-message strong {
-    color: #22d3ee;
+    color: var(--cd-accent-cyan);
     font-weight: 700;
     font-size: 20px;
 }
@@ -148,8 +148,8 @@
 /* CTA Button */
 .popup-cta {
     display: inline-block;
-    background: linear-gradient(135deg, #22d3ee, #a855f7);
-    color: #fff;
+    background: linear-gradient(135deg, var(--cd-accent-cyan), var(--cd-accent-purple));
+    color: var(--cd-cream);
     font-size: 18px;
     font-weight: 700;
     padding: 16px 40px;
@@ -174,7 +174,7 @@
 }
 
 .popup-cta:focus {
-    outline: 3px solid #22d3ee;
+    outline: 3px solid var(--cd-accent-cyan);
     outline-offset: 3px;
 }
 
@@ -182,7 +182,7 @@
 .popup-footer {
     margin-top: 20px;
     font-size: 14px;
-    color: #94a3b8;
+    color: var(--cd-slate);
     font-style: italic;
 }
 

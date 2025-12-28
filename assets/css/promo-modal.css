@@ -23,10 +23,10 @@
 .cd-promo__dialog {
     position: relative;
     width: min(520px, 100%);
-    background: #f8f8f0;
-    color: #0f172a;
-    border: 3px solid var(--shadow-color, #2a004f);
-    box-shadow: 12px 12px 0 var(--shadow-color, #2a004f);
+    background: var(--cd-cream);
+    color: var(--cd-text-strong);
+    border: 3px solid var(--shadow-color, var(--cd-shadow-color));
+    box-shadow: 12px 12px 0 var(--shadow-color, var(--cd-shadow-color));
     padding: 32px;
     transform: translateY(18px) scale(0.98);
     transition: transform 200ms ease;
@@ -42,8 +42,8 @@
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #ffffff;
-    background: #0f172a;
+    color: var(--cd-cream);
+    background: var(--cd-base-dark);
     padding: 6px 10px;
     margin: 0 0 16px;
 }
@@ -53,14 +53,14 @@
     font-weight: 900;
     text-transform: uppercase;
     margin: 0 0 12px;
-    color: #0f172a;
+    color: var(--cd-text-strong);
 }
 
 .cd-promo__message {
     font-size: 16px;
     line-height: 1.6;
     margin: 0 0 22px;
-    color: #1f2937;
+    color: var(--cd-text-muted);
 }
 
 .cd-promo__message strong {
@@ -85,20 +85,20 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
     text-decoration: none;
-    border: 2px solid #0f172a;
+    border: 2px solid var(--cd-base-dark);
     transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
 .cd-promo__cta {
     background: var(--highlight-color, #c200b3);
-    color: #ffffff;
+    color: var(--cd-cream);
     border-color: var(--highlight-color, #c200b3);
-    box-shadow: 4px 4px 0 var(--shadow-color, #2a004f);
+    box-shadow: 4px 4px 0 var(--shadow-color, var(--cd-shadow-color));
 }
 
 .cd-promo__secondary {
-    background: #ffffff;
-    color: #0f172a;
+    background: var(--cd-cream);
+    color: var(--cd-text-strong);
 }
 
 .cd-promo__cta:hover,
@@ -109,14 +109,14 @@
 
 .cd-promo__secondary:hover,
 .cd-promo__secondary:focus-visible {
-    background: #0f172a;
-    color: #ffffff;
+    background: var(--cd-base-dark);
+    color: var(--cd-cream);
 }
 
 .cd-promo__note {
     margin: 18px 0 0;
     font-size: 12px;
-    color: #475569;
+    color: var(--cd-text-dim);
 }
 
 .cd-promo__close {
@@ -126,8 +126,8 @@
     width: 40px;
     height: 40px;
     border-radius: 999px;
-    border: 2px solid #0f172a;
-    background: #ffffff;
+    border: 2px solid var(--cd-base-dark);
+    background: var(--cd-cream);
     font-size: 24px;
     font-weight: 700;
     line-height: 1;

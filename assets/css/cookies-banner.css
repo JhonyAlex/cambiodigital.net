@@ -8,11 +8,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(135deg, var(--cd-base-light) 0%, var(--cd-base-dark) 100%);
     padding: 20px;
     z-index: 9999; /* Por encima del popup navideño */
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
-    border-top: 3px solid #22d3ee;
+    border-top: 3px solid var(--cd-accent-cyan);
     animation: slideInUp 0.5s ease-out;
 }
 
@@ -66,20 +66,20 @@
 
 /* Texto */
 .cookies-text {
-    color: #fff;
+    color: var(--cd-cream);
 }
 
 .cookies-title {
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 5px;
-    color: #22d3ee;
+    color: var(--cd-accent-cyan);
 }
 
 .cookies-message {
     font-size: 14px;
     line-height: 1.5;
-    color: #e2e8f0;
+    color: var(--cd-text-muted);
     margin: 0;
 }
 
@@ -106,8 +106,8 @@
 }
 
 .cookies-btn-accept {
-    background: linear-gradient(135deg, #22d3ee, #a855f7);
-    color: #fff;
+    background: linear-gradient(135deg, var(--cd-accent-cyan), var(--cd-accent-purple));
+    color: var(--cd-cream);
     box-shadow: 0 5px 15px rgba(34, 211, 238, 0.4);
 }
 
@@ -118,7 +118,7 @@
 
 .cookies-btn-decline {
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: var(--cd-cream);
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -128,7 +128,7 @@
 }
 
 .cookies-btn:focus {
-    outline: 3px solid #22d3ee;
+    outline: 3px solid var(--cd-accent-cyan);
     outline-offset: 2px;
 }
 
