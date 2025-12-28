@@ -10,6 +10,9 @@ const POPUP_CONFIG = {
     delayCookies: 1500  // 1.5 segundos para mostrar primero el banner de cookies
 };
 
+let previousBodyOverflow = '';
+let previousHtmlOverflow = '';
+
 /**
  * Inicializar popup navideño
  */
@@ -34,7 +37,10 @@ function mostrarPopupNavidad() {
         popup.style.display = 'flex';
         
         // Prevenir scroll del body
+        previousBodyOverflow = document.body.style.overflow;
+        previousHtmlOverflow = document.documentElement.style.overflow;
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         
         // Focus trap - enfocar el botón de cierre para accesibilidad
         const closeButton = popup.querySelector('.popup-close');
@@ -58,7 +64,8 @@ function cerrarPopupNavidad() {
             popup.style.animation = '';
             
             // Restaurar scroll del body
-            document.body.style.overflow = '';
+            document.body.style.overflow = previousBodyOverflow || '';
+            document.documentElement.style.overflow = previousHtmlOverflow || '';
             
             // Marcar como visto en esta sesión
             sessionStorage.setItem(POPUP_CONFIG.sessionKey, 'true');

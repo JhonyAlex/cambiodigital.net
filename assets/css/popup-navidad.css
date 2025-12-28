@@ -9,8 +9,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9998; /* Debajo del banner de cookies */
+    background-color: rgba(6, 11, 30, 0.96);
+    backdrop-filter: blur(8px);
+    z-index: 9998;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,14 +31,14 @@
 /* Container del popup */
 .popup-container {
     position: relative;
-    background: linear-gradient(135deg, var(--cd-base-dark) 0%, var(--cd-base-light) 100%);
-    border-radius: 20px;
-    max-width: 500px;
+    background: linear-gradient(180deg, var(--cd-cream) 0%, #f1f1e8 65%, #e6e8ef 100%);
+    border-radius: 24px;
+    max-width: 520px;
     width: 100%;
-    padding: 40px 30px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    padding: 44px 36px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
     animation: slideUp 0.4s ease-out;
-    border: 2px solid rgba(34, 211, 238, 0.3);
+    border: 2px solid rgba(10, 15, 35, 0.5);
     overflow: hidden;
 }
 
@@ -100,7 +101,7 @@
 /* Contenido del popup */
 .popup-content {
     text-align: center;
-    color: var(--cd-cream);
+    color: var(--cd-base-dark);
 }
 
 /* Decoración */
@@ -136,7 +137,7 @@
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 30px;
-    color: var(--cd-text-muted);
+    color: rgba(15, 23, 42, 0.85);
 }
 
 .popup-message strong {
