@@ -42,6 +42,9 @@
     <!-- html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+    <!-- Config global -->
+    <script src="/assets/js/config.js"></script>
+
     <!-- Popups modulares -->
     <link rel="stylesheet" href="/assets/css/cookie-consent.css">
     <link rel="stylesheet" href="/assets/css/promo-modal.css">
@@ -1067,11 +1070,22 @@ ${description}
          ============================================================ -->
 
     <!-- Popups modulares -->
+    <!-- Popups -->
     <div id="cookie-consent-container"></div>
     <div id="promo-modal-container"></div>
 
-    <script src="/assets/js/cookie-consent.js"></script>
-    <script src="/assets/js/promo-modal.js"></script>
+    <script>
+        // Solo cargar popups si están habilitados
+        if (window.POPUPS_ENABLED) {
+            const script1 = document.createElement('script');
+            script1.src = '/assets/js/cookie-consent.js';
+            document.body.appendChild(script1);
+
+            const script2 = document.createElement('script');
+            script2.src = '/assets/js/promo-modal.js';
+            document.body.appendChild(script2);
+        }
+    </script>
 </body>
 </html>
 
