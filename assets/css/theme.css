@@ -129,6 +129,10 @@ body:has(a:hover, button:hover, input:hover, textarea:hover) #cursor-dot {
     }
 }
 
+#popup-navidad, .cookies-banner, .promo-modal {
+    display: none !important;
+}
+
 .animate-marquee {
     animation: marquee 30s linear infinite;
 }
