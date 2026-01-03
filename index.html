@@ -1075,15 +1075,17 @@ ${description}
     <div id="promo-modal-container"></div>
 
     <script>
-        // Solo cargar popups si están habilitados
-        if (window.POPUPS_ENABLED) {
-            const script1 = document.createElement('script');
-            script1.src = '/assets/js/cookie-consent.js';
-            document.body.appendChild(script1);
+        // Carga condicional de popups/banners
+        if (window.COOKIES_ENABLED) {
+            const cookieScript = document.createElement('script');
+            cookieScript.src = '/assets/js/cookie-consent.js';
+            document.body.appendChild(cookieScript);
+        }
 
-            const script2 = document.createElement('script');
-            script2.src = '/assets/js/promo-modal.js';
-            document.body.appendChild(script2);
+        if (window.PROMO_ENABLED) {
+            const promoScript = document.createElement('script');
+            promoScript.src = '/assets/js/promo-modal.js';
+            document.body.appendChild(promoScript);
         }
     </script>
 </body>
