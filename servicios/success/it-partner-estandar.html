@@ -38,22 +38,28 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="font-mono bg-cd-cream text-cd-base overflow-x-hidden">
+<body class="font-sans antialiased overflow-x-hidden bg-cd-base text-cd-cream selection:bg-cd-magenta selection:text-white">
+    <!-- Custom Cursor -->
+    <div id="cursor-outline"></div>
+    <div id="cursor-dot"></div>
+
+    <div class="fixed inset-0 z-0 bg-grid"></div>
+
     <!-- Header -->
     <div id="header-container"></div>
 
     <!-- Main Content -->
-    <main class="pt-24 pb-16 min-h-screen">
+    <main class="relative z-10 pt-24 pb-16 min-h-screen">
         <!-- Success Hero Section -->
         <section class="container mx-auto px-4 mb-16">
             <div class="max-w-4xl mx-auto">
                 <!-- Success Card -->
-                <div class="bg-white border-hard shadow-hard p-8 md:p-12 mb-8 animate-fade-in">
+                <div class="bg-cd-cream text-black border-hard shadow-hard p-8 md:p-12 mb-8 animate-fade-in">
                     <div class="flex flex-col items-center text-center mb-8">
                         <div class="w-24 h-24 bg-green-400 rounded-full border-4 border-black flex items-center justify-center mb-6 shadow-[6px_6px_0_black]">
                             <i data-lucide="check" class="w-12 h-12 text-black"></i>
                         </div>
-                        <h1 class="font-black text-4xl md:text-5xl uppercase mb-4 text-cd-base">
+                        <h1 class="font-black text-4xl md:text-5xl uppercase mb-4 text-black">
                             ¡Pago Exitoso!
                         </h1>
                         <p class="text-xl md:text-2xl font-bold text-cd-lavender mb-2">
@@ -65,7 +71,7 @@
                     </div>
 
                     <!-- Pricing Recap -->
-                    <div class="bg-cd-cream border-hard p-6 mb-6">
+                    <div class="bg-white border-hard p-6 mb-6">
                         <h3 class="font-bold text-lg mb-4 uppercase">Resumen de tu Plan</h3>
                         <div class="space-y-3 font-mono text-sm">
                             <div class="flex justify-between items-center">
@@ -168,7 +174,7 @@
                 <!-- Contact Cards -->
                 <div class="grid md:grid-cols-2 gap-6 mb-12">
                     <!-- WhatsApp Card -->
-                    <div class="bg-white border-hard shadow-hard p-6">
+                    <div class="bg-cd-cream text-black border-hard shadow-hard p-6">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
                                 <i data-lucide="message-circle" class="w-6 h-6 text-white"></i>
@@ -187,7 +193,7 @@
                     </div>
 
                     <!-- Google Chat Card -->
-                    <div class="bg-white border-hard shadow-hard p-6">
+                    <div class="bg-cd-cream text-black border-hard shadow-hard p-6">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
                                 <i data-lucide="message-square" class="w-6 h-6 text-white"></i>
@@ -213,7 +219,7 @@
                 </div>
 
                 <!-- Onboarding Form -->
-                <div class="bg-white border-hard shadow-hard p-8">
+                <div class="bg-cd-cream text-black border-hard shadow-hard p-8">
                     <div class="mb-8">
                         <h2 class="font-black text-3xl uppercase mb-3 flex items-center gap-3">
                             <i data-lucide="clipboard-list" class="w-8 h-8 text-cd-lavender"></i>
@@ -376,7 +382,7 @@ Recuerda: Plan Estándar incluye hasta 3 servicios personalizados."
                 </div>
 
                 <!-- Stabilization Timeline -->
-                <div class="bg-white border-hard shadow-hard p-8 mt-8">
+                <div class="bg-cd-cream text-black border-hard shadow-hard p-8 mt-8">
                     <h2 class="font-black text-2xl uppercase mb-6 flex items-center gap-3">
                         <i data-lucide="calendar" class="w-7 h-7 text-cd-lavender"></i>
                         Fase de Estabilización (3 Meses)
