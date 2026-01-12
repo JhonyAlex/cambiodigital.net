@@ -141,31 +141,31 @@
                 </div>
 
                 <!-- Next Steps Section -->
-                <div class="bg-cd-lavender text-white border-hard shadow-hard p-8 mb-8">
+                <div class="bg-cd-cream text-black border-hard shadow-hard p-8 mb-8">
                     <h2 class="font-black text-3xl uppercase mb-6 flex items-center gap-3">
-                        <i data-lucide="rocket" class="w-8 h-8"></i>
+                        <i data-lucide="rocket" class="w-8 h-8 text-cd-lavender"></i>
                         Próximos Pasos
                     </h2>
                     <div class="space-y-4">
                         <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 bg-white text-cd-lavender rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+                            <div class="w-8 h-8 bg-cd-lavender text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
                             <div>
                                 <p class="font-bold text-lg">Completa el formulario de onboarding (abajo)</p>
-                                <p class="text-sm opacity-90">Indícanos qué servicios necesitas monitorear</p>
+                                <p class="text-sm text-gray-700">Indícanos qué servicios necesitas monitorear</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 bg-white text-cd-lavender rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+                            <div class="w-8 h-8 bg-cd-lavender text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
                             <div>
                                 <p class="font-bold text-lg">Configura tu Google Chat</p>
-                                <p class="text-sm opacity-90">Te enviaremos la invitación para comunicación directa</p>
+                                <p class="text-sm text-gray-700">Te enviaremos la invitación para comunicación directa</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 bg-white text-cd-lavender rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+                            <div class="w-8 h-8 bg-cd-lavender text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
                             <div>
                                 <p class="font-bold text-lg">Fase de Estabilización (3 meses)</p>
-                                <p class="text-sm opacity-90">Configuraremos backups, monitoreo y documentación</p>
+                                <p class="text-sm text-gray-700">Configuraremos backups, monitoreo y documentación</p>
                             </div>
                         </div>
                     </div>
@@ -434,7 +434,7 @@ Recuerda: Plan Estándar incluye hasta 3 servicios personalizados."
                 </div>
 
                 <!-- Contact Footer -->
-                <div class="bg-cd-base text-white border-hard shadow-hard p-6 mt-8 text-center">
+                <div class="bg-cd-cream text-black border-hard shadow-hard p-6 mt-8 text-center">
                     <p class="font-bold mb-3">¿Necesitas ayuda?</p>
                     <div class="flex flex-wrap justify-center gap-4 text-sm">
                         <a href="mailto:soporte@cambiodigital.net" class="hover:text-cd-magenta flex items-center gap-2">
@@ -476,6 +476,26 @@ Recuerda: Plan Estándar incluye hasta 3 servicios personalizados."
     <!-- Scripts -->
     <script src="/assets/js/config.js"></script>
     <script>
+        // Custom Cursor
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        let mouseX = 0, mouseY = 0;
+        let outlineX = 0, outlineY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+
+        function animateCursor() {
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+            cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
         // N8N Webhook URL
         const N8N_WEBHOOK_URL = 'https://n8n.cambiodigital.cloud/webhook/c1692d85-8ad6-4977-b484-541c16463d0a';
 
