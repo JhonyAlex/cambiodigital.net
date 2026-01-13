@@ -297,40 +297,7 @@
         animateCursor();
 
         // Load Header
-        fetch('/partials/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-                
-                // Initialize mobile menu
-                const menuToggle = document.getElementById('menu-btn');
-                const mobileMenu = document.getElementById('mobile-menu');
-                const closeMenuBtn = document.getElementById('close-menu-btn');
-                
-                if (menuToggle && mobileMenu && closeMenuBtn) {
-                    menuToggle.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('open');
-                        document.body.classList.toggle('overflow-hidden');
-                    });
-                    
-                    closeMenuBtn.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('open');
-                        document.body.classList.toggle('overflow-hidden');
-                    });
-                }
-                
-                lucide.createIcons();
-            })
-            .catch(error => console.error('Error loading header:', error));
-
-        // Load Footer
-        fetch('/partials/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-                lucide.createIcons();
-            })
-            .catch(error => console.error('Error loading footer:', error));
+        // Header and Footer handled by layout-loader.js
 
         // Initialize Lucide Icons
         lucide.createIcons();
@@ -438,5 +405,6 @@ ${description}
     </script>
 
     <!-- Banner de Cookies y Popup Navideño DESHABILITADOS TEMPORALMENTE -->
+    <script src="/assets/js/layout-loader.js"></script>
 </body>
 </html>

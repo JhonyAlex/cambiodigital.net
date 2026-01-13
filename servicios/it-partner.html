@@ -437,43 +437,7 @@
     <!-- Scripts -->
     <script>
         // Load Header
-        fetch('../partials/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
-
-                // Initialize mobile menu
-                const menuBtn = document.getElementById('menu-btn');
-                const closeMenuBtn = document.getElementById('close-menu-btn');
-                const mobileMenu = document.getElementById('mobile-menu');
-                const mobileLinks = document.querySelectorAll('.mobile-link');
-
-                menuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.add('open');
-                });
-
-                closeMenuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.remove('open');
-                });
-
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.remove('open');
-                    });
-                });
-            })
-            .catch(error => console.error('Error loading header:', error));
-
-        // Load Footer
-        fetch('../partials/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading footer:', error));
+        // Header and Footer handled by layout-loader.js
 
         // Custom Cursor
         const cursorDot = document.getElementById('cursor-dot');
@@ -526,6 +490,7 @@
             lucide.createIcons();
         }
     </script>
+    <script src="/assets/js/layout-loader.js"></script>
 </body>
 </html>
 

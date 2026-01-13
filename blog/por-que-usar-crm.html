@@ -453,37 +453,7 @@
         lucide.createIcons();
 
         document.addEventListener('DOMContentLoaded', (event) => {
-            // Load Header
-            fetch('../partials/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-container').innerHTML = data;
-                    lucide.createIcons();
-
-                    // Initialize mobile menu
-                    const menuBtn = document.getElementById('menu-btn');
-                    const closeMenuBtn = document.getElementById('close-menu-btn');
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-                    function toggleMenu() {
-                        mobileMenu.classList.toggle('open');
-                        document.body.classList.toggle('overflow-hidden');
-                    }
-
-                    menuBtn.addEventListener('click', toggleMenu);
-                    closeMenuBtn.addEventListener('click', toggleMenu);
-                    mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
-                })
-                .catch(error => console.error('Error loading header:', error));
-
-            // Load Footer
-            fetch('../partials/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-container').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading footer:', error));
+            // Header and Footer handled by layout-loader.js
 
             // Cursor
             const cursorDot = document.getElementById('cursor-dot');
@@ -518,5 +488,6 @@
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
         });
     </script>
+    <script src="/assets/js/layout-loader.js"></script>
 </body>
 </html>

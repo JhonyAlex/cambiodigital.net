@@ -93,6 +93,11 @@ Este documento establece los estándares de diseño y código para mantener cons
     <div id="footer-container"></div>
 
     <!-- 6. Scripts (ver sección 4) -->
+    <script src="/assets/js/layout-loader.js"></script>
+    <script>
+        // Custom Scripts para esta página específica
+        // NOTA: Header, Footer y Menú Móvil se manejan en layout-loader.js
+    </script>
 </body>
 ```
 
@@ -209,40 +214,11 @@ Este documento establece los estándares de diseño y código para mantener cons
         requestAnimationFrame(animateCursor);
     }
     animateCursor();
-
-    // Load Header - OBLIGATORIO
-    fetch('/partials/header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-container').innerHTML = data;
-            
-            // Initialize mobile menu
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (menuToggle && mobileMenu) {
-                menuToggle.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-            
-            lucide.createIcons();
-        })
-        .catch(error => console.error('Error loading header:', error));
-
-    // Load Footer - OBLIGATORIO
-    fetch('/partials/footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-container').innerHTML = data;
-            lucide.createIcons();
-        })
-        .catch(error => console.error('Error loading footer:', error));
-
-    // Initialize Lucide Icons - OBLIGATORIO
-    document.addEventListener('DOMContentLoaded', function() {
-        lucide.createIcons();
-    });
 </script>
+
+<!-- CARGADOR DE LAYOUT (OBLIGATORIO) -->
+<!-- Se encarga de cargar Header, Footer y lógica del menú móvil -->
+<script src="/assets/js/layout-loader.js"></script>
 ```
 
 ---
