@@ -1,4 +1,7 @@
+---
 deployment:
   tasks:
     - export DEPLOYPATH=/home/otfidqlcuq/cambiodigital.net
-    - /usr/bin/git pull origin main
+    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH || true
+
