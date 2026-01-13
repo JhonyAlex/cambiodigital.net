@@ -39,6 +39,103 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <style>
+        /* --- Typography for Blog Post --- */
+        article h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        article h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        article p {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        article ul, article ol {
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            list-style-type: disc;
+        }
+        article li {
+            margin-bottom: 0.5rem;
+        }
+        article strong {
+            font-weight: 700;
+            color: black;
+        }
+        article a {
+            color: #5a82ff;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        article blockquote {
+            border-left: 4px solid #5a82ff;
+            padding-left: 1rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            background-color: #f8f8f0;
+            padding: 1rem;
+        }
+        .cta-box {
+            background-color: #1c2143;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            border: 2px solid black;
+            box-shadow: 4px 4px 0 black;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #d946ef;
+            color: white;
+            padding: 1rem 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+        .cta-button:hover {
+            background-color: white;
+            color: #d946ef;
+            border-color: #d946ef;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f3f4f6;
+            font-weight: bold;
+        }
+    </style>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -213,6 +310,43 @@
     <div id="footer-container"></div>
     
     <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Cursor
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let outlineX = 0, outlineY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            });
+
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+                cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Reveal Observer
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        });
+    </script>
     <script src="/assets/js/layout-loader.js"></script>
 </body>
 </html>
