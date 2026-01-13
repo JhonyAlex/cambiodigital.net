@@ -19,6 +19,14 @@
   ```
 - **NO** copiar y pegar el código HTML del header o footer directamente en la página. Usa siempre el loader.
 
+## SEO y Metadatos (Obligatorio)
+- **Sitemap:** Cada vez que generes un archivo HTML nuevo, actualiza `sitemap.xml` agregando la entrada correspondiente con `<loc>`, `<lastmod>` (fecha actual YYYY-MM-DD), y `<priority>` (0.8 para posts, 0.9 para servicios).
+- **Schema.org:**
+  - Para **Blog Posts**: Incluye un script `type="application/ld+json"` con el esquema `BlogPosting`. Asegúrate de llenar `headline`, `image`, `datePublished` y `description`.
+  - Para **Servicios**: Incluye un script `type="application/ld+json"` con el esquema `Service` o `Product`.
+- **Meta Tags**: Siempre incluye `<title>`, `<meta name="description">` y `<meta name="keywords">`.
+- **Accesibilidad**: Todos los `<img>` deben tener atributo `alt` descriptivo.
+
 ## Seguimiento del post actual
 - Es obligatoria la actualización de `blog.html` con la tarjeta del post generado, manteniendo el último archivo como referencia maestra para asegurar la coherencia en futuras peticiones.
 - Si se trabaja con este post o se crea otro, confirma que el CSS provenga de `assets/css/theme.css` para que todos los artículos compartan la misma apariencia.
