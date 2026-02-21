@@ -52,6 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.lucide) {
                     window.lucide.createIcons();
                 }
+                // Update footer logos to match current theme
+                if (typeof window.initThemeToggle === 'function') {
+                    window.initThemeToggle();
+                }
             }
         })
         .catch(error => console.error('Error loading footer:', error));
