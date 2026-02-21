@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casos de Exito | Cambio Digital</title>
+    <meta name="description" content="Resultados reales en negocios reales. Descubre como automatizamos y transformamos empresas en mas de 10 paises.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cambiodigital.net/casos.html">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cambiodigital.net/casos.html">
+    <meta property="og:title" content="Casos de Exito | Cambio Digital">
+    <meta property="og:description" content="Resultados reales en negocios reales.">
+    <meta property="og:image" content="https://cambiodigital.net/assets/og-home.png">
+
+    <link rel="stylesheet" href="/assets/css/tailwind.generated.css">
+    <link rel="stylesheet" href="/assets/css/theme.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/theme-toggle.js"></script>
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden bg-cd-base text-cd-cream selection:bg-cd-magenta selection:text-white">
+
+    <div id="cursor-outline"></div>
+    <div id="cursor-dot"></div>
+    <div class="fixed inset-0 z-0 bg-grid"></div>
+
+    <div id="header-container"></div>
+
+    <main class="relative z-10 pt-28 pb-20 px-4">
+        <!-- Hero -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="badge badge-accent mb-4 inline-flex">Resultados Reales</span>
+            <h1 class="text-4xl md:text-5xl font-black mb-4">Casos de exito</h1>
+            <p class="text-lg text-cd-text-dim max-w-xl mx-auto">Asi transformamos negocios en mas de 10 paises. Resultados medibles, no promesas.</p>
+        </div>
+
+        <!-- Filter -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12 max-w-4xl mx-auto">
+            <button onclick="filterCases('all')" class="filter-btn badge badge-accent" data-filter="all">Todos</button>
+            <button onclick="filterCases('chatbot')" class="filter-btn badge" data-filter="chatbot">Chatbots</button>
+            <button onclick="filterCases('crm')" class="filter-btn badge" data-filter="crm">CRM</button>
+            <button onclick="filterCases('web')" class="filter-btn badge" data-filter="web">Web</button>
+            <button onclick="filterCases('it')" class="filter-btn badge" data-filter="it">IT Partner</button>
+        </div>
+
+        <!-- Cases Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" id="cases-grid">
+
+            <!-- Angela's Vacation -->
+            <div class="reveal card-modern p-6" data-category="crm chatbot">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="badge text-xs">USA</span>
+                    <span class="text-xs text-cd-text-dim">Turismo & Viajes</span>
+                </div>
+                <h3 class="font-bold text-xl mb-3">Angela's Vacation</h3>
+                <p class="text-sm text-cd-text-dim mb-4">Agencia de viajes en USA que perdia horas respondiendo emails y organizando reservas manualmente.</p>
+                <div class="p-3 rounded-lg mb-4" style="background: var(--cd-surface);">
+                    <div class="flex items-center gap-2 text-sm mb-1"><span class="text-red-400">Antes:</span><span class="text-cd-text-dim">20 hrs/sem en soporte manual</span></div>
+                    <div class="flex items-center gap-2 text-sm"><span class="text-green-400">Ahora:</span><span class="text-cd-text-muted font-semibold">75% tiempo ahorrado con CRM</span></div>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">CRM</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">Automatizacion</span>
+                </div>
+                <p class="text-sm text-cd-text-muted font-semibold">Resultado: Equipo enfocado en experiencia de cliente.</p>
+            </div>
+
+            <!-- Compusum -->
+            <div class="reveal card-modern p-6" data-category="crm it">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="badge text-xs">COL</span>
+                    <span class="text-xs text-cd-text-dim">Tecnologia & Seguridad</span>
+                </div>
+                <h3 class="font-bold text-xl mb-3">Compusum</h3>
+                <p class="text-sm text-cd-text-dim mb-4">Empresa de seguridad que tardaba horas en notificar alertas criticas a sus clientes.</p>
+                <div class="p-3 rounded-lg mb-4" style="background: var(--cd-surface);">
+                    <div class="flex items-center gap-2 text-sm mb-1"><span class="text-red-400">Antes:</span><span class="text-cd-text-dim">2 hrs para alertas manuales</span></div>
+                    <div class="flex items-center gap-2 text-sm"><span class="text-green-400">Ahora:</span><span class="text-cd-text-muted font-semibold">Avisos instantaneos automaticos</span></div>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">CRM</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">IT Partner</span>
+                </div>
+                <p class="text-sm text-cd-text-muted font-semibold">Resultado: Clientes protegidos 24/7.</p>
+            </div>
+
+            <!-- Vioka -->
+            <div class="reveal card-modern p-6" data-category="chatbot">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="badge text-xs">COL</span>
+                    <span class="text-xs text-cd-text-dim">Moda & Retail</span>
+                </div>
+                <h3 class="font-bold text-xl mb-3">Vioka</h3>
+                <p class="text-sm text-cd-text-dim mb-4">Tienda de moda que perdia 60% de consultas en Instagram por no responder fuera de horario.</p>
+                <div class="p-3 rounded-lg mb-4" style="background: var(--cd-surface);">
+                    <div class="flex items-center gap-2 text-sm mb-1"><span class="text-red-400">Antes:</span><span class="text-cd-text-dim">60% consultas sin respuesta</span></div>
+                    <div class="flex items-center gap-2 text-sm"><span class="text-green-400">Ahora:</span><span class="text-cd-text-muted font-semibold">40% clientes recurrentes</span></div>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">Chatbot</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">Instagram</span>
+                </div>
+                <p class="text-sm text-cd-text-muted font-semibold">Resultado: Bot responde al instante, ninguna venta perdida.</p>
+            </div>
+
+            <!-- Clinica Santa Clara -->
+            <div class="reveal card-modern p-6" data-category="chatbot crm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="badge text-xs">COL</span>
+                    <span class="text-xs text-cd-text-dim">Salud</span>
+                </div>
+                <h3 class="font-bold text-xl mb-3">Clinica Santa Clara</h3>
+                <p class="text-sm text-cd-text-dim mb-4">Clinica con alto indice de citas perdidas por falta de recordatorios automaticos.</p>
+                <div class="p-3 rounded-lg mb-4" style="background: var(--cd-surface);">
+                    <div class="flex items-center gap-2 text-sm mb-1"><span class="text-red-400">Antes:</span><span class="text-cd-text-dim">25% citas sin confirmar</span></div>
+                    <div class="flex items-center gap-2 text-sm"><span class="text-green-400">Ahora:</span><span class="text-cd-text-muted font-semibold">92% asistencia con recordatorios</span></div>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">Recordatorios</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">WhatsApp</span>
+                </div>
+                <p class="text-sm text-cd-text-muted font-semibold">Resultado: Menos no-shows, agenda optimizada.</p>
+            </div>
+
+            <!-- Rey Oblea -->
+            <div class="reveal card-modern p-6" data-category="chatbot">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="badge text-xs">MEX</span>
+                    <span class="text-xs text-cd-text-dim">Alimentos</span>
+                </div>
+                <h3 class="font-bold text-xl mb-3">Rey Oblea</h3>
+                <p class="text-sm text-cd-text-dim mb-4">Fabricante de obleas cuyo proceso de pedido manual tomaba 30 minutos por orden.</p>
+                <div class="p-3 rounded-lg mb-4" style="background: var(--cd-surface);">
+                    <div class="flex items-center gap-2 text-sm mb-1"><span class="text-red-400">Antes:</span><span class="text-cd-text-dim">30 min por pedido manual</span></div>
+                    <div class="flex items-center gap-2 text-sm"><span class="text-green-400">Ahora:</span><span class="text-cd-text-muted font-semibold">2 min con chatbot "Oblein"</span></div>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">Chatbot</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--cd-surface);">WhatsApp</span>
+                </div>
+                <a href="https://wa.me/573122908416?text=Quiero%20ver%20una%20demo%20del%20chatbot%20Oblein" target="_blank" class="btn-primary text-xs py-2 px-3 mt-2 inline-flex">
+                    <i data-lucide="message-circle" class="w-3 h-3"></i> Probar Bot
+                </a>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-16">
+            <div class="card-modern p-10 max-w-2xl mx-auto" style="background: linear-gradient(135deg, var(--cd-surface), var(--cd-base));">
+                <h2 class="font-black text-2xl md:text-3xl mb-4">Tu negocio puede ser el proximo caso de exito</h2>
+                <p class="text-cd-text-dim mb-6">Agenda un diagnostico gratuito y descubre que podemos automatizar.</p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a href="https://wa.me/573122908416?text=Quiero%20un%20diagnostico%20gratuito" target="_blank" class="btn-primary py-3 px-6">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Hablar por WhatsApp
+                    </a>
+                    <a href="/cotizador.html" class="btn-secondary py-3 px-6">Cotizar Ahora <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="/assets/js/animations.js"></script>
+    <script src="/assets/js/layout-loader.js"></script>
+
+    <script>
+        function filterCases(category) {
+            const cards = document.querySelectorAll('#cases-grid > div');
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('badge-accent');
+                if (btn.dataset.filter === category) btn.classList.add('badge-accent');
+            });
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category.includes(category)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Cursor
+        document.addEventListener('DOMContentLoaded', () => {
+            const cd = document.getElementById('cursor-dot'), co = document.getElementById('cursor-outline');
+            let mx = 0, my = 0, ox = 0, oy = 0;
+            window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; cd.style.transform = `translate(${mx}px,${my}px)`; });
+            (function ac() { ox += (mx - ox) * .15; oy += (my - oy) * .15; co.style.transform = `translate(${ox}px,${oy}px)`; requestAnimationFrame(ac); })();
+        });
+    </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /**
  * Layout Loader
- * Loads header and footer dynamically and initializes UI components like the mobile menu.
+ * Loads header and footer dynamically, initializes UI components.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,10 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const headerContainer = document.getElementById('header-container');
             if (headerContainer) {
                 headerContainer.innerHTML = data;
-                
+
                 // Initialize Lucide icons if available
                 if (window.lucide) {
                     window.lucide.createIcons();
+                }
+
+                // Initialize theme toggle
+                if (typeof window.initThemeToggle === 'function') {
+                    window.initThemeToggle();
                 }
 
                 // Initialize mobile menu
@@ -25,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (menuBtn && mobileMenu && closeMenuBtn) {
                     function toggleMenu() {
-                        // Logic derived from index.html
                         mobileMenu.classList.toggle('open');
                         document.body.classList.toggle('overflow-hidden');
                     }
@@ -45,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const footerContainer = document.getElementById('footer-container');
             if (footerContainer) {
                 footerContainer.innerHTML = data;
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
             }
         })
         .catch(error => console.error('Error loading footer:', error));

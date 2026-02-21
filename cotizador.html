@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador | Cambio Digital - Arma tu plan a medida</title>
+    <meta name="description" content="Cotiza tus servicios de automatizacion, chatbots, CRM, desarrollo web y mas. Calcula tu inversion al instante con nuestro cotizador interactivo.">
+    <meta name="keywords" content="cotizador, precios automatizacion, chatbot precio, CRM precio, desarrollo web precio, Cambio Digital">
+    <meta name="author" content="Cambio Digital">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cambiodigital.net/cotizador.html">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cambiodigital.net/cotizador.html">
+    <meta property="og:title" content="Cotizador | Cambio Digital">
+    <meta property="og:description" content="Arma tu plan de automatizacion a medida. Calcula tu inversion al instante.">
+    <meta property="og:image" content="https://cambiodigital.net/assets/og-home.png">
+
+    <link rel="stylesheet" href="/assets/css/tailwind.generated.css">
+    <link rel="stylesheet" href="/assets/css/theme.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/theme-toggle.js"></script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Cotizador de Servicios - Cambio Digital",
+        "description": "Herramienta interactiva para cotizar servicios de automatizacion, chatbots, CRM y desarrollo web.",
+        "url": "https://cambiodigital.net/cotizador.html"
+    }
+    </script>
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden bg-cd-base text-cd-cream selection:bg-cd-magenta selection:text-white">
+
+    <div id="cursor-outline"></div>
+    <div id="cursor-dot"></div>
+    <div class="fixed inset-0 z-0 bg-grid"></div>
+
+    <div id="header-container"></div>
+
+    <main class="relative z-10 min-h-screen pt-28 pb-20 px-4">
+        <!-- Hero -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="badge badge-accent mb-4 inline-flex">Cotizador Interactivo</span>
+            <h1 class="text-4xl md:text-5xl font-black mb-4">Arma tu plan a medida</h1>
+            <p class="text-lg text-cd-text-dim max-w-xl mx-auto">
+                Selecciona los servicios que necesitas, personaliza con extras y recibe una cotizacion al instante. Sin compromisos.
+            </p>
+        </div>
+
+        <!-- Calculator App -->
+        <div id="calculator-app" class="max-w-6xl mx-auto">
+            <div class="text-center py-12">
+                <div class="animate-pulse text-cd-text-dim">Cargando cotizador...</div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="/assets/js/animations.js"></script>
+    <script src="/assets/js/calculator.js"></script>
+    <script src="/assets/js/layout-loader.js"></script>
+
+    <script>
+        // Cursor
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            });
+
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+                cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+        });
+    </script>
+</body>
+</html>
