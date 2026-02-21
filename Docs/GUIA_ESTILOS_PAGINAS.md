@@ -106,59 +106,88 @@ Este documento establece los estándares de diseño y código para mantener cons
 ## 3. PALETA DE COLORES Y CLASES
 
 ### Colores Principales (Variables CSS en `/assets/css/theme.css`)
+Las variables se adaptan automáticamente según el atributo `data-theme` ("light" o "dark").
+
+**Modo Oscuro (Default):**
 ```css
---cd-base: #1c2143;           /* Azul oscuro principal - FONDO */
---cd-lavender: #5d6bee;       /* Lavanda - Acentos Plan Estándar */
---cd-magenta: #5a82ff;        /* Magenta - Acentos Plan Evolución */
---cd-cream: #f8f8f0;          /* Crema - TEXTO sobre fondo oscuro */
---cd-shadow-color: #0f1327;   /* Sombra - Bordes duros */
+--cd-base: #0f172a;           /* Fondo principal */
+--cd-cream: #f1f5f9;          /* Texto principal */
+--cd-surface: #1e293b;        /* Fondo de tarjetas/paneles */
+--hero-overlay-start: rgba(15, 23, 42, 0.6); /* Overlay oscuro para video */
+```
+
+**Modo Claro:**
+```css
+--cd-base: #f8fafc;           /* Fondo claro */
+--cd-cream: #0f172a;          /* Texto oscuro */
+--cd-surface: #ffffff;        /* Fondo blanco */
+--hero-overlay-start: rgba(248, 250, 252, 0.85); /* Overlay claro para video */
 ```
 
 ### Jerarquía de Fondos
-1. **Fondo de página:** `bg-cd-base` (oscuro)
-2. **Tarjetas principales:** `bg-cd-cream text-black` (claras)
-3. **Tarjetas secundarias:** `bg-white` (blanco puro)
-4. **Secciones destacadas:** `bg-cd-lavender` o `bg-cd-magenta` (según plan)
+1. **Fondo de página:** `bg-cd-base` (adaptable)
+2. **Tarjetas:** `card-modern` (adaptable: oscuro en dark mode, blanco en light mode)
+3. **Hero:** `bg-cd-base-dark` con overlay adaptable.
 
-### ⚠️ REGLA CRÍTICA: CONTRASTE
-**NUNCA usar elementos oscuros directamente sobre fondo oscuro.**
-
-❌ **INCORRECTO:**
-```html
-<body class="bg-cd-base text-cd-cream">
-    <div class="bg-cd-base text-white">
-        <!-- Se funde con el fondo -->
-    </div>
-</body>
-```
-
-✅ **CORRECTO:**
-```html
-<body class="bg-cd-base text-cd-cream">
-    <div class="bg-cd-cream text-black border-hard shadow-hard">
-        <!-- Contraste claro -->
-    </div>
-</body>
-```
+### ⚠️ REGLA CRÍTICA: CONTRASTE Y ACCESIBILIDAD
+- **Texto:** Usar siempre clases semánticas (`text-cd-cream`, `text-cd-text-muted`) en lugar de colores fijos (blanco/negro) para asegurar legibilidad en ambos modos.
+- **Excepción:** En secciones con fondo oscuro fijo (como el Hero con video), usar `text-white` o asegurar que el overlay aclare el fondo lo suficiente en modo claro si el texto se oscurece.
+- **Ratio:** Mantener un contraste mínimo de **4.5:1 (WCAG AA)** para texto normal.
 
 ---
 
-## 4. COMPONENTES BRUTALIST
+## 3.1. MODO CLARO/OSCURO (DARK/LIGHT MODE)
 
-### Tarjeta Estándar
+### Implementación
+El cambio de tema se maneja vía `assets/js/theme-toggle.js` y variables CSS.
+- **Botón:** Incluir `.theme-toggle` en el header.
+- **Logo:** El logo se adapta automáticamente:
+  - Modo Oscuro: Logo blanco (sin filtro).
+  - Modo Claro: Logo negro (filtro `brightness(0)`).
+  - **CSS:** `header img { filter: var(--logo-filter); }`
+
+### Transiciones
+Todos los elementos tienen `transition: background-color 0.3s, color 0.3s` para suavizar el cambio de tema.
+
+---
+
+## 4. COMPONENTES MODERNOS (Theme v2)
+
+### Tarjeta Moderna (`card-modern`)
+Reemplaza a la tarjeta brutalist antigua.
 ```html
-<div class="bg-cd-cream text-black border-hard shadow-hard p-8">
-    <h2 class="font-black text-3xl uppercase mb-4">Título</h2>
-    <p class="text-gray-700">Contenido...</p>
+<div class="card-modern p-8">
+    <h2 class="font-bold text-xl mb-4">Título</h2>
+    <p class="text-cd-text-muted">Contenido...</p>
 </div>
 ```
 
-### Botón Estándar
+### Botón Primario (`btn-primary`)
+Adaptable y con hover effects.
 ```html
-<button class="btn-press bg-cd-lavender text-white font-bold py-3 px-6 border-hard shadow-hard hover:bg-cd-magenta uppercase">
-    Texto del Botón
+<button class="btn-primary">
+    Texto del Botón <i data-lucide="arrow-right"></i>
 </button>
 ```
+
+### Banner Hero con Video
+Debe incluir fallback para errores de carga y overlay adaptable.
+```html
+<div class="relative ... bg-cd-base-dark">
+    <!-- Fallback Image (Oculto por defecto) -->
+    <div id="hero-fallback" class="hidden ..." style="background-image: url(...)"></div>
+    
+    <!-- Video con manejo de error -->
+    <video onerror="this.style.display='none'; document.getElementById('hero-fallback').classList.remove('hidden');" ...>
+        ...
+    </video>
+    
+    <!-- Overlay Adaptable -->
+    <div class="hero-overlay"></div>
+</div>
+```
+
+---
 
 ### Botón de Enlace
 ```html
@@ -328,14 +357,27 @@ Este documento establece los estándares de diseño y código para mantener cons
 - [ ] JavaScript del cursor incluido
 - [ ] Fetch de header/footer incluido
 - [ ] `lucide.createIcons()` al final del DOMContentLoaded
-- [ ] Tarjetas usan `bg-cd-cream text-black` (no oscuras sobre oscuro)
-- [ ] Botones con `border-hard shadow-hard btn-press`
-- [ ] Inputs con `border-hard focus:ring-2`
-- [ ] Contraste adecuado en todos los elementos
+- [ ] Uso de componentes `card-modern` y `btn-primary` (Theme v2)
+- [ ] **Verificar modo claro/oscuro:** Contrastes correctos en ambos temas.
+- [ ] **Banner:** Fallback de imagen configurado correctamente.
+- [ ] **Logo:** Filtro automático funcionando en header.
 
 ---
 
-## 11. ANTIPATRONES (EVITAR)
+## 11. TESTING VISUAL
+
+Para validar los cambios de estilo y contraste:
+1. Abrir `/test-visual.html` en el navegador.
+2. Usar el botón de toggle en la esquina superior derecha.
+3. Verificar:
+   - Legibilidad de textos en tarjetas (Surface vs Text).
+   - Contraste del Banner Hero (Video/Imagen vs Texto).
+   - Visibilidad del Logo (Blanco en Dark, Negro en Light).
+   - Transiciones suaves de color.
+
+---
+
+## 12. ANTIPATRONES (EVITAR)
 
 ❌ **NO HACER:**
 ```html
@@ -388,5 +430,5 @@ Si encuentras inconsistencias:
 
 ---
 
-**Última actualización:** Enero 2026  
+**Última actualización:** Febrero 2026
 **Mantenido por:** Equipo Cambio Digital

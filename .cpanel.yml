@@ -1,6 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/otfidqlcuq/public_html
-    - /bin/cp -r * $DEPLOYPATH
-
+    - export DEPLOYPATH=/home/otfidqlcuq/cambiodigital.net/
+    - /bin/rsync -avz --exclude '.git' --exclude '.cpanel.yml' /home/otfidqlcuq/cambiodigital.net/ $DEPLOYPATH

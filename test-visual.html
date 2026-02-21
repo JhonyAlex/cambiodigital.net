@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Testing - Cambio Digital</title>
+    <link rel="stylesheet" href="/assets/css/tailwind.generated.css">
+    <link rel="stylesheet" href="/assets/css/theme.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/assets/js/theme-toggle.js"></script>
+</head>
+<body class="p-8 transition-colors duration-300">
+
+    <header class="mb-8 flex justify-between items-center">
+        <h1 class="text-3xl font-black">Visual Testing System</h1>
+        <button class="theme-toggle btn-secondary" aria-label="Toggle Theme">
+            <i data-lucide="sun" class="w-5 h-5 icon-sun"></i>
+            <i data-lucide="moon" class="w-5 h-5 icon-moon"></i>
+        </button>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Section: Colors -->
+        <section class="card-modern">
+            <h2 class="text-xl font-bold mb-4">Color Palette</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 bg-cd-base text-cd-cream border border-cd-border rounded">Base Background</div>
+                <div class="p-4 bg-cd-surface text-cd-cream border border-cd-border rounded">Surface</div>
+                <div class="p-4 bg-cd-card-bg text-cd-card-text border border-cd-border rounded">Card BG</div>
+                <div class="p-4 bg-cd-highlight-color text-white rounded">Highlight</div>
+                <div class="p-4" style="background: var(--cd-base-dark); color: var(--cd-text-muted);">Base Dark (Hero BG)</div>
+            </div>
+        </section>
+
+        <!-- Section: Typography -->
+        <section class="card-modern">
+            <h2 class="text-xl font-bold mb-4">Typography Contrast</h2>
+            <h1 class="text-4xl font-black mb-2">Heading 1</h1>
+            <h2 class="text-3xl font-bold mb-2">Heading 2</h2>
+            <h3 class="text-2xl font-bold mb-2">Heading 3</h3>
+            <p class="mb-2 text-cd-cream">Body text (cd-cream)</p>
+            <p class="mb-2 text-cd-text-strong">Strong text</p>
+            <p class="mb-2 text-cd-text-muted">Muted text</p>
+            <p class="mb-2 text-cd-text-dim">Dim text</p>
+            <a href="#" class="text-cd-highlight hover:underline">Link color</a>
+        </section>
+
+        <!-- Section: Components -->
+        <section class="card-modern col-span-1 md:col-span-2">
+            <h2 class="text-xl font-bold mb-4">Components</h2>
+            <div class="flex flex-wrap gap-4 mb-8">
+                <button class="btn-primary">Primary Button</button>
+                <button class="btn-secondary">Secondary Button</button>
+                <span class="badge">Badge</span>
+                <span class="badge badge-accent">Accent Badge</span>
+            </div>
+
+            <!-- Fake Hero -->
+            <div class="relative w-full h-64 rounded-xl overflow-hidden mb-4 border border-cd-border">
+                <div class="absolute inset-0 z-0" style="background: var(--cd-base-dark);">
+                    <!-- Simulate Video/Image -->
+                    <div class="w-full h-full opacity-30 bg-cover bg-center" style="background-image: url('/assets/og-home.png');"></div>
+                    <div class="absolute inset-0 hero-overlay"></div>
+                </div>
+                <div class="relative z-10 p-8 flex flex-col justify-center h-full text-center">
+                    <h2 class="text-3xl font-black mb-2 text-cd-cream">Hero Title</h2>
+                    <p class="text-cd-text-muted">Subtitle text ensuring contrast.</p>
+                </div>
+            </div>
+            <p class="text-xs text-cd-text-dim mt-2">Check Hero contrast in both modes. Light mode should have light background and dark text.</p>
+        </section>
+
+        <!-- Section: Logo Simulation -->
+        <section class="card-modern">
+            <h2 class="text-xl font-bold mb-4">Logo Filter Test</h2>
+            <div class="p-4 bg-cd-surface border border-cd-border rounded flex items-center justify-center gap-4">
+                <!-- Use actual logo path -->
+                <header>
+                    <img src="/assets/images/LogoCDFondoOscuro.png" alt="Logo Test" class="h-12 w-auto transition-all duration-300">
+                </header>
+                <span class="text-cd-text-dim">Logo should be White in Dark Mode, Black in Light Mode.</span>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+        window.initThemeToggle();
+    </script>
+</body>
+</html>

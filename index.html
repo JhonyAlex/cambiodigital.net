@@ -80,8 +80,13 @@
         <!-- ===== 1. HERO ===== -->
         <section id="home" class="min-h-screen w-full flex items-center justify-center px-4 pt-24 pb-24 relative overflow-hidden">
             <div class="absolute inset-0 w-full h-full z-0" style="background: var(--cd-base-dark);">
-                <video id="hero-video" autoplay loop muted playsinline preload="metadata" poster="assets/og-home.png" class="w-full h-full object-cover opacity-30">
+                <!-- Fallback Image (Shown on video error) -->
+                <div id="hero-fallback" class="absolute inset-0 w-full h-full bg-cover bg-center opacity-30 hidden" style="background-image: url('assets/og-home.png');"></div>
+                
+                <video id="hero-video" autoplay loop muted playsinline preload="metadata" poster="assets/og-home.png" class="w-full h-full object-cover opacity-30" onerror="this.style.display='none'; document.getElementById('hero-fallback').classList.remove('hidden');">
                     <source src="https://cambiodigital.net/media/videoiacrm.mp4" type="video/mp4">
+                    <!-- Fallback for browsers that don't support video tag -->
+                    <img src="assets/og-home.png" alt="Hero Background" class="w-full h-full object-cover">
                 </video>
                 <div class="absolute inset-0 hero-overlay"></div>
             </div>
