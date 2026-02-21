@@ -60,7 +60,8 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    
+    <!-- Theme Toggle (in head to prevent flash) -->
+    <script src="/assets/js/theme-toggle.js"></script>
 </head>
 
 <body class="font-sans antialiased overflow-x-hidden selection:bg-cd-magenta selection:text-white" style="background: var(--color-bg); color: var(--color-text);">
@@ -455,7 +456,6 @@
             (function ac() { ox += (mx - ox) * 0.15; oy += (my - oy) * 0.15; co.style.transform = `translate(${ox}px, ${oy}px)`; requestAnimationFrame(ac); })();
         });
     </script>
-    <script src="/assets/js/theme-toggle.js"></script>
     <script src="/assets/js/animations.js"></script>
     <script src="/assets/js/layout-loader.js"></script>
 </body>
