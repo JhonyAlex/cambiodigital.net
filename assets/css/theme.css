@@ -300,15 +300,7 @@ body:has(a:hover, button:hover) #cursor-outline {
     transition: background 0.3s ease;
 }
 
-/* --- Logo Visibility per Theme --- */
-.logo-dark { display: block !important; }
-.logo-light { display: none !important; }
-
-[data-theme="light"] .logo-dark { display: none !important; }
-[data-theme="light"] .logo-light { display: block !important; }
-
-[data-theme="dark"] .logo-dark { display: block !important; }
-[data-theme="dark"] .logo-light { display: none !important; }
+/* --- Logo swap handled via JS in theme-toggle.js (single <img> with data-dark-src / data-light-src) --- */
 
 /* --- Marquee --- */
 @keyframes marquee {

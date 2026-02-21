@@ -15,10 +15,17 @@
         return 'light';
     }
 
+    function updateLogos(theme) {
+        document.querySelectorAll('[data-dark-src][data-light-src]').forEach(img => {
+            img.src = theme === 'light' ? img.dataset.lightSrc : img.dataset.darkSrc;
+        });
+    }
+
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem(STORAGE_KEY, theme);
         updateToggleIcons(theme);
+        updateLogos(theme);
     }
 
     function updateToggleIcons(theme) {
@@ -56,9 +63,11 @@
     // Expose globally
     window.toggleTheme = toggleTheme;
     window.initThemeToggle = function() {
+        const theme = document.documentElement.getAttribute('data-theme') || getPreferredTheme();
         document.querySelectorAll('.theme-toggle').forEach(btn => {
             btn.addEventListener('click', toggleTheme);
         });
-        updateToggleIcons(getPreferredTheme());
+        updateToggleIcons(theme);
+        updateLogos(theme);
     };
 })();
