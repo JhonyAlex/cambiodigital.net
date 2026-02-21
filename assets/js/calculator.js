@@ -519,7 +519,7 @@
         const isRecommended = state.recommendedCategories.length > 0;
 
         return `
-        <div class="card-modern ${isSelected ? 'border-cd-highlight' : ''}" style="${isSelected ? 'box-shadow: 0 0 0 1px var(--cd-highlight-color);' : ''}">
+        <div onclick="window.calcToggleService('${svc.id}')" class="card-modern cursor-pointer ${isSelected ? 'border-cd-highlight' : ''}" style="${isSelected ? 'box-shadow: 0 0 0 1px var(--cd-highlight-color);' : ''}">
             <div class="flex items-start justify-between gap-4">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 mb-1">
@@ -536,7 +536,7 @@
                         ${svc.setupFee ? `<span class="text-xs text-cd-text-dim">+ $${svc.setupFee} inicio</span>` : ''}
                     </div>
                 </div>
-                <button onclick="window.calcToggleService('${svc.id}')"
+                <button
                     class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all ${isSelected ? 'bg-cd-highlight text-white' : ''}"
                     style="${!isSelected ? 'background: var(--cd-surface); color: var(--cd-text-dim);' : 'background: var(--cd-highlight-color);'}">
                     <i data-lucide="${isSelected ? 'check' : 'plus'}" class="w-5 h-5"></i>
@@ -544,7 +544,7 @@
             </div>
 
             ${isSelected && svc.extras.length > 0 ? `
-                <div class="mt-4 pt-4 space-y-2" style="border-top: 1px solid var(--cd-border);">
+                <div class="mt-4 pt-4 space-y-2" style="border-top: 1px solid var(--cd-border);" onclick="event.stopPropagation()">
                     <p class="text-xs font-semibold text-cd-text-dim uppercase tracking-wider mb-2">Extras opcionales</p>
                     ${svc.extras.map(extra => {
                         const extraSelected = svcExtras[extra.id];

@@ -5,7 +5,22 @@
 
 /* --- Dark Mode (Default) --- */
 :root {
-    --cd-base: #0f172a;
+    /* User Requested Variables */
+    --color-primary: #5B4EFF;       /* morado principal */
+    --color-primary-hover: #4a3edb;
+    --color-bg: #0f172a;            /* fondo oscuro por defecto (dark mode) */
+    --color-surface: #1e293b;
+    --color-text: #f1f5f9;
+    --color-text-muted: #94a3b8;
+    --color-border: #334155;
+    --color-footer-bg: #1e293b;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --radius-card: 12px;
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.07);
+
+    /* Existing Variables (Aliased where possible or kept for compatibility) */
+    --cd-base: var(--color-bg);
     --cd-base-dark: #020617;
     --cd-base-light: #1e293b;
     --cd-base-lighter: #334155;
@@ -13,25 +28,25 @@
     --cd-purple-medium: #312e81;
     --cd-purple-light: #4338ca;
     --cd-lavender: #6366f1;
-    --cd-magenta: #4f46e5;
+    --cd-magenta: var(--color-primary);
     --cd-cream: #f1f5f9;
     --cd-dark-grey: #1a1a1a;
     --cd-white: #ffffff;
     --cd-shadow-color: rgba(0, 0, 0, 0.15);
-    --cd-highlight-color: #6366f1;
+    --cd-highlight-color: var(--color-primary);
     --cd-accent-cyan: #22d3ee;
     --cd-accent-green: #22c55e;
     --cd-accent-purple: #a855f7;
     --cd-alert-red: #dc2626;
     --cd-text-strong: #f8fafc;
-    --cd-text-muted: #cbd5e1;
+    --cd-text-muted: var(--color-text-muted);
     --cd-text-dim: #64748b;
     --cd-slate: #94a3b8;
-    --cd-surface: #1e293b;
+    --cd-surface: var(--color-surface);
     --cd-surface-hover: #334155;
-    --cd-border: rgba(255, 255, 255, 0.08);
-    --cd-card-bg: #1e293b;
-    --cd-card-text: #f1f5f9;
+    --cd-border: var(--color-border);
+    --cd-card-bg: var(--color-surface);
+    --cd-card-text: var(--color-text);
     --cd-input-bg: #0f172a;
     --cd-input-border: rgba(255, 255, 255, 0.12);
     --shadow-color: var(--cd-shadow-color);
@@ -48,7 +63,16 @@
 
 /* --- Light Mode --- */
 :root[data-theme="light"] {
-    --cd-base: #f8fafc;
+    /* User Requested Variables */
+    --color-bg: #f8f9fb;            /* fondo claro por defecto */
+    --color-surface: #ffffff;
+    --color-text: #0f172a;
+    --color-text-muted: #64748b;
+    --color-border: #e2e8f0;
+    --color-footer-bg: #dde3ef;
+
+    /* Existing Variables (Aliased) */
+    --cd-base: var(--color-bg);
     --cd-base-dark: #e2e8f0;
     --cd-base-light: #f1f5f9;
     --cd-base-lighter: #cbd5e1;
@@ -56,21 +80,21 @@
     --cd-purple-medium: #e0e7ff;
     --cd-purple-light: #6366f1;
     --cd-lavender: #4f46e5;
-    --cd-magenta: #4f46e5;
+    --cd-magenta: var(--color-primary);
     --cd-cream: #0f172a;
     --cd-dark-grey: #f8fafc;
     --cd-white: #ffffff;
     --cd-shadow-color: rgba(0, 0, 0, 0.06);
-    --cd-highlight-color: #4f46e5;
+    --cd-highlight-color: var(--color-primary);
     --cd-text-strong: #0f172a;
-    --cd-text-muted: #475569;
+    --cd-text-muted: var(--color-text-muted);
     --cd-text-dim: #64748b;
     --cd-slate: #94a3b8;
-    --cd-surface: #ffffff;
+    --cd-surface: var(--color-surface);
     --cd-surface-hover: #f1f5f9;
-    --cd-border: rgba(0, 0, 0, 0.1);
-    --cd-card-bg: #ffffff;
-    --cd-card-text: #0f172a;
+    --cd-border: var(--color-border);
+    --cd-card-bg: var(--color-surface);
+    --cd-card-text: var(--color-text);
     --cd-input-bg: #f8fafc;
     --cd-input-border: rgba(0, 0, 0, 0.12);
 
@@ -268,6 +292,19 @@ body:has(a:hover, button:hover) #cursor-outline {
 header img {
     filter: var(--logo-filter);
     transition: filter 0.3s ease;
+}
+
+/* Specific Logo Class as requested */
+.logo-img {
+    filter: brightness(0); /* Default for light mode if applicable, but overrides below handle it */
+}
+
+[data-theme="light"] .logo-img {
+    filter: brightness(0); /* Black logo in light mode */
+}
+
+[data-theme="dark"] .logo-img {
+    filter: brightness(0) invert(1); /* White logo in dark mode */
 }
 
 /* --- Marquee --- */
