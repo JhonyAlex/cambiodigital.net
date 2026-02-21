@@ -607,6 +607,7 @@
                     if(container) {
                         container.innerHTML = d;
                         if(window.lucide) window.lucide.createIcons();
+                        if(window.initAnimations) window.initAnimations();
                         try { initServiceForm(); } catch(err) { console.error('Error initServiceForm:', err); }
                     }
                 })

@@ -115,6 +115,18 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* --- Uniform Mobile Margins --- */
+@media (max-width: 767px) {
+    main > section {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+    footer {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+}
+
 /* --- Transitions for all theme-dependent properties --- */
 *, *::before, *::after {
     transition-property: background-color, border-color, color, fill, stroke;
@@ -288,11 +300,12 @@ body:has(a:hover, button:hover) #cursor-outline {
     transition: background 0.3s ease;
 }
 
-/* --- Logo Filter --- */
-.logo-img {
-    filter: var(--logo-filter);
-    transition: filter 0.3s ease;
-}
+/* --- Logo Visibility per Theme --- */
+.logo-dark { display: block; }
+.logo-light { display: none; }
+
+:root[data-theme="light"] .logo-dark { display: none; }
+:root[data-theme="light"] .logo-light { display: block; }
 
 /* --- Marquee --- */
 @keyframes marquee {
