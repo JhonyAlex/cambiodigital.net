@@ -301,11 +301,14 @@ body:has(a:hover, button:hover) #cursor-outline {
 }
 
 /* --- Logo Visibility per Theme --- */
-.logo-dark { display: block; }
-.logo-light { display: none; }
+.logo-dark { display: block !important; }
+.logo-light { display: none !important; }
 
-:root[data-theme="light"] .logo-dark { display: none; }
-:root[data-theme="light"] .logo-light { display: block; }
+[data-theme="light"] .logo-dark { display: none !important; }
+[data-theme="light"] .logo-light { display: block !important; }
+
+[data-theme="dark"] .logo-dark { display: block !important; }
+[data-theme="dark"] .logo-light { display: none !important; }
 
 /* --- Marquee --- */
 @keyframes marquee {
