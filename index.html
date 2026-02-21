@@ -483,7 +483,7 @@
         <div class="section-divider"></div>
 
         <!-- ===== 10. CONTACTO ===== -->
-        <section id="contacto" class="w-full py-24 px-4">
+        <section id="contacto" class="w-full pt-24 pb-12 px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
                     <h2 class="reveal font-black text-4xl md:text-5xl mb-4">Hablemos</h2>
@@ -499,7 +499,7 @@
         </section>
 
         <!-- ===== CTA FINAL ===== -->
-        <section class="w-full py-20 px-4">
+        <section class="w-full pt-12 pb-20 px-4">
             <div class="max-w-3xl mx-auto text-center">
                 <div class="reveal card-modern p-12" style="background: linear-gradient(135deg, var(--cd-surface), var(--cd-base));">
                     <h2 class="font-black text-3xl md:text-4xl mb-4">Listo para dejar de perder ventas?</h2>
@@ -548,11 +548,11 @@
             ['simple','service','schedule'].forEach(t => {
                 document.getElementById('form-'+t)?.classList.add('hidden');
                 const tab = document.getElementById('tab-'+t);
-                if(tab) { tab.classList.remove('bg-black','text-white'); tab.classList.add('bg-transparent'); }
+                if(tab) { tab.style.background = 'transparent'; tab.style.color = 'var(--color-text)'; }
             });
             document.getElementById('form-'+type)?.classList.remove('hidden');
             const activeTab = document.getElementById('tab-'+type);
-            if(activeTab) { activeTab.classList.add('bg-black','text-white'); activeTab.classList.remove('bg-transparent'); }
+            if(activeTab) { activeTab.style.background = 'var(--cd-highlight-color)'; activeTab.style.color = 'white'; }
         };
         function initServiceForm() {
             const N8N = 'https://n8n.cambiodigital.cloud/webhook/c1692d85-8ad6-4977-b484-541c16463d0a';
