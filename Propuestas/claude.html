@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizador — Cambio Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ─── TOKENS ───────────────────────────────────────────────── */
+  :root {
+    --bg:       #0d1117;
+    --surface:  #161b22;
+    --card:     #1c2330;
+    --border:   #2d3748;
+    --blue:     #0057B7;
+    --teal:     #00C7A3;
+    --teal-dim: rgba(0,199,163,.12);
+    --blue-dim: rgba(0,87,183,.12);
+    --gold:     #F5A623;
+    --gold-dim: rgba(245,166,35,.12);
+    --text:     #e6edf3;
+    --muted:    #8b949e;
+    --danger:   #f85149;
+    --success:  #3fb950;
+    --r:        14px;
+    --font-head:'Sora', sans-serif;
+    --font-body:'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── LAYOUT ─────────────────────────────────────────────── */
+  .shell {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────────── */
+  .brand {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .brand-name {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  /* ─── PROGRESS ───────────────────────────────────────────── */
+  .progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 52px;
+  }
+  .step-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: .85rem;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    transition: all .35s ease;
+  }
+  .step-circle.active  { background: var(--teal); border-color: var(--teal); color: #000; }
+  .step-circle.done    { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .step-label {
+    font-size: .72rem;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color .3s;
+  }
+  .step-label.active, .step-label.done { color: var(--text); }
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    max-width: 90px;
+    margin: 0 6px;
+    position: relative;
+    top: -10px;
+    transition: background .35s;
+  }
+  .step-line.active { background: var(--teal); }
+
+  /* ─── SECTION TITLE ──────────────────────────────────────── */
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    font-size: .95rem;
+    margin-bottom: 36px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── PROBLEM CARDS (Step 1) ─────────────────────────────── */
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .problem-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--r);
+    padding: 22px 20px;
+    cursor: pointer;
+    transition: all .22s ease;
+    text-align: left;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,199,163,.1);
+  }
+  .problem-card.selected {
+    border-color: var(--teal);
+    background: var(--teal-dim);
+    box-shadow: 0 0 0 1px var(--teal), 0 8px 24px rgba(0,199,163,.15);
+  }
+  .problem-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 12px; right: 14px;
+    width: 22px; height: 22px;
+    background: var(--teal);
+    color: #000;
+    border-radius: 50%;
+    font-size: .75rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 22px;
+    text-align: center;
+  }
+  .problem-emoji { font-size: 2rem; margin-bottom: 12px; display: block; line-height: 1; }
+  .problem-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .problem-desc { color: var(--muted); font-size: .82rem; line-height: 1.5; }
+
+  .hint-box {
+    background: var(--blue-dim);
+    border: 1px solid rgba(0,87,183,.3);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+    font-size: .88rem;
+    color: #6cb4f5;
+    margin-bottom: 28px;
+  }
+
+  /* ─── SERVICE CARDS (Step 2) ─────────────────────────────── */
+  .services-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+
+  .svc-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: all .22s ease;
+    position: relative;
+  }
+  .svc-card:hover { border-color: rgba(0,199,163,.4); }
+  .svc-card.selected {
+    border-color: var(--teal);
+    background: linear-gradient(135deg, var(--teal-dim) 0%, var(--card) 100%);
+  }
+  .svc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .svc-left { flex: 1; }
+  .svc-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge-pop {
+    font-size: .68rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--gold);
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    white-space: nowrap;
+  }
+  .badge-new {
+    font-size: .68rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--teal);
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .svc-tagline { color: var(--muted); font-size: .86rem; line-height: 1.5; }
+
+  .svc-price {
+    text-align: right;
+    min-width: 110px;
+    flex-shrink: 0;
+  }
+  .price-amount {
+    font-family: var(--font-head);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--teal);
+    display: block;
+    line-height: 1.1;
+  }
+  .price-type { font-size: .75rem; color: var(--muted); }
+  .price-market {
+    font-size: .75rem;
+    color: var(--muted);
+    text-decoration: line-through;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Impact pills */
+  .impact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .impact-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .76rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .impact-pill.green { color: var(--success); border-color: rgba(63,185,80,.25); background: rgba(63,185,80,.07); }
+  .impact-pill.blue  { color: #6cb4f5;        border-color: rgba(108,180,245,.25); background: rgba(108,180,245,.07); }
+  .impact-pill.gold  { color: var(--gold);    border-color: rgba(245,166,35,.25); background: var(--gold-dim); }
+
+  /* Extras (collapsed by default, expand when card selected) */
+  .extras-panel {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .svc-card.selected .extras-panel { display: block; }
+  .extras-title {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 10px;
+  }
+  .extra-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all .2s;
+    margin-bottom: 6px;
+  }
+  .extra-item:last-child { margin-bottom: 0; }
+  .extra-item:hover { border-color: var(--teal); }
+  .extra-item.active { border-color: var(--teal); background: var(--teal-dim); }
+  .extra-text { flex: 1; }
+  .extra-name { font-weight: 600; font-size: .85rem; }
+  .extra-desc { font-size: .77rem; color: var(--muted); }
+  .extra-price {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--teal);
+    font-size: .9rem;
+    white-space: nowrap;
+  }
+  .extra-check {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all .2s;
+    font-size: .75rem;
+  }
+  .extra-item.active .extra-check { background: var(--teal); border-color: var(--teal); color: #000; }
+
+  /* Section label in step 2 */
+  .category-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 12px;
+    font-family: var(--font-head);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+  .category-label::before, .category-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── SUMMARY PANEL (Step 3) ─────────────────────────────── */
+  .summary-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
+  }
+  .summary-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+  .summary-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .summary-item:last-child { border-bottom: none; }
+  .summary-svc-name { font-size: .9rem; font-weight: 600; }
+  .summary-svc-price { font-size: .9rem; font-weight: 700; color: var(--teal); white-space: nowrap; }
+
+  .totals-block {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+  }
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+  }
+  .totals-row + .totals-row { border-top: 1px solid var(--border); }
+  .totals-label { color: var(--muted); font-size: .9rem; }
+  .totals-value {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+  .totals-value.savings {
+    color: var(--success);
+    font-size: 1.1rem;
+  }
+
+  /* Impact summary */
+  .impact-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .impact-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .impact-box .number {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 800;
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .impact-box .label { font-size: .75rem; color: var(--muted); line-height: 1.3; }
+  .impact-box.clients .number { color: var(--success); }
+  .impact-box.hours .number   { color: #6cb4f5; }
+  .impact-box.probs .number   { color: var(--gold); }
+
+  /* Contact form */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field.full { grid-column: 1 / -1; }
+  label { font-size: .82rem; font-weight: 600; color: var(--muted); }
+  input, textarea {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: .92rem;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color .2s;
+    width: 100%;
+  }
+  input:focus, textarea:focus { border-color: var(--teal); }
+  textarea { resize: vertical; min-height: 80px; }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
+
+  /* ─── BUTTONS ────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: .93rem;
+    padding: 13px 26px;
+    transition: all .2s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--teal);
+    color: #000;
+  }
+  .btn-primary:hover { background: #00e5bb; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,199,163,.3); }
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+  .btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    font-size: 1rem;
+    padding: 15px 28px;
+  }
+  .btn-whatsapp:hover { background: #20bf5b; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,.3); }
+  .btn-lg { width: 100%; padding: 16px; font-size: 1rem; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .btn-row .btn { flex: 1; min-width: 160px; }
+
+  /* ─── STICKY FOOTER BAR (Step 2) ────────────────────────── */
+  .sticky-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(22,27,34,.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform .3s ease;
+  }
+  .sticky-bar.visible { transform: translateY(0); }
+  .sticky-bar-info { display: flex; flex-direction: column; }
+  .sticky-selected { font-size: .8rem; color: var(--muted); }
+  .sticky-price {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--teal);
+  }
+
+  /* ─── SUCCESS SCREEN ─────────────────────────────────────── */
+  .success-screen {
+    text-align: center;
+    padding: 48px 20px;
+    animation: fadeUp .5s ease both;
+  }
+  .success-icon {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(63,185,80,.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    margin: 0 auto 24px;
+    animation: pop .4s cubic-bezier(.175,.885,.32,1.275) .2s both;
+  }
+  .success-title {
+    font-family: var(--font-head);
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .success-sub { color: var(--muted); max-width: 420px; margin: 0 auto 36px; }
+
+  /* ─── ANIMATIONS ─────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    from { transform: scale(0); }
+    to   { transform: scale(1); }
+  }
+  .fade-up { animation: fadeUp .35s ease both; }
+
+  /* ─── MISC ───────────────────────────────────────────────── */
+  .text-center { text-align: center; }
+  .text-muted   { color: var(--muted); font-size: .82rem; }
+  .mt-4  { margin-top: 16px; }
+  .mt-8  { margin-top: 32px; }
+  .mb-6  { margin-bottom: 24px; }
+
+  /* checkmark on selected svc card */
+  .svc-check {
+    width: 28px; height: 28px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: .9rem;
+    transition: all .2s;
+    margin-top: 2px;
+  }
+  .svc-card.selected .svc-check { background: var(--teal); border-color: var(--teal); }
+
+  .no-results {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+  }
+  .no-results-emoji { font-size: 3rem; display: block; margin-bottom: 16px; }
+
+  @media (max-width: 500px) {
+    .impact-summary { grid-template-columns: repeat(3, 1fr); }
+    .impact-box { padding: 12px 8px; }
+    .impact-box .number { font-size: 1.3rem; }
+    .impact-box .label { font-size: .68rem; }
+    .svc-header { flex-direction: column; }
+    .svc-price { text-align: left; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="shell" id="app">
+  <!-- Rendered by JS -->
+</div>
+
+<!-- Sticky bar (Step 2) -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-bar-info">
+    <span class="sticky-selected" id="sticky-count">0 servicios seleccionados</span>
+    <span class="sticky-price" id="sticky-price">$0 USD</span>
+  </div>
+  <button class="btn btn-primary" onclick="App.goTo(3)">
+    Ver mi plan →
+  </button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════
+
+const PROBLEMS = [
+  {
+    id: 'q-mensajes',
+    emoji: '😩',
+    title: 'Me llegan mil mensajes y no doy abasto',
+    desc: 'Respondo lo mismo 20 veces al día y se me escapan clientes.',
+    maps: ['chatbots', 'mensajeria'],
+  },
+  {
+    id: 'q-web',
+    emoji: '🌐',
+    title: 'No tengo web o la mía se ve muy básica',
+    desc: 'Clientes me buscan en Google y no me encuentran o no confían.',
+    maps: ['web'],
+  },
+  {
+    id: 'q-citas',
+    emoji: '📅',
+    title: 'Coordinar citas por WhatsApp es un caos',
+    desc: 'Olvidos, confirmaciones manuales y clientes que no llegan.',
+    maps: ['citas'],
+  },
+  {
+    id: 'q-comunicar',
+    emoji: '📣',
+    title: 'Quiero avisar a todos mis clientes a la vez',
+    desc: 'Promociones, novedades o recordatorios que llegan a todos solos.',
+    maps: ['mensajeria'],
+  },
+  {
+    id: 'q-tienda',
+    emoji: '🛒',
+    title: 'Quiero vender mis productos en internet',
+    desc: 'Tener mi propio catálogo online y recibir pedidos/pagos.',
+    maps: ['web'],
+  },
+  {
+    id: 'q-soporte',
+    emoji: '🛠',
+    title: 'Necesito alguien de confianza para mis sistemas',
+    desc: 'Que cuide, mejore y resuelva problemas en mis herramientas digitales.',
+    maps: ['soporte'],
+  },
+  {
+    id: 'q-marca',
+    emoji: '✨',
+    title: 'Mi negocio no se ve profesional',
+    desc: 'Logo, colores, imagen: quiero que todo se vea de calidad.',
+    maps: ['consultoria'],
+  },
+  {
+    id: 'q-todo',
+    emoji: '🤷',
+    title: 'No sé qué necesito exactamente',
+    desc: 'Solo sé que mi negocio puede mejorar con tecnología.',
+    maps: ['chatbots','web','citas','mensajeria','soporte','consultoria'],
+  },
+];
+
+// Each service: id, category, name, tagline, desc, basePrice, priceType,
+//   marketValue, impacts{clients, hours, problems}, badge?, extras[]
+const SERVICES = [
+  // ── WEB ───────────────────────────────────────────────────────────────
+  {
+    id: 'landing',
+    category: 'web',
+    name: 'Landing Page Profesional',
+    tagline: 'Tu carta de presentación digital lista en días.',
+    desc: 'Una página que transmite confianza, muestra tus servicios y convierte visitantes en clientes. Incluye formulario de contacto, SEO básico y diseño responsivo.',
+    basePrice: 400, marketValue: 650, priceType: 'único',
+    impacts: { clients: '+8/mes', hours: '5h/sem', problems: '2 resueltos' },
+    extras: [
+      { id: 'copy', name: 'Redacción profesional de textos', desc: 'Escribimos todo el contenido por ti.', price: 50, type: 'único' },
+      { id: 'form-adv', name: 'Formulario avanzado', desc: 'Con lógica condicional y notificaciones.', price: 20, type: 'único' },
+    ]
+  },
+  {
+    id: 'web-completo',
+    category: 'web',
+    name: 'Sitio Web Completo',
+    tagline: 'Inicio, Servicios, Quiénes Somos, Blog, Contacto.',
+    desc: 'Hasta 5 páginas con diseño personalizado. SEO técnico, velocidad optimizada y listo para aparecer en Google. La base digital de cualquier negocio serio.',
+    basePrice: 800, marketValue: 1200, priceType: 'único',
+    badge: 'Más elegido',
+    impacts: { clients: '+15/mes', hours: '6h/sem', problems: '3 resueltos' },
+    extras: [
+      { id: 'extra-sec', name: 'Sección extra', desc: 'Galería, equipo, FAQ, testimonios...', price: 40, type: 'único' },
+      { id: 'copy2', name: 'Redacción de todos los textos', desc: 'Copywriting persuasivo completo.', price: 80, type: 'único' },
+    ]
+  },
+  {
+    id: 'tienda',
+    category: 'web',
+    name: 'Tienda Online Completa',
+    tagline: 'Vende tus productos las 24 horas, sin intermediarios.',
+    desc: 'Catálogo completo, carrito de compras, integración de pago y panel de administración fácil. Hasta 30 productos cargados. Tu tienda lista para vender desde el día 1.',
+    basePrice: 2400, marketValue: 3500, priceType: 'único',
+    impacts: { clients: '+30/mes', hours: '20h/sem', problems: '4 resueltos' },
+    extras: [
+      { id: 'mas-prod', name: '50 productos adicionales', desc: 'Cargamos 50 productos más por ti.', price: 100, type: 'único' },
+      { id: 'velocidad', name: 'Optimización de velocidad', desc: 'Carga en menos de 2 segundos.', price: 200, type: 'único' },
+    ]
+  },
+  // ── CHATBOTS ─────────────────────────────────────────────────────────
+  {
+    id: 'chatbot-basico',
+    category: 'chatbots',
+    name: 'Asistente Automático Básico',
+    tagline: 'Responde preguntas frecuentes sin que tú estés presente.',
+    desc: 'Horarios, precios, ubicación, servicios: el asistente responde solo. Funciona en tu web y/o WhatsApp. Tus clientes reciben respuesta inmediata a las 3am si hace falta.',
+    basePrice: 180, marketValue: 300, priceType: 'único',
+    impacts: { clients: '+10/mes', hours: '8h/sem', problems: '3 resueltos' },
+    extras: [
+      { id: 'wa-api', name: 'Canal WhatsApp activo', desc: 'Conecta el bot directamente a WhatsApp Business.', price: 30, type: '/mes' },
+      { id: 'multi-lang', name: 'Multiidioma (ES + EN)', desc: 'Atiende en español e inglés.', price: 80, type: 'único' },
+    ]
+  },
+  {
+    id: 'chatbot-ia',
+    category: 'chatbots',
+    name: 'Asistente con Inteligencia Artificial',
+    tagline: 'Conversa como una persona real. Entiende preguntas complejas.',
+    desc: 'Este asistente usa IA para entender y responder cualquier pregunta, no solo las predefinidas. Aprende de tu negocio y responde con precisión. Como tener un empleado disponible 24/7.',
+    basePrice: 300, marketValue: 500, priceType: 'único',
+    badge: 'Con IA',
+    impacts: { clients: '+18/mes', hours: '15h/sem', problems: '5 resueltos' },
+    extras: [
+      { id: 'ia-gpt', name: 'IA activa (mantenimiento mensual)', desc: 'Incluye motor de IA y actualizaciones.', price: 50, type: '/mes' },
+      { id: 'wa-ia', name: 'Canal WhatsApp', desc: 'Conectar el asistente IA a WhatsApp.', price: 30, type: '/mes' },
+    ]
+  },
+  {
+    id: 'agente-ventas',
+    category: 'chatbots',
+    name: 'Agente IA de Ventas Automáticas',
+    tagline: 'Califica clientes, cotiza y agenda citas mientras duermes.',
+    desc: 'El asistente más completo. Hace las preguntas correctas, descubre qué necesita el cliente, ofrece soluciones y agenda una cita. Cierra el ciclo de ventas sin que tú intervengas.',
+    basePrice: 550, marketValue: 900, priceType: 'único',
+    badge: 'Más potente',
+    impacts: { clients: '+25/mes', hours: '20h/sem', problems: '6 resueltos' },
+    extras: [
+      { id: 'ia-premium', name: 'IA Premium (GPT-4) mensual', desc: 'Respuestas aún más precisas y contextuales.', price: 80, type: '/mes' },
+      { id: 'crm-sync', name: 'Conexión con tu CRM', desc: 'Guarda automáticamente los datos del cliente.', price: 80, type: 'único' },
+      { id: 'calendar', name: 'Agenda en Google Calendar', desc: 'El bot abre citas directamente en tu calendario.', price: 50, type: 'único' },
+    ]
+  },
+  // ── MENSAJERÍA ────────────────────────────────────────────────────────
+  {
+    id: 'masivos',
+    category: 'mensajeria',
+    name: 'Mensajería Masiva',
+    tagline: 'Llega a todos tus clientes con un solo clic.',
+    desc: 'Configura tu canal para enviar promociones, novedades o avisos a cientos de clientes a la vez por WhatsApp o correo. Incluye 3 plantillas profesionales.',
+    basePrice: 150, marketValue: 250, priceType: 'único',
+    impacts: { clients: '+12/mes', hours: '4h/sem', problems: '2 resueltos' },
+    extras: [
+      { id: 'plantillas', name: 'Plantillas adicionales (x3)', desc: '3 diseños más para distintas ocasiones.', price: 40, type: 'único' },
+    ]
+  },
+  {
+    id: 'bienvenida',
+    category: 'mensajeria',
+    name: 'Bienvenida Automática',
+    tagline: 'Cuando alguien nuevo escribe, recibe una respuesta perfecta.',
+    desc: 'Secuencia automática: presentación, información clave y seguimiento. El cliente siente atención inmediata y profesional. Tú no haces nada.',
+    basePrice: 120, marketValue: 200, priceType: 'único',
+    impacts: { clients: '+8/mes', hours: '3h/sem', problems: '2 resueltos' },
+    extras: []
+  },
+  {
+    id: 'recordatorios',
+    category: 'mensajeria',
+    name: 'Recordatorios Automáticos',
+    tagline: 'Menos citas perdidas, menos deudas, menos olvidos.',
+    desc: 'Avisa automáticamente a tus clientes de citas próximas, membresías por vencer o pagos pendientes. Reduce hasta el 70% de los no-shows.',
+    basePrice: 100, marketValue: 180, priceType: 'único',
+    impacts: { clients: '+5/mes', hours: '4h/sem', problems: '3 resueltos' },
+    extras: [
+      { id: 'pago', name: 'Link de pago en el mensaje', desc: 'El cliente paga directo desde el recordatorio.', price: 80, type: 'único' },
+    ]
+  },
+  {
+    id: 'resenas',
+    category: 'mensajeria',
+    name: 'Recolector de Reseñas Google',
+    tagline: 'Más estrellas en Google sin pedirlas tú mismo.',
+    desc: 'Después de cada servicio, el sistema envía automáticamente un mensaje pidiendo reseña. Más reseñas = más confianza = más clientes nuevos.',
+    basePrice: 80, marketValue: 150, priceType: 'único',
+    impacts: { clients: '+6/mes', hours: '2h/sem', problems: '1 resuelto' },
+    extras: [
+      { id: 'google-push', name: 'Enlace directo a Google Reviews', desc: 'Lleva al cliente directo al formulario de reseña.', price: 40, type: 'único' },
+    ]
+  },
+  // ── CITAS ─────────────────────────────────────────────────────────────
+  {
+    id: 'citas-basico',
+    category: 'citas',
+    name: 'Sistema de Citas Online',
+    tagline: 'Tus clientes agendan solos. Sin WhatsApp, sin ida y vuelta.',
+    desc: 'Calendario online donde los clientes ven disponibilidad y reservan. Confirmación y recordatorio automático. Panel simple para administrar tu agenda.',
+    basePrice: 280, marketValue: 450, priceType: 'único',
+    badge: 'Muy popular',
+    impacts: { clients: '+12/mes', hours: '10h/sem', problems: '4 resueltos' },
+    extras: [
+      { id: 'cobro-cita', name: 'Cobro al agendar', desc: 'Elimina los no-shows cobrando por adelantado.', price: 100, type: 'único' },
+    ]
+  },
+  {
+    id: 'citas-ia',
+    category: 'citas',
+    name: 'Agenda Inteligente con IA',
+    tagline: 'El cliente escribe "quiero una cita" y la IA gestiona todo.',
+    desc: 'El asistente conversa por WhatsApp, consulta disponibilidad y agenda la cita automáticamente. Como tener una secretaria que nunca se cansa ni olvida.',
+    basePrice: 500, marketValue: 800, priceType: 'único',
+    badge: 'Con IA',
+    impacts: { clients: '+20/mes', hours: '15h/sem', problems: '5 resueltos' },
+    extras: [
+      { id: 'ia-citas', name: 'IA activa mensual', desc: 'Motor de IA para mantener la agenda funcionando.', price: 50, type: '/mes' },
+      { id: 'multi-prof', name: 'Múltiples profesionales', desc: 'Agenda para todo tu equipo a la vez.', price: 80, type: 'único' },
+    ]
+  },
+  // ── SOPORTE ───────────────────────────────────────────────────────────
+  {
+    id: 'mant-basico',
+    category: 'soporte',
+    name: 'Mantenimiento Web Mensual',
+    tagline: 'Alguien que cuida tu web todos los meses.',
+    desc: 'Hasta 4 cambios de contenido al mes: textos, fotos, precios, horarios. Seguridad y backups incluidos. Sin contratos largos.',
+    basePrice: 50, marketValue: 100, priceType: '/mes',
+    impacts: { clients: '+3/mes', hours: '2h/sem', problems: '2 resueltos' },
+    extras: []
+  },
+  {
+    id: 'it-estandar',
+    category: 'soporte',
+    name: 'IT Partner Estándar',
+    tagline: 'Tu equipo digital externo, siempre disponible.',
+    desc: 'Soporte completo de todos tus sistemas: web, chatbot, mensajería. Cambios ilimitados, prioridad en atención y asesoría mensual de 1 hora para planificar mejoras.',
+    basePrice: 150, marketValue: 300, priceType: '/mes',
+    badge: 'Más vendido',
+    impacts: { clients: '+8/mes', hours: '10h/sem', problems: '6 resueltos' },
+    extras: []
+  },
+  {
+    id: 'it-evolucion',
+    category: 'soporte',
+    name: 'IT Partner Evolución',
+    tagline: 'Crecimiento digital continuo, mes a mes.',
+    desc: 'Todo el plan Estándar más desarrollo de nuevas funcionalidades cada mes. Reunión quincenal estratégica. Para empresas que quieren avanzar rápido.',
+    basePrice: 250, marketValue: 500, priceType: '/mes',
+    impacts: { clients: '+15/mes', hours: '15h/sem', problems: '8 resueltos' },
+    extras: []
+  },
+  // ── CONSULTORÍA ───────────────────────────────────────────────────────
+  {
+    id: 'diagnostico',
+    category: 'consultoria',
+    name: 'Diagnóstico Digital Gratuito',
+    tagline: '30 minutos y sabrás exactamente qué necesitas.',
+    desc: 'Llamada donde analizamos tu negocio y te decimos qué servicios tienes que implementar primero y en qué orden. Sin tecnicismos, sin presión de venta.',
+    basePrice: 0, marketValue: 150, priceType: 'GRATIS',
+    badge: 'GRATIS',
+    impacts: { clients: '+5/mes', hours: '2h/sem', problems: '1 resuelto' },
+    extras: []
+  },
+  {
+    id: 'estudio-soluciones',
+    category: 'consultoria',
+    name: 'Estudio de Soluciones Personalizadas',
+    tagline: 'Tu mapa digital completo: qué implementar y en qué orden.',
+    desc: 'Análisis profundo de tu negocio. Recibes un documento con el plan exacto: servicios recomendados, orden de implementación, costos y resultados esperados. Su valor se descuenta del primer servicio.',
+    basePrice: 150, marketValue: 300, priceType: 'único',
+    impacts: { clients: '+10/mes', hours: '5h/sem', problems: '3 resueltos' },
+    extras: [
+      { id: 'seguimiento', name: 'Sesión de seguimiento a los 30 días', desc: 'Revisamos avances y ajustamos el plan.', price: 60, type: 'único' },
+    ]
+  },
+  {
+    id: 'marca',
+    category: 'consultoria',
+    name: 'Estudio de Marca e Identidad',
+    tagline: 'Logo, colores, tipografía y tono de voz. Tu imagen unificada.',
+    desc: 'Definimos o renovamos tu identidad visual: paleta, tipografías, guía de uso y kit de redes sociales. Todo coherente y profesional.',
+    basePrice: 300, marketValue: 500, priceType: 'único',
+    impacts: { clients: '+8/mes', hours: '3h/sem', problems: '2 resueltos' },
+    extras: [
+      { id: 'kit-redes', name: 'Kit extendido de redes sociales', desc: 'Más formatos y tamaños para todas las plataformas.', price: 80, type: 'único' },
+    ]
+  },
+];
+
+const CATEGORY_LABELS = {
+  web: '🌐 Presencia Web',
+  chatbots: '🤖 Asistentes y Chatbots',
+  mensajeria: '📣 Comunicación Automática',
+  citas: '📅 Sistema de Citas',
+  soporte: '🛠 Mantenimiento y Soporte',
+  consultoria: '🧭 Consultoría',
+};
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+const state = {
+  step: 1,
+  selectedProblems: new Set(),
+  selectedServices: new Set(),   // service ids
+  selectedExtras: {},            // { serviceId: Set<extraId> }
+  contact: { name:'', biz:'', phone:'', email:'', notes:'' },
+};
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+function getRelevantCategories() {
+  if (state.selectedProblems.size === 0) return Object.keys(CATEGORY_LABELS);
+  const cats = new Set();
+  state.selectedProblems.forEach(pid => {
+    const p = PROBLEMS.find(x => x.id === pid);
+    if (p) p.maps.forEach(c => cats.add(c));
+  });
+  return [...cats];
+}
+
+function getService(id) { return SERVICES.find(s => s.id === id); }
+
+function calcTotals() {
+  let oneTime = 0, monthly = 0, market = 0;
+  state.selectedServices.forEach(sid => {
+    const s = getService(sid);
+    if (!s) return;
+    market += s.marketValue;
+    if (s.priceType === '/mes') monthly += s.basePrice;
+    else oneTime += s.basePrice;
+
+    const extras = state.selectedExtras[sid] || new Set();
+    extras.forEach(eid => {
+      const ex = s.extras.find(e => e.id === eid);
+      if (!ex) return;
+      if (ex.type === '/mes') monthly += ex.price;
+      else oneTime += ex.price;
+    });
+  });
+  const savings = market - oneTime - monthly * 3;
+  return { oneTime, monthly, market, savings: Math.max(0, savings) };
+}
+
+function calcImpact() {
+  let clients = 0, hours = 0, problems = 0;
+  state.selectedServices.forEach(sid => {
+    const s = getService(sid);
+    if (!s) return;
+    clients  += parseInt(s.impacts.clients)  || 0;
+    hours    += parseInt(s.impacts.hours)    || 0;
+    problems += parseInt(s.impacts.problems) || 0;
+  });
+  return { clients, hours, problems };
+}
+
+function buildWhatsAppMessage() {
+  const t = calcTotals();
+  const imp = calcImpact();
+  const svcs = [...state.selectedServices].map(id => getService(id)?.name).filter(Boolean);
+  let msg = `¡Hola! Acabo de armar mi plan digital en cambiodigital.net 🙌\n\n`;
+  msg += `*Servicios que me interesan:*\n`;
+  svcs.forEach(n => { msg += `• ${n}\n`; });
+  if (t.oneTime > 0) msg += `\n💰 *Inversión única:* $${t.oneTime.toLocaleString()} USD`;
+  if (t.monthly > 0) msg += `\n🔁 *Mensual:* $${t.monthly.toLocaleString()} USD/mes`;
+  msg += `\n\n¿Me pueden enviar la cotización formal? Gracias 🙏`;
+  return encodeURIComponent(msg);
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER ENGINE
+// ═══════════════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
+const app = () => $('app');
+
+function render() {
+  if (state.step === 1) renderStep1();
+  else if (state.step === 2) renderStep2();
+  else if (state.step === 3) renderStep3();
+
+  updateStickyBar();
+}
+
+// ── STEP 1 ────────────────────────────────────────────────
+function renderStep1() {
+  app().innerHTML = `
+    <div class="brand">
+      <span class="brand-name">Cambio Digital</span>
+    </div>
+
+    ${progressBar(1)}
+
+    <div class="fade-up">
+      <h1 class="section-title">¿Qué está frenando<br>a tu negocio?</h1>
+      <p class="section-sub">Elige todo lo que te representa. Eso nos ayuda a mostrarte solo lo que realmente necesitas.</p>
+
+      <div class="problems-grid">
+        ${PROBLEMS.map(p => `
+          <div class="problem-card ${state.selectedProblems.has(p.id) ? 'selected' : ''}"
+               onclick="App.toggleProblem('${p.id}')">
+            <span class="problem-emoji">${p.emoji}</span>
+            <div class="problem-title">${p.title}</div>
+            <div class="problem-desc">${p.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      ${state.selectedProblems.size > 0 ? `
+        <div class="hint-box">
+          ✅ Perfecto. Identificamos <strong>${state.selectedProblems.size} situación${state.selectedProblems.size > 1 ? 'es' : ''}</strong>. Ahora te mostramos las soluciones exactas.
+        </div>
+      ` : `
+        <div class="hint-box">
+          👆 Elige una o más situaciones. Si no sabes, elige la última opción.
+        </div>
+      `}
+
+      <div style="text-align:center;">
+        <button class="btn btn-primary ${state.selectedProblems.size === 0 ? '' : ''}"
+          onclick="App.goTo(2)"
+          ${state.selectedProblems.size === 0 ? 'disabled' : ''}>
+          Ver mis soluciones →
+        </button>
+        <p class="text-muted mt-4">Sin compromiso. Es gratis explorar.</p>
+      </div>
+    </div>
+  `;
+}
+
+// ── STEP 2 ────────────────────────────────────────────────
+function renderStep2() {
+  const cats = getRelevantCategories();
+  const t = calcTotals();
+
+  let html = `
+    ${progressBar(2)}
+    <div class="fade-up">
+      <h1 class="section-title">Tus soluciones</h1>
+      <p class="section-sub">Selecciona los servicios que quieres. Puedes elegir uno o varios — los precios se suman en tiempo real.</p>
+
+      <div id="services-area">
+  `;
+
+  cats.forEach(cat => {
+    const svcs = SERVICES.filter(s => s.category === cat);
+    if (svcs.length === 0) return;
+    html += `<div class="category-label">${CATEGORY_LABELS[cat] || cat}</div>`;
+    svcs.forEach(svc => { html += renderServiceCard(svc); });
+  });
+
+  html += `
+      </div>
+
+      <div class="btn-row mt-8">
+        <button class="btn btn-secondary" onclick="App.goTo(1)">← Cambiar problemas</button>
+        <button class="btn btn-primary" onclick="App.goTo(3)"
+          ${state.selectedServices.size === 0 ? 'disabled' : ''}>
+          Ver mi plan completo →
+        </button>
+      </div>
+    </div>
+  `;
+
+  app().innerHTML = html;
+}
+
+function renderServiceCard(svc) {
+  const sel = state.selectedServices.has(svc.id);
+  const extras = state.selectedExtras[svc.id] || new Set();
+
+  return `
+    <div class="svc-card ${sel ? 'selected' : ''}" id="svc-${svc.id}">
+      <div class="svc-header" onclick="App.toggleService('${svc.id}')">
+        <div class="svc-left">
+          <div class="svc-name">
+            ${svc.name}
+            ${svc.badge ? `<span class="${svc.badge === 'GRATIS' ? 'badge-new' : 'badge-pop'}">${svc.badge}</span>` : ''}
+          </div>
+          <div class="svc-tagline">${svc.tagline}</div>
+          <div class="impact-row" style="margin-top:10px;">
+            <span class="impact-pill green">📈 ${svc.impacts.clients} clientes est.</span>
+            <span class="impact-pill blue">⏱ Ahorra ${svc.impacts.hours}</span>
+            <span class="impact-pill gold">✅ ${svc.impacts.problems}</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;flex-shrink:0;">
+          <div class="svc-price">
+            <span class="price-amount">
+              ${svc.basePrice === 0 ? 'GRATIS' : '$' + svc.basePrice.toLocaleString()}
+            </span>
+            ${svc.basePrice > 0 ? `<span class="price-type">USD ${svc.priceType}</span>` : ''}
+            ${svc.marketValue > svc.basePrice ? `<span class="price-market">Valor real $${svc.marketValue}</span>` : ''}
+          </div>
+          <div class="svc-check">${sel ? '✓' : ''}</div>
+        </div>
+      </div>
+
+      <div style="color:var(--muted);font-size:.85rem;margin-top:8px;padding-bottom:${svc.extras.length > 0 && sel ? '0' : '0'};"
+           onclick="App.toggleService('${svc.id}')">
+        ${svc.desc}
+      </div>
+
+      ${svc.extras.length > 0 ? `
+        <div class="extras-panel">
+          <div class="extras-title">Agrega estos extras (opcional)</div>
+          ${svc.extras.map(ex => `
+            <div class="extra-item ${extras.has(ex.id) ? 'active' : ''}"
+                 onclick="App.toggleExtra('${svc.id}','${ex.id}')">
+              <div class="extra-text">
+                <div class="extra-name">${ex.name}</div>
+                <div class="extra-desc">${ex.desc}</div>
+              </div>
+              <span class="extra-price">+$${ex.price} ${ex.type}</span>
+              <div class="extra-check">${extras.has(ex.id) ? '✓' : ''}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ── STEP 3 ────────────────────────────────────────────────
+function renderStep3() {
+  const t = calcTotals();
+  const imp = calcImpact();
+  const svcs = [...state.selectedServices].map(id => getService(id)).filter(Boolean);
+
+  app().innerHTML = `
+    ${progressBar(3)}
+    <div class="fade-up">
+      <h1 class="section-title">Tu plan digital 🎉</h1>
+      <p class="section-sub">Esto es lo que elegiste. Compártelo por WhatsApp con un solo toque para que te enviemos la cotización formal.</p>
+
+      <!-- Impact summary -->
+      <div class="impact-summary mb-6">
+        <div class="impact-box clients">
+          <span class="number">+${imp.clients}</span>
+          <span class="label">Clientes potenciales nuevos / mes</span>
+        </div>
+        <div class="impact-box hours">
+          <span class="number">${imp.hours}h</span>
+          <span class="label">Horas ahorradas cada semana</span>
+        </div>
+        <div class="impact-box probs">
+          <span class="number">${imp.problems}</span>
+          <span class="label">Problemas resueltos de tu negocio</span>
+        </div>
+      </div>
+
+      <!-- Selected services -->
+      <div class="summary-card">
+        <div class="summary-title">📋 Lo que incluye tu plan</div>
+        ${svcs.map(svc => {
+          const extras = [...(state.selectedExtras[svc.id] || new Set())].map(eid => svc.extras.find(e=>e.id===eid)).filter(Boolean);
+          return `
+            <div class="summary-item">
+              <div>
+                <div class="summary-svc-name">${svc.name}</div>
+                ${extras.length > 0 ? `<div style="font-size:.78rem;color:var(--muted);margin-top:2px;">+ ${extras.map(e=>e.name).join(', ')}</div>` : ''}
+              </div>
+              <div class="summary-svc-price">
+                $${svc.basePrice} <span style="font-size:.75rem;font-weight:400;">${svc.priceType}</span>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <!-- Totals -->
+      <div class="totals-block">
+        ${t.oneTime > 0 ? `
+          <div class="totals-row">
+            <span class="totals-label">💳 Pago único (se paga una sola vez)</span>
+            <span class="totals-value">$${t.oneTime.toLocaleString()} <small style="font-size:.75rem;font-weight:400;">USD</small></span>
+          </div>
+        ` : ''}
+        ${t.monthly > 0 ? `
+          <div class="totals-row">
+            <span class="totals-label">🔁 Mensual (mantenimiento activo)</span>
+            <span class="totals-value">$${t.monthly.toLocaleString()} <small style="font-size:.75rem;font-weight:400;">USD/mes</small></span>
+          </div>
+        ` : ''}
+        ${t.savings > 0 ? `
+          <div class="totals-row">
+            <span class="totals-label">🎁 Lo que te ahorras vs. precio de mercado</span>
+            <span class="totals-value savings">-$${t.savings.toLocaleString()} USD</span>
+          </div>
+        ` : ''}
+      </div>
+
+      <!-- CTA WhatsApp -->
+      <div style="text-align:center;margin-bottom:32px;">
+        <a href="https://wa.me/573122908416?text=${buildWhatsAppMessage()}"
+           target="_blank"
+           class="btn btn-whatsapp btn-lg"
+           style="max-width:420px;display:inline-flex;margin-bottom:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar mi plan por WhatsApp
+        </a>
+        <p class="text-muted">Abrirá WhatsApp con tu selección. Te respondemos en menos de 2 horas.</p>
+      </div>
+
+      <!-- OR: contact form -->
+      <div style="text-align:center;margin-bottom:20px;">
+        <span class="text-muted">— o completa tus datos y te contactamos nosotros —</span>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-title">📬 Recibir cotización por correo</div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Tu nombre *</label>
+            <input id="f-name" type="text" placeholder="Ej: Juan Pérez" value="${state.contact.name}">
+          </div>
+          <div class="form-field">
+            <label>Tu negocio</label>
+            <input id="f-biz" type="text" placeholder="Nombre de tu empresa" value="${state.contact.biz}">
+          </div>
+          <div class="form-field">
+            <label>WhatsApp / Teléfono *</label>
+            <input id="f-phone" type="tel" placeholder="+57 312 290 8416" value="${state.contact.phone}">
+          </div>
+          <div class="form-field">
+            <label>Correo electrónico</label>
+            <input id="f-email" type="email" placeholder="tu@correo.com" value="${state.contact.email}">
+          </div>
+          <div class="form-field full">
+            <label>¿Algo que quieras aclarar?</label>
+            <textarea id="f-notes" placeholder="Cuéntanos más sobre tu negocio o lo que necesitas...">${state.contact.notes}</textarea>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" id="btn-send" onclick="App.submitForm()">
+          Enviar cotización →
+        </button>
+      </div>
+
+      <div class="btn-row" style="margin-top:20px;justify-content:center;">
+        <button class="btn btn-secondary" onclick="App.goTo(2)">← Cambiar servicios</button>
+      </div>
+
+      <p class="text-muted text-center mt-4">* Precios estimados. La cotización final se confirma en la propuesta. Sin compromiso.</p>
+    </div>
+  `;
+}
+
+// ── SUCCESS ───────────────────────────────────────────────
+function renderSuccess() {
+  const t = calcTotals();
+  const msg = buildWhatsAppMessage();
+  app().innerHTML = `
+    <div class="success-screen">
+      <div class="success-icon">🎉</div>
+      <h2 class="success-title">¡Solicitud enviada!</h2>
+      <p class="success-sub">Recibimos tu plan. Te contactamos en menos de 2 horas con la propuesta detallada.</p>
+
+      <div class="totals-block" style="max-width:380px;margin:0 auto 32px;">
+        ${t.oneTime > 0 ? `<div class="totals-row"><span class="totals-label">Pago único estimado</span><span class="totals-value">$${t.oneTime.toLocaleString()} USD</span></div>` : ''}
+        ${t.monthly > 0 ? `<div class="totals-row"><span class="totals-label">Mensual estimado</span><span class="totals-value">$${t.monthly.toLocaleString()} USD/mes</span></div>` : ''}
+        ${t.savings > 0 ? `<div class="totals-row"><span class="totals-label">Ahorras</span><span class="totals-value savings">$${t.savings.toLocaleString()} USD</span></div>` : ''}
+      </div>
+
+      <a href="https://wa.me/573122908416?text=${msg}" target="_blank" class="btn btn-whatsapp" style="margin-bottom:14px;">
+        Hablar por WhatsApp →
+      </a>
+      <br>
+      <a href="/" class="btn btn-secondary">Volver al inicio</a>
+    </div>
+  `;
+  $('sticky-bar').classList.remove('visible');
+}
+
+// ── PROGRESS BAR ─────────────────────────────────────────
+function progressBar(active) {
+  const steps = [
+    { n: 1, label: '¿Qué necesitas?' },
+    { n: 2, label: 'Elige servicios' },
+    { n: 3, label: 'Tu plan' },
+  ];
+  return `
+    <div class="progress">
+      ${steps.map((s, i) => `
+        ${i > 0 ? `<div class="step-line ${active > s.n ? 'active' : active === s.n ? 'active' : ''}"></div>` : ''}
+        <div class="step-node">
+          <div class="step-circle ${active > s.n ? 'done' : active === s.n ? 'active' : ''}">
+            ${active > s.n ? '✓' : s.n}
+          </div>
+          <span class="step-label ${active >= s.n ? (active === s.n ? 'active' : 'done') : ''}">${s.label}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ── STICKY BAR ────────────────────────────────────────────
+function updateStickyBar() {
+  const bar = $('sticky-bar');
+  if (state.step !== 2) { bar.classList.remove('visible'); return; }
+  const t = calcTotals();
+  const cnt = state.selectedServices.size;
+  if (cnt === 0) { bar.classList.remove('visible'); return; }
+
+  bar.classList.add('visible');
+  $('sticky-count').textContent = `${cnt} servicio${cnt > 1 ? 's' : ''} seleccionado${cnt > 1 ? 's' : ''}`;
+  let priceStr = '';
+  if (t.oneTime > 0) priceStr += `$${t.oneTime.toLocaleString()} USD`;
+  if (t.oneTime > 0 && t.monthly > 0) priceStr += ' + ';
+  if (t.monthly > 0) priceStr += `$${t.monthly.toLocaleString()}/mes`;
+  $('sticky-price').textContent = priceStr;
+}
+
+// ═══════════════════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════════════════
+const N8N_URL = 'https://n8n.cambiodigital.cloud/webhook/c1692d85-8ad6-4977-b484-541c16463d0a';
+
+window.App = {
+  toggleProblem(id) {
+    if (state.selectedProblems.has(id)) state.selectedProblems.delete(id);
+    else state.selectedProblems.add(id);
+    render();
+  },
+
+  toggleService(id) {
+    if (state.selectedServices.has(id)) {
+      state.selectedServices.delete(id);
+      delete state.selectedExtras[id];
+    } else {
+      state.selectedServices.add(id);
+    }
+    // Re-render only the card for performance
+    const el = document.getElementById(`svc-${id}`);
+    if (el) {
+      const svc = getService(id);
+      if (svc) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = renderServiceCard(svc);
+        el.replaceWith(tmp.firstElementChild);
+      }
+    }
+    updateStickyBar();
+  },
+
+  toggleExtra(serviceId, extraId) {
+    if (!state.selectedExtras[serviceId]) state.selectedExtras[serviceId] = new Set();
+    const set = state.selectedExtras[serviceId];
+    if (set.has(extraId)) set.delete(extraId); else set.add(extraId);
+    const el = document.getElementById(`svc-${serviceId}`);
+    if (el) {
+      const svc = getService(serviceId);
+      if (svc) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = renderServiceCard(svc);
+        el.replaceWith(tmp.firstElementChild);
+      }
+    }
+    updateStickyBar();
+  },
+
+  goTo(step) {
+    // Save contact fields if leaving step 3
+    if (state.step === 3) {
+      state.contact.name  = $('f-name')?.value  || state.contact.name;
+      state.contact.biz   = $('f-biz')?.value   || state.contact.biz;
+      state.contact.phone = $('f-phone')?.value  || state.contact.phone;
+      state.contact.email = $('f-email')?.value  || state.contact.email;
+      state.contact.notes = $('f-notes')?.value  || state.contact.notes;
+    }
+    state.step = step;
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
+
+  async submitForm() {
+    const name  = $('f-name')?.value?.trim();
+    const phone = $('f-phone')?.value?.trim();
+    if (!name || !phone) {
+      alert('Por favor completa tu nombre y WhatsApp.');
+      return;
+    }
+
+    state.contact.name  = name;
+    state.contact.biz   = $('f-biz')?.value?.trim()   || '';
+    state.contact.phone = phone;
+    state.contact.email = $('f-email')?.value?.trim()  || '';
+    state.contact.notes = $('f-notes')?.value?.trim()  || '';
+
+    const btn = $('btn-send');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    const t = calcTotals();
+    const imp = calcImpact();
+    const svcs = [...state.selectedServices].map(id => getService(id)?.name).filter(Boolean);
+    const problems = [...state.selectedProblems].map(id => PROBLEMS.find(p=>p.id===id)?.title).filter(Boolean);
+
+    const form = new FormData();
+    form.append('formType', 'quote_calculator_v3');
+    form.append('requester', state.contact.name);
+    form.append('company', state.contact.biz || 'N/A');
+    form.append('contactMethod', 'whatsapp');
+    form.append('contactValue', state.contact.email || 'N/A');
+    form.append('phone', state.contact.phone);
+    form.append('problems', JSON.stringify(problems));
+    form.append('services', JSON.stringify(svcs));
+    form.append('totalOneTime', t.oneTime);
+    form.append('totalMonthly', t.monthly);
+    form.append('savings', t.savings);
+    form.append('impactClients', imp.clients);
+    form.append('impactHours', imp.hours);
+    form.append('comments', state.contact.notes);
+    form.append('message', `
+📋 *Nueva cotización desde el cotizador web*
+
+👤 *Cliente:* ${state.contact.name}
+🏢 *Negocio:* ${state.contact.biz || 'N/A'}
+📱 *Teléfono:* ${state.contact.phone}
+📧 *Email:* ${state.contact.email || 'N/A'}
+
+🎯 *Problemas identificados:*
+${problems.map(p => `• ${p}`).join('\n')}
+
+🛠 *Servicios seleccionados:*
+${svcs.map(s => `• ${s}`).join('\n')}
+
+💰 *Pago único:* $${t.oneTime.toLocaleString()} USD
+🔁 *Mensual:* $${t.monthly.toLocaleString()} USD/mes
+🎁 *Ahorro:* $${t.savings.toLocaleString()} USD
+📈 *Clientes est.:* +${imp.clients}/mes | ⏱ ${imp.hours}h/sem
+
+💬 *Notas:* ${state.contact.notes || 'Ninguna'}
+    `);
+
+    try {
+      const res = await fetch(N8N_URL, { method: 'POST', body: form });
+      if (!res.ok) throw new Error('error');
+      renderSuccess();
+    } catch (e) {
+      alert('Hubo un error. Por favor envía tu plan por WhatsApp usando el botón verde.');
+      btn.textContent = 'Enviar cotización →';
+      btn.disabled = false;
+    }
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+render();
+</script>
+</body>
+</html>

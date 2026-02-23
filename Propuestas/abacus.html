@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurador de Servicios - Cambio Digital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-slate-50 to-white min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    // ==================== DATOS ====================
+    const needOptions = [
+      { id: 'sell-online', title: 'Quiero vender por internet', description: 'Tienda online para vender tus productos 24/7', icon: '🛒', categories: ['Desarrollo Web', 'Paquetes'] },
+      { id: 'be-found', title: 'Quiero que me encuentren online', description: 'Página web profesional y posicionamiento en Google', icon: '🔍', categories: ['Desarrollo Web', 'Comunicación', 'Mantenimiento'] },
+      { id: 'auto-service', title: 'Quiero atender clientes automáticamente', description: 'Chatbots que responden 24/7 sin que estés presente', icon: '🤖', categories: ['Chatbots'] },
+      { id: 'communicate', title: 'Quiero comunicarme mejor con mis clientes', description: 'Mensajería masiva, recordatorios y seguimiento automático', icon: '💬', categories: ['Comunicación', 'CRM y Automatización'] },
+      { id: 'unsure', title: 'No sé qué necesito', description: 'Te ayudamos a descubrir la mejor solución para tu negocio', icon: '❓', categories: ['all'] }
+    ];
+
+    const services = [
+      // Desarrollo Web
+      { id: 'pagina-esencial', name: 'Página Esencial', description: 'Tu tarjeta de presentación en internet con diseño profesional. Incluye 3 secciones, formulario de contacto y se ve perfecta en celular.', price: 400, type: 'one-time', category: 'Desarrollo Web', forWhom: 'Profesionales y nuevos negocios', benefits: ['Estarás visible 24/7 para nuevos clientes', 'Proyectarás imagen profesional'], extras: [{ id: 'redaccion', name: 'Redacción Profesional', price: 50, type: 'one-time', description: 'Textos escritos por profesionales' }] },
+      { id: 'pagina-personalizada', name: 'Página Personalizada', description: 'Sitio web completo diseñado a tu medida. Hasta 6 secciones, optimizado para Google, galería y blog opcional.', price: 800, type: 'one-time', category: 'Desarrollo Web', forWhom: 'Negocios establecidos', benefits: ['Atraerás más clientes con diseño exclusivo', 'Posicionarás mejor en Google'], extras: [{ id: 'seccion-extra', name: 'Sección Extra', price: 40, type: 'one-time', description: 'Sección adicional' }] },
+      { id: 'tienda-esencial', name: 'Tienda Esencial', description: 'Tu primera tienda online con hasta 10 productos, carrito de compras y pasarela de pago lista para vender.', price: 800, type: 'one-time', category: 'Desarrollo Web', forWhom: 'Emprendedores validando ventas online', benefits: ['Podrás vender mientras duermes', 'Recibirás pagos de forma segura'] },
+      { id: 'tienda-avanzada', name: 'Tienda Avanzada', description: 'Tienda completa con hasta 100 productos, cupones, integraciones de envío y panel de estadísticas.', price: 2400, type: 'one-time', category: 'Desarrollo Web', forWhom: 'Negocios en crecimiento', benefits: ['Escalarás tus ventas online', 'Ofrecerás promociones'] },
+      { id: 'tienda-personalizada', name: 'Tienda Personalizada', description: 'E-commerce a medida con productos ilimitados, diseño exclusivo y automatizaciones de marketing.', price: 4000, type: 'one-time', category: 'Desarrollo Web', forWhom: 'Negocios que viven de vender online', benefits: ['Tendrás una plataforma robusta'] },
+      // Chatbots
+      { id: 'chatbot-esencial', name: 'Chatbot Esencial', description: 'Asistente virtual que responde preguntas frecuentes automáticamente. Hasta 20 respuestas programadas.', price: 180, type: 'one-time', category: 'Chatbots', forWhom: 'Pequeños negocios con preguntas repetitivas', benefits: ['Atenderás consultas automáticamente, incluso de noche'], extras: [{ id: 'ia-gpt', name: 'Inteligencia Artificial GPT', price: 50, type: 'monthly', description: 'Respuestas más naturales con IA' }] },
+      { id: 'chatbot-ia-base', name: 'Chatbot IA Base', description: 'Chatbot potenciado con ChatGPT que aprende de tu documentación y responde preguntas complejas.', price: 300, type: 'one-time', category: 'Chatbots', forWhom: 'Negocios con información extensa', benefits: ['Respuestas inteligentes que cierran ventas'] },
+      { id: 'agente-ia-ventas', name: 'Agente IA de Ventas', description: 'Vendedor virtual que califica prospectos, agenda citas y responde consultas de ventas automáticamente.', price: 350, type: 'one-time', category: 'Chatbots', forWhom: 'Consultores y profesionales', benefits: ['Venderás mientras duermes', 'Agendarás citas automáticamente'] },
+      { id: 'chatbot-profesional', name: 'Chatbot Profesional', description: 'Chatbot avanzado conectado a tus bases de datos. Consulta inventario, precios y disponibilidad en tiempo real.', price: 400, type: 'one-time', category: 'Chatbots', forWhom: 'Negocios con catálogos extensos', benefits: ['Mostrarás disponibilidad en tiempo real'] },
+      { id: 'chatbot-ia-profesional', name: 'Chatbot IA Profesional', description: 'Solución completa de atención automatizada con IA avanzada, distribución de conversaciones y etiquetado automático.', price: 1400, type: 'one-time', category: 'Chatbots', forWhom: 'Empresas con alto volumen de consultas', benefits: ['Manejarás alto volumen de mensajes'] },
+      // Comunicación
+      { id: 'formularios-resena', name: 'Formularios de Reseña', description: 'Sistema que solicita automáticamente reseñas a tus clientes satisfechos.', price: 80, type: 'one-time', category: 'Comunicación', forWhom: 'Negocios locales', benefits: ['Mejorarás tu reputación en Google'] },
+      { id: 'seo-mensual', name: 'Optimización SEO Mensual', description: 'Trabajamos cada mes para que tu negocio aparezca más arriba en las búsquedas de Google.', price: 98, type: 'monthly', category: 'Comunicación', forWhom: 'Negocios que quieren clientes desde Google', benefits: ['Aparecerás primero en Google'] },
+      { id: 'mensajeria-masiva', name: 'Mensajería Masiva', description: 'Envía promociones, ofertas o noticias a todos tus clientes por WhatsApp o correo de forma masiva.', price: 150, type: 'one-time', category: 'Comunicación', forWhom: 'Negocios con base de clientes', benefits: ['Llegarás a cientos de clientes con un clic'] },
+      { id: 'seguimiento-pro', name: 'Sistema de Seguimiento Pro', description: 'Sistema automatizado que controla horarios de contacto, gestiona etapas y te avisa cuando el cliente responde.', price: 240, type: 'one-time', category: 'Comunicación', forWhom: 'Vendedores con muchos prospectos', benefits: ['Nunca perderás el seguimiento de un cliente'] },
+      // CRM y Automatización
+      { id: 'auditoria-automatizacion', name: 'Auditoría de Automatización', description: 'Analizamos tus procesos y te decimos exactamente qué puedes automatizar para ahorrar tiempo.', price: 200, type: 'one-time', category: 'CRM y Automatización', forWhom: 'Dueños que pierden tiempo en tareas repetitivas', benefits: ['Descubrirás qué automatizar'] },
+      { id: 'reestructuracion-crm', name: 'Reestructuración CRM', description: 'Organizamos tu sistema de gestión de clientes para que realmente te sirva.', price: 250, type: 'one-time', category: 'CRM y Automatización', forWhom: 'Negocios con CRM desordenado', benefits: ['Organizarás toda tu información de clientes'] },
+      { id: 'automatizaciones-crm', name: 'Automatizaciones para CRM', description: 'Flujos automáticos que asignan clientes, mueven etapas y envían mensajes sin que hagas nada.', price: 600, type: 'one-time', category: 'CRM y Automatización', forWhom: 'Equipos de ventas que quieren escalar', benefits: ['Venderás más sin contratar más personal'] },
+      // Mantenimiento
+      { id: 'hosting-dominio', name: 'Hosting + Dominio (1 año)', description: 'Todo lo que necesitas para que tu sitio exista: dominio personalizado, hosting seguro y correos.', price: 260, type: 'annual', category: 'Mantenimiento', forWhom: 'Cualquier sitio web nuevo', benefits: ['Tu sitio estará siempre disponible'] },
+      { id: 'mantenimiento-basico', name: 'Mantenimiento Web Básico', description: 'Nos encargamos de que tu sitio funcione: actualizaciones de seguridad, respaldos y monitoreo.', price: 50, type: 'monthly', category: 'Mantenimiento', forWhom: 'Dueños de sitios que no quieren preocuparse', benefits: ['Tu sitio estará siempre actualizado'] },
+      // Consultoría
+      { id: 'consultoria-automatizacion', name: 'Consultoría de Automatización', description: 'Sesión de 90 minutos donde analizamos tus procesos y te damos recomendaciones concretas.', price: 150, type: 'one-time', category: 'Consultoría', forWhom: 'Dueños que quieren saber qué automatizar', benefits: ['Sabrás por dónde empezar'] },
+      { id: 'estudio-marca', name: 'Estudio de Marca e Identidad', description: 'Logo profesional, paleta de colores, tipografías y manual de uso básico.', price: 300, type: 'one-time', category: 'Consultoría', forWhom: 'Negocios que necesitan imagen profesional', benefits: ['Tendrás imagen profesional'] }
+    ];
+
+    const packages = [
+      { id: 'primeros-pasos', name: 'Primeros Pasos Digital', description: 'Ideal para emprendedores que arrancan. Todo lo básico para tener presencia online.', price: 600, originalPrice: 660, savings: 60, includedServices: ['Página Esencial', 'Hosting + Dominio (1 año)', 'Soporte post-venta gratuito'], forWhom: 'Emprendedores que arrancan', icon: '🌱' },
+      { id: 'lanzamiento-profesional', name: 'Lanzamiento Profesional', description: 'Tu negocio listo para crecer con imagen y atención automatizada.', price: 1400, originalPrice: 1540, savings: 140, includedServices: ['Página Personalizada', 'Chatbot Esencial', 'Hosting + Dominio (1 año)', 'Estudio de Marca'], forWhom: 'Negocios nuevos con ambición', icon: '🚀' },
+      { id: 'ecommerce-completo', name: 'E-commerce Completo', description: 'Todo para vender online con herramientas de seguimiento y posicionamiento.', price: 2900, originalPrice: 3194, savings: 294, includedServices: ['Tienda Avanzada', 'Hosting + Dominio (1 año)', 'Sistema de Seguimiento Pro', 'SEO (3 meses)'], forWhom: 'Negocios que quieren vender online', icon: '🛍️' },
+      { id: 'atencion-automatizada', name: 'Atención Automatizada', description: 'Nunca pierdas un cliente por falta de respuesta.', price: 530, originalPrice: 590, savings: 60, includedServices: ['Chatbot IA Base', 'Ciclo Bienvenida/Despedida', 'Formularios de Reseña', 'WhatsApp API (3 meses)'], forWhom: 'Negocios de servicios', icon: '🤖' },
+      { id: 'organiza-negocio', name: 'Organiza tu Negocio', description: 'Deja de perder clientes por desorden y falta de seguimiento.', price: 700, originalPrice: 770, savings: 70, includedServices: ['Reestructuración CRM', 'Capacitación CRM (2h)', 'Auditoría de Automatización', 'Sistema de Seguimiento Pro'], forWhom: 'Negocios que pierden clientes por desorden', icon: '📁' },
+      { id: 'transformacion-total', name: 'Transformación Total', description: 'El paquete más completo para una transformación digital seria.', price: 3000, originalPrice: 3400, savings: 400, includedServices: ['Página Personalizada', 'Chatbot IA Profesional', 'Automatizaciones CRM', 'IT Partner (3 meses)', 'Estudio de Marca'], forWhom: 'Negocios listos para transformación seria', icon: '⚡' }
+    ];
+
+    const WHATSAPP_NUMBER = '+1234567890'; // CAMBIAR POR TU NÚMERO
+
+    // ==================== FUNCIONES UTILITARIAS ====================
+    function getServicesByCategories(categories) {
+      if (categories.includes('all')) return services;
+      return services.filter(s => categories.includes(s.category));
+    }
+
+    function calculateTotals(selectedServices, selectedExtras) {
+      let oneTime = 0, monthly = 0, annual = 0;
+      selectedServices.forEach(service => {
+        if (service.type === 'one-time') oneTime += service.price;
+        else if (service.type === 'monthly') monthly += service.price;
+        else if (service.type === 'annual') annual += service.price;
+        const extrasForService = selectedExtras[service.id] || [];
+        (service.extras || []).forEach(extra => {
+          if (extrasForService.includes(extra.id)) {
+            if (extra.type === 'one-time') oneTime += extra.price;
+            else if (extra.type === 'monthly') monthly += extra.price;
+            else if (extra.type === 'annual') annual += extra.price;
+          }
+        });
+      });
+      return { oneTime, monthly, annual };
+    }
+
+    function generateWhatsAppMessage(selectedServices, selectedExtras, selectedPackage, totals) {
+      let message = '🚀 *Mi cotización de Cambio Digital*\n\n';
+      if (selectedPackage) {
+        message += `📦 *Paquete seleccionado:*\n${selectedPackage.name}\n💰 Precio: $${selectedPackage.price} USD\n✨ Ahorro: $${selectedPackage.savings} USD\n\n*Incluye:*\n`;
+        selectedPackage.includedServices.forEach(s => { message += `• ${s}\n`; });
+      } else {
+        message += `📋 *Servicios seleccionados:*\n\n`;
+        selectedServices.forEach(service => {
+          const typeLabel = service.type === 'one-time' ? '(pago único)' : service.type === 'monthly' ? '(mensual)' : '(anual)';
+          message += `✅ ${service.name} - $${service.price} ${typeLabel}\n`;
+          const extrasForService = selectedExtras[service.id] || [];
+          (service.extras || []).forEach(extra => {
+            if (extrasForService.includes(extra.id)) {
+              const extraTypeLabel = extra.type === 'one-time' ? '(pago único)' : extra.type === 'monthly' ? '(mensual)' : '(anual)';
+              message += `   ➕ ${extra.name} - $${extra.price} ${extraTypeLabel}\n`;
+            }
+          });
+        });
+      }
+      message += `\n💵 *Resumen de inversión:*\n`;
+      if (totals.oneTime > 0) message += `• Pago único: $${totals.oneTime} USD\n`;
+      if (totals.monthly > 0) message += `• Mensual: $${totals.monthly} USD/mes\n`;
+      if (totals.annual > 0) message += `• Anual: $${totals.annual} USD/año\n`;
+      message += `\n¡Me interesa saber más! 🙋‍♂️`;
+      return message;
+    }
+
+    // ==================== COMPONENTES ====================
+    function ProgressBar({ currentStep, totalSteps }) {
+      const stepLabels = ['Necesidades', 'Servicios', 'Paquetes', 'Resumen'];
+      const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+      return (
+        <div className="w-full max-w-2xl mx-auto mb-8 px-4">
+          <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
+            <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-500 to-blue-500 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
+          </div>
+          <div className="flex justify-between">
+            {stepLabels.map((label, index) => {
+              const stepNum = index + 1;
+              const isCompleted = currentStep > stepNum;
+              const isCurrent = currentStep === stepNum;
+              return (
+                <div key={stepNum} className="flex flex-col items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                    isCompleted ? 'bg-teal-500 text-white' : isCurrent ? 'bg-blue-500 text-white shadow-lg' : 'bg-gray-200 text-gray-500'
+                  }`}>
+                    {isCompleted ? '✓' : stepNum}
+                  </div>
+                  <span className={`mt-2 text-xs sm:text-sm font-medium ${isCurrent ? 'text-blue-600' : isCompleted ? 'text-teal-600' : 'text-gray-400'}`}>{label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    function StepWelcome({ onSelect }) {
+      return (
+        <div className="w-full max-w-4xl mx-auto px-4 fade-in">
+          <div className="text-center mb-10">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+              ¿Qué necesitas para tu <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-500">negocio</span>?
+            </h1>
+            <p className="text-gray-600 text-lg">Selecciona la opción que mejor describa lo que buscas</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {needOptions.map((option, index) => (
+              <button
+                key={option.id}
+                onClick={() => onSelect(option.id)}
+                className={`relative p-6 sm:p-8 rounded-2xl text-left transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 ${
+                  option.id === 'unsure'
+                    ? 'bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 hover:border-amber-400 hover:shadow-xl'
+                    : 'bg-white border-2 border-gray-100 hover:border-teal-300 hover:shadow-xl hover:shadow-teal-50'
+                }`}
+              >
+                <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 text-3xl ${option.id === 'unsure' ? 'bg-gradient-to-br from-amber-400 to-orange-400' : 'bg-gradient-to-br from-teal-400 to-blue-500'}`}>
+                  {option.icon}
+                </div>
+                <h3 className="text-lg font-bold text-gray-800 mb-2">{option.title}</h3>
+                <p className="text-sm text-gray-500">{option.description}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ServiceCard({ service, isSelected, onToggle, selectedExtras, onToggleExtra }) {
+      const [showExtras, setShowExtras] = useState(false);
+      const hasExtras = (service.extras || []).length > 0;
+      const typeLabel = service.type === 'one-time' ? 'pago único' : service.type === 'monthly' ? 'mensual' : 'anual';
+      const typeBadgeColor = service.type === 'one-time' ? 'bg-teal-100 text-teal-700' : service.type === 'monthly' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700';
+
+      return (
+        <div className={`rounded-2xl border-2 transition-all duration-300 overflow-hidden ${isSelected ? 'border-teal-400 bg-teal-50/50 shadow-lg shadow-teal-100' : 'border-gray-100 bg-white hover:border-gray-200 hover:shadow-md'}`}>
+          <div className="p-5">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 flex-wrap mb-2">
+                  <h3 className="font-bold text-gray-800">{service.name}</h3>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${typeBadgeColor}`}>{typeLabel}</span>
+                </div>
+                <p className="text-sm text-gray-500 mb-3">{service.description}</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-2xl font-bold text-gray-800">${service.price}</span>
+                  <span className="text-sm text-gray-500">USD</span>
+                  {service.type !== 'one-time' && <span className="text-xs text-gray-400">/{service.type === 'monthly' ? 'mes' : 'año'}</span>}
+                </div>
+              </div>
+              <button onClick={onToggle} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isSelected ? 'bg-teal-500 text-white shadow-md' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}>
+                {isSelected ? '✓' : '+'}
+              </button>
+            </div>
+            {service.benefits && service.benefits.length > 0 && (
+              <div className="mt-3 flex items-center gap-1 text-xs text-teal-600">ℹ️ <span>{service.benefits[0]}</span></div>
+            )}
+            {hasExtras && (
+              <button onClick={() => setShowExtras(!showExtras)} className="mt-3 flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700">
+                {showExtras ? '▲' : '▼'} {showExtras ? 'Ocultar extras' : `Ver ${service.extras.length} extras disponibles`}
+              </button>
+            )}
+          </div>
+          {showExtras && hasExtras && (
+            <div className="border-t border-gray-100 bg-gray-50/50 p-4 space-y-2">
+              {service.extras.map((extra) => {
+                const extraSelected = selectedExtras.includes(extra.id);
+                const extraTypeLabel = extra.type === 'one-time' ? '' : extra.type === 'monthly' ? '/mes' : '/año';
+                return (
+                  <button key={extra.id} onClick={() => onToggleExtra(extra.id)} className={`w-full flex items-center justify-between p-3 rounded-xl transition-all ${extraSelected ? 'bg-blue-100 border border-blue-300' : 'bg-white border border-gray-200 hover:border-blue-200'}`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${extraSelected ? 'bg-blue-500 border-blue-500 text-white' : 'border-gray-300'}`}>
+                        {extraSelected && '✓'}
+                      </div>
+                      <div className="text-left">
+                        <p className="text-sm font-medium text-gray-700">{extra.name}</p>
+                        <p className="text-xs text-gray-500">{extra.description}</p>
+                      </div>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-700">+${extra.price}{extraTypeLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function StepServices({ selectedNeed, selectedServices, selectedExtras, onToggleService, onToggleExtra, onBack, onNext }) {
+      const selectedOption = needOptions.find(o => o.id === selectedNeed);
+      const filteredServices = getServicesByCategories(selectedOption?.categories || ['all']);
+      const canContinue = selectedServices.length > 0;
+
+      return (
+        <div className="w-full max-w-4xl mx-auto px-4 fade-in">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">Servicios recomendados para ti</h2>
+            <p className="text-gray-600">Selecciona los servicios que necesitas. Puedes elegir varios.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {filteredServices.map((service) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                isSelected={selectedServices.some(s => s.id === service.id)}
+                onToggle={() => onToggleService(service)}
+                selectedExtras={selectedExtras[service.id] || []}
+                onToggleExtra={(extraId) => onToggleExtra(service.id, extraId)}
+              />
+            ))}
+          </div>
+          <div className="flex items-center justify-between">
+            <button onClick={onBack} className="flex items-center gap-2 px-5 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-colors">← Volver</button>
+            <button onClick={onNext} disabled={!canContinue} className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${canContinue ? 'bg-gradient-to-r from-teal-500 to-blue-500 text-white hover:shadow-lg' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}>
+              Continuar →
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    function PackageCard({ pkg, isSelected, onSelect }) {
+      return (
+        <button onClick={onSelect} className={`w-full text-left p-6 rounded-2xl border-2 transition-all hover:scale-[1.02] hover:-translate-y-1 ${isSelected ? 'border-teal-400 bg-gradient-to-br from-teal-50 to-blue-50 shadow-xl shadow-teal-100' : 'border-gray-100 bg-white hover:border-gray-200 hover:shadow-lg'}`}>
+          <div className="flex items-start justify-between mb-4">
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${isSelected ? 'bg-gradient-to-br from-teal-400 to-blue-500' : 'bg-gray-100'}`}>{pkg.icon}</div>
+            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${isSelected ? 'bg-teal-500 border-teal-500 text-white' : 'border-gray-300'}`}>
+              {isSelected && '✓'}
+            </div>
+          </div>
+          <h3 className="text-lg font-bold text-gray-800 mb-1">{pkg.name}</h3>
+          <p className="text-sm text-gray-500 mb-4">{pkg.description}</p>
+          <div className="flex items-baseline gap-2 mb-3">
+            <span className="text-3xl font-bold text-gray-800">${pkg.price}</span>
+            <span className="text-sm text-gray-400 line-through">${pkg.originalPrice}</span>
+            <span className="text-sm font-semibold text-green-600">-{Math.round((pkg.savings / pkg.originalPrice) * 100)}%</span>
+          </div>
+          <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-4">✨ Ahorras ${pkg.savings} USD</div>
+          <div className="space-y-2">
+            <p className="text-xs font-semibold text-gray-500 uppercase">Incluye:</p>
+            {pkg.includedServices.map((service, idx) => (
+              <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">✓ <span>{service}</span></div>
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-gray-400">Ideal para: {pkg.forWhom}</p>
+        </button>
+      );
+    }
+
+    function StepPackages({ selectedServices, selectedExtras, selectedPackage, onSelectPackage, onBack, onNext }) {
+      const individualTotals = calculateTotals(selectedServices, selectedExtras);
+      const totalIndividual = individualTotals.oneTime + individualTotals.monthly * 12 + individualTotals.annual;
+
+      return (
+        <div className="w-full max-w-5xl mx-auto px-4 fade-in">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">¿Te interesa un paquete con descuento?</h2>
+            <p className="text-gray-600">Ahorra más eligiendo un paquete. O continúa con tu selección individual.</p>
+          </div>
+          {selectedServices.length > 0 && (
+            <div className="mb-8 p-5 rounded-2xl bg-gray-50 border border-gray-200">
+              <h3 className="font-semibold text-gray-700 mb-3">Tu selección individual:</h3>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {selectedServices.map((service) => (
+                  <span key={service.id} className="px-3 py-1 rounded-full bg-white border border-gray-200 text-sm text-gray-700">{service.name}</span>
+                ))}
+              </div>
+              <p className="text-sm text-gray-500">Total estimado: <span className="font-bold text-gray-800">${totalIndividual} USD</span>{individualTotals.monthly > 0 && <span> + ${individualTotals.monthly}/mes</span>}</p>
+            </div>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {packages.map((pkg) => (
+              <PackageCard key={pkg.id} pkg={pkg} isSelected={selectedPackage?.id === pkg.id} onSelect={() => onSelectPackage(selectedPackage?.id === pkg.id ? null : pkg)} />
+            ))}
+          </div>
+          <div className="flex items-center justify-between">
+            <button onClick={onBack} className="flex items-center gap-2 px-5 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-colors">← Volver</button>
+            <button onClick={onNext} className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-teal-500 to-blue-500 text-white hover:shadow-lg transition-all">
+              {selectedPackage ? 'Continuar con paquete' : 'Continuar sin paquete'} →
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    function StepSummary({ selectedServices, selectedExtras, selectedPackage, onBack, onReset }) {
+      const totals = useMemo(() => {
+        if (selectedPackage) return { oneTime: selectedPackage.price, monthly: 0, annual: 0 };
+        return calculateTotals(selectedServices, selectedExtras);
+      }, [selectedServices, selectedExtras, selectedPackage]);
+
+      const whatsappMessage = generateWhatsAppMessage(selectedServices, selectedExtras, selectedPackage, totals);
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(whatsappMessage)}`;
+
+      const benefits = useMemo(() => {
+        const allBenefits = [];
+        if (selectedPackage) {
+          allBenefits.push('Ahorrarás dinero con el paquete', 'Tendrás una solución integral', 'Recibirás soporte prioritario');
+        } else {
+          selectedServices.forEach(service => { if (service.benefits) allBenefits.push(...service.benefits); });
+        }
+        return [...new Set(allBenefits)].slice(0, 6);
+      }, [selectedServices, selectedPackage]);
+
+      const hasSelection = selectedPackage || selectedServices.length > 0;
+
+      return (
+        <div className="w-full max-w-4xl mx-auto px-4 fade-in">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">{hasSelection ? '¡Tu cotización está lista!' : 'No has seleccionado nada aún'}</h2>
+            <p className="text-gray-600">{hasSelection ? 'Revisa tu selección y envíala por WhatsApp' : 'Vuelve atrás y selecciona servicios o un paquete'}</p>
+          </div>
+          {hasSelection && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">✓ Tu selección</h3>
+                {selectedPackage ? (
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-teal-50 to-blue-50 border border-teal-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold text-gray-800">{selectedPackage.name}</span>
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-medium">✨ -${selectedPackage.savings}</span>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-3">{selectedPackage.description}</p>
+                    <div className="space-y-1">
+                      {selectedPackage.includedServices.map((service, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">✓ {service}</div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {selectedServices.map((service) => {
+                      const serviceExtras = selectedExtras[service.id] || [];
+                      const typeLabel = service.type === 'one-time' ? '(único)' : service.type === 'monthly' ? '(mensual)' : '(anual)';
+                      return (
+                        <div key={service.id} className="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                          <div className="flex items-center justify-between">
+                            <span className="font-medium text-gray-800">{service.name}</span>
+                            <span className="text-sm text-gray-600">${service.price} {typeLabel}</span>
+                          </div>
+                          {serviceExtras.length > 0 && (
+                            <div className="mt-2 pl-3 border-l-2 border-blue-200 space-y-1">
+                              {(service.extras || []).filter(e => serviceExtras.includes(e.id)).map((extra) => (
+                                <div key={extra.id} className="flex items-center justify-between text-sm">
+                                  <span className="text-gray-600">+ {extra.name}</span>
+                                  <span className="text-gray-500">${extra.price}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                  <h4 className="text-sm font-semibold text-gray-500 uppercase mb-3">Inversión total</h4>
+                  {totals.oneTime > 0 && <div className="flex justify-between items-center mb-2"><span className="text-gray-600">Pago único</span><span className="text-xl font-bold text-gray-800">${totals.oneTime} USD</span></div>}
+                  {totals.monthly > 0 && <div className="flex justify-between items-center mb-2"><span className="text-gray-600">Mensual</span><span className="text-lg font-semibold text-blue-600">${totals.monthly} USD/mes</span></div>}
+                  {totals.annual > 0 && <div className="flex justify-between items-center"><span className="text-gray-600">Anual</span><span className="text-lg font-semibold text-purple-600">${totals.annual} USD/año</span></div>}
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-teal-500 to-blue-600 rounded-2xl p-6 text-white">
+                <h3 className="font-bold mb-4 flex items-center gap-2">📈 Con estos servicios podrás:</h3>
+                <div className="space-y-3">
+                  {benefits.map((benefit, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">✓</div>
+                      <span className="text-white/90">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 pt-4 border-t border-white/20 grid grid-cols-2 gap-4">
+                  <div className="text-center"><div className="text-2xl font-bold">24/7</div><p className="text-xs text-white/70">Disponibilidad online</p></div>
+                  <div className="text-center"><div className="text-2xl font-bold">+50%</div><p className="text-xs text-white/70">Más clientes potenciales</p></div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <button onClick={onBack} className="flex items-center gap-2 px-5 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-colors">← Volver</button>
+              <button onClick={onReset} className="flex items-center gap-2 px-5 py-3 rounded-xl text-gray-500 hover:bg-gray-100 transition-colors">🔄 Empezar de nuevo</button>
+            </div>
+            {hasSelection && (
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 rounded-2xl font-bold bg-green-500 text-white hover:bg-green-600 shadow-lg shadow-green-200 transition-all hover:scale-[1.02]">
+                💬 Enviar por WhatsApp
+              </a>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ==================== APP PRINCIPAL ====================
+    function App() {
+      const [currentStep, setCurrentStep] = useState(1);
+      const [selectedNeed, setSelectedNeed] = useState(null);
+      const [selectedServices, setSelectedServices] = useState([]);
+      const [selectedExtras, setSelectedExtras] = useState({});
+      const [selectedPackage, setSelectedPackage] = useState(null);
+
+      const toggleService = (service) => {
+        setSelectedServices(prev => {
+          const exists = prev.some(s => s.id === service.id);
+          if (exists) {
+            const newExtras = { ...selectedExtras };
+            delete newExtras[service.id];
+            setSelectedExtras(newExtras);
+            return prev.filter(s => s.id !== service.id);
+          }
+          return [...prev, service];
+        });
+      };
+
+      const toggleExtra = (serviceId, extraId) => {
+        setSelectedExtras(prev => {
+          const current = prev[serviceId] || [];
+          const exists = current.includes(extraId);
+          return { ...prev, [serviceId]: exists ? current.filter(id => id !== extraId) : [...current, extraId] };
+        });
+      };
+
+      const handleSelectNeed = (needId) => {
+        setSelectedNeed(needId);
+        setCurrentStep(2);
+      };
+
+      const reset = () => {
+        setCurrentStep(1);
+        setSelectedNeed(null);
+        setSelectedServices([]);
+        setSelectedExtras({});
+        setSelectedPackage(null);
+      };
+
+      return (
+        <div className="min-h-screen py-8 sm:py-12">
+          <div className="max-w-6xl mx-auto">
+            <ProgressBar currentStep={currentStep} totalSteps={4} />
+            {currentStep === 1 && <StepWelcome onSelect={handleSelectNeed} />}
+            {currentStep === 2 && (
+              <StepServices
+                selectedNeed={selectedNeed}
+                selectedServices={selectedServices}
+                selectedExtras={selectedExtras}
+                onToggleService={toggleService}
+                onToggleExtra={toggleExtra}
+                onBack={() => setCurrentStep(1)}
+                onNext={() => setCurrentStep(3)}
+              />
+            )}
+            {currentStep === 3 && (
+              <StepPackages
+                selectedServices={selectedServices}
+                selectedExtras={selectedExtras}
+                selectedPackage={selectedPackage}
+                onSelectPackage={setSelectedPackage}
+                onBack={() => setCurrentStep(2)}
+                onNext={() => setCurrentStep(4)}
+              />
+            )}
+            {currentStep === 4 && (
+              <StepSummary
+                selectedServices={selectedServices}
+                selectedExtras={selectedExtras}
+                selectedPackage={selectedPackage}
+                onBack={() => setCurrentStep(3)}
+                onReset={reset}
+              />
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
