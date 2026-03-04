@@ -3,7 +3,7 @@
  * Service taxonomy, state management, price calculation, n8n webhook.
  */
 
-(function() {
+(function () {
     'use strict';
 
     const N8N_WEBHOOK_URL = 'https://n8n.cambiodigital.cloud/webhook/c1692d85-8ad6-4977-b484-541c16463d0a';
@@ -22,28 +22,28 @@
                     id: 'chatbot-essential',
                     name: 'Chatbot Esencial',
                     description: 'Atención automática con árbol de decisiones. Respuestas rápidas 24/7.',
-                    basePrice: 180,
-                    marketValue: 300,
+                    basePrice: 270,
+                    marketValue: 450,
                     priceType: 'one-time',
                     features: ['Respuestas Rápidas', 'Lógica de Árbol', 'Multi-canal'],
                     extras: [
-                        { id: 'ai-gpt', name: 'Inteligencia Artificial (GPT)', price: 50, type: 'monthly', description: 'Respuestas inteligentes con IA' },
-                        { id: 'whatsapp-api', name: 'WhatsApp API Oficial', price: 30, type: 'monthly', description: 'Canal verificado de WhatsApp Business' },
-                        { id: 'multi-language', name: 'Multiidioma (ES/EN)', price: 80, type: 'one-time', description: 'Soporte en español e inglés' }
+                        { id: 'ai-gpt', name: 'Inteligencia Artificial (GPT)', price: 75, type: 'monthly', description: 'Respuestas inteligentes con IA' },
+                        { id: 'whatsapp-api', name: 'WhatsApp API Oficial', price: 45, type: 'monthly', description: 'Canal verificado de WhatsApp Business' },
+                        { id: 'multi-language', name: 'Multiidioma (ES/EN)', price: 120, type: 'one-time', description: 'Soporte en español e inglés' }
                     ]
                 },
                 {
                     id: 'ai-sales-agent',
                     name: 'Agente IA de Ventas',
                     description: 'Califica leads, agenda citas y cierra ventas mientras tú duermes.',
-                    basePrice: 350,
-                    marketValue: 600,
+                    basePrice: 525,
+                    marketValue: 900,
                     priceType: 'one-time',
                     features: ['Calificación de Leads', 'Agenda Automática', 'Seguimiento Inteligente'],
                     extras: [
-                        { id: 'calendar-integration', name: 'Integración Google Calendar', price: 50, type: 'one-time', description: 'Agenda citas automáticamente' },
-                        { id: 'crm-sync', name: 'Sincronización con CRM', price: 80, type: 'one-time', description: 'Datos sincronizados con tu CRM' },
-                        { id: 'ai-token-premium', name: 'IA Premium (GPT-4)', price: 80, type: 'monthly', description: 'Respuestas avanzadas y contextuales' }
+                        { id: 'calendar-integration', name: 'Integración Google Calendar', price: 75, type: 'one-time', description: 'Agenda citas automáticamente' },
+                        { id: 'crm-sync', name: 'Sincronización con CRM', price: 120, type: 'one-time', description: 'Datos sincronizados con tu CRM' },
+                        { id: 'ai-token-premium', name: 'IA Premium (GPT-4)', price: 120, type: 'monthly', description: 'Respuestas avanzadas y contextuales' }
                     ]
                 }
             ]
@@ -58,49 +58,49 @@
                     id: 'mass-messaging',
                     name: 'Mensajería Masiva',
                     description: 'Campañas a listas segmentadas por WhatsApp o email.',
-                    basePrice: 150,
-                    marketValue: 250,
+                    basePrice: 225,
+                    marketValue: 375,
                     priceType: 'one-time',
                     features: ['Segmentación', 'Plantillas', 'Reportes de Apertura'],
                     extras: [
-                        { id: 'template-design', name: 'Diseño de Plantillas (x5)', price: 60, type: 'one-time', description: '5 plantillas profesionales' },
-                        { id: 'whatsapp-broadcast', name: 'Canal WhatsApp Business', price: 30, type: 'monthly', description: 'Envíos por WhatsApp API' }
+                        { id: 'template-design', name: 'Diseño de Plantillas (x5)', price: 90, type: 'one-time', description: '5 plantillas profesionales' },
+                        { id: 'whatsapp-broadcast', name: 'Canal WhatsApp Business', price: 45, type: 'monthly', description: 'Envíos por WhatsApp API' }
                     ]
                 },
                 {
                     id: 'welcome-farewell',
                     name: 'Ciclo Bienvenida / Despedida',
                     description: 'Secuencias automáticas cuando un cliente se une o se va.',
-                    basePrice: 120,
-                    marketValue: 200,
+                    basePrice: 180,
+                    marketValue: 300,
                     priceType: 'one-time',
                     features: ['Onboarding Automático', 'Encuesta de Salida', 'Triggers'],
                     extras: [
-                        { id: 'custom-sequences', name: 'Secuencias Personalizadas (+3)', price: 40, type: 'one-time', description: '3 secuencias adicionales' }
+                        { id: 'custom-sequences', name: 'Secuencias Personalizadas (+3)', price: 60, type: 'one-time', description: '3 secuencias adicionales' }
                     ]
                 },
                 {
                     id: 'membership-reminders',
                     name: 'Recordatorios de Membresía',
                     description: 'Alertas automáticas de vencimiento, renovación y pagos.',
-                    basePrice: 100,
-                    marketValue: 180,
+                    basePrice: 150,
+                    marketValue: 270,
                     priceType: 'one-time',
                     features: ['Recordatorios Auto', 'Multi-canal', 'Escalamiento'],
                     extras: [
-                        { id: 'payment-integration', name: 'Integración Pasarela de Pago', price: 80, type: 'one-time', description: 'Cobros automáticos' }
+                        { id: 'payment-integration', name: 'Integración Pasarela de Pago', price: 120, type: 'one-time', description: 'Cobros automáticos' }
                     ]
                 },
                 {
                     id: 'review-forms',
                     name: 'Formularios de Reseña',
                     description: 'Encuestas post-servicio para recopilar testimonios.',
-                    basePrice: 80,
-                    marketValue: 150,
+                    basePrice: 120,
+                    marketValue: 225,
                     priceType: 'one-time',
                     features: ['NPS Score', 'Google Reviews', 'Post-Compra'],
                     extras: [
-                        { id: 'google-review-push', name: 'Push a Google Reviews', price: 40, type: 'one-time', description: 'Envío directo a Google' }
+                        { id: 'google-review-push', name: 'Push a Google Reviews', price: 60, type: 'one-time', description: 'Envío directo a Google' }
                     ]
                 }
             ]
@@ -115,25 +115,25 @@
                     id: 'crm-restructure',
                     name: 'Reestructuración CRM',
                     description: 'Auditamos y reorganizamos tu CRM para maximizar resultados.',
-                    basePrice: 250,
-                    marketValue: 450,
+                    basePrice: 375,
+                    marketValue: 675,
                     priceType: 'one-time',
                     features: ['Auditoría de Datos', 'Migración', 'Pipelines Optimizados'],
                     extras: [
-                        { id: 'data-migration', name: 'Migración de Datos (+1000 reg)', price: 100, type: 'one-time', description: 'Migración masiva de datos' },
-                        { id: 'custom-pipelines', name: 'Pipelines Personalizados (+3)', price: 80, type: 'one-time', description: '3 pipelines adicionales' }
+                        { id: 'data-migration', name: 'Migración de Datos (+1000 reg)', price: 150, type: 'one-time', description: 'Migración masiva de datos' },
+                        { id: 'custom-pipelines', name: 'Pipelines Personalizados (+3)', price: 120, type: 'one-time', description: '3 pipelines adicionales' }
                     ]
                 },
                 {
                     id: 'automation-audit',
                     name: 'Auditoría de Automatización',
                     description: 'Analizamos tus procesos y te decimos qué automatizar.',
-                    basePrice: 200,
-                    marketValue: 350,
+                    basePrice: 300,
+                    marketValue: 525,
                     priceType: 'one-time',
                     features: ['Mapa de Procesos', 'ROI Estimado', 'Plan de Implementación'],
                     extras: [
-                        { id: 'implementation-plan', name: 'Plan Detallado de Implementación', price: 100, type: 'one-time', description: 'Roadmap paso a paso' }
+                        { id: 'implementation-plan', name: 'Plan Detallado de Implementación', price: 150, type: 'one-time', description: 'Roadmap paso a paso' }
                     ]
                 }
             ]
@@ -148,24 +148,24 @@
                     id: 'whatsapp-shipping',
                     name: 'WhatsApp + Transporte',
                     description: 'Tracking automático de pedidos y notificaciones de envío.',
-                    basePrice: 300,
-                    marketValue: 500,
+                    basePrice: 450,
+                    marketValue: 750,
                     priceType: 'one-time',
                     features: ['Tracking Automático', 'Notificaciones', 'Confirmación Entrega'],
                     extras: [
-                        { id: 'multi-carrier', name: 'Multi-Transportadora', price: 120, type: 'one-time', description: 'Soporte para múltiples carriers' }
+                        { id: 'multi-carrier', name: 'Multi-Transportadora', price: 180, type: 'one-time', description: 'Soporte para múltiples carriers' }
                     ]
                 },
                 {
                     id: 'external-db',
                     name: 'Conexión Base de Datos Externa',
                     description: 'Conecta ERP, inventario o contabilidad con tu CRM y bots.',
-                    basePrice: 350,
-                    marketValue: 600,
+                    basePrice: 525,
+                    marketValue: 900,
                     priceType: 'one-time',
                     features: ['API REST', 'Sync Bidireccional', 'Monitoreo'],
                     extras: [
-                        { id: 'realtime-sync', name: 'Sincronización Tiempo Real', price: 100, type: 'monthly', description: 'Datos siempre actualizados' }
+                        { id: 'realtime-sync', name: 'Sincronización Tiempo Real', price: 150, type: 'monthly', description: 'Datos siempre actualizados' }
                     ]
                 }
             ]
@@ -180,51 +180,51 @@
                     id: 'web-basic',
                     name: 'Página Web Básica',
                     description: 'Hasta 3 secciones. Presencia digital rápida y profesional.',
-                    basePrice: 400,
-                    marketValue: 650,
+                    basePrice: 600,
+                    marketValue: 975,
                     priceType: 'one-time',
                     features: ['3 Secciones', 'Responsive', 'SEO Básico'],
                     extras: [
-                        { id: 'copywriting', name: 'Redacción Profesional', price: 50, type: 'one-time', description: 'Textos persuasivos' },
-                        { id: 'advanced-form', name: 'Formulario Avanzado', price: 20, type: 'one-time', description: 'Validación y lógica avanzada' }
+                        { id: 'copywriting', name: 'Redacción Profesional', price: 75, type: 'one-time', description: 'Textos persuasivos' },
+                        { id: 'advanced-form', name: 'Formulario Avanzado', price: 30, type: 'one-time', description: 'Validación y lógica avanzada' }
                     ]
                 },
                 {
                     id: 'web-custom',
                     name: 'Página Web Personalizada',
                     description: 'Diseño a medida con SEO avanzado e integraciones.',
-                    basePrice: 800,
-                    marketValue: 1200,
+                    basePrice: 1200,
+                    marketValue: 1800,
                     priceType: 'one-time',
                     features: ['Diseño a Medida', 'SEO Técnico', 'Integraciones'],
                     extras: [
-                        { id: 'chatbot-integration', name: 'Chatbot Integrado', price: 150, type: 'one-time', description: 'Bot directamente en tu web' },
-                        { id: 'extra-section', name: 'Sección Extra', price: 40, type: 'counter', description: '$40 por sección adicional' }
+                        { id: 'chatbot-integration', name: 'Chatbot Integrado', price: 225, type: 'one-time', description: 'Bot directamente en tu web' },
+                        { id: 'extra-section', name: 'Sección Extra', price: 60, type: 'counter', description: '$60 por sección adicional' }
                     ]
                 },
                 {
                     id: 'ecommerce',
                     name: 'Tienda E-Commerce',
                     description: 'Catálogo completo, pasarelas de pago y panel admin.',
-                    basePrice: 2400,
-                    marketValue: 3500,
+                    basePrice: 3600,
+                    marketValue: 5250,
                     priceType: 'one-time',
                     features: ['Pasarelas de Pago', 'Catálogo Amplio', 'Panel Admin'],
                     extras: [
-                        { id: 'priority-load', name: 'Optimización de Carga', price: 200, type: 'one-time', description: 'Velocidad prioritaria' },
-                        { id: 'product-upload', name: 'Carga de Productos (+50)', price: 100, type: 'one-time', description: 'Subimos 50+ productos' }
+                        { id: 'priority-load', name: 'Optimización de Carga', price: 300, type: 'one-time', description: 'Velocidad prioritaria' },
+                        { id: 'product-upload', name: 'Carga de Productos (+50)', price: 150, type: 'one-time', description: 'Subimos 50+ productos' }
                     ]
                 },
                 {
                     id: 'web-maintenance',
                     name: 'Mantenimiento Web',
                     description: 'Actualizaciones, backups, monitoreo y soporte continuo.',
-                    basePrice: 50,
-                    marketValue: 100,
+                    basePrice: 75,
+                    marketValue: 150,
                     priceType: 'monthly',
                     features: ['Backups Semanales', 'Actualizaciones', 'Monitoreo'],
                     extras: [
-                        { id: 'content-updates', name: 'Actualizaciones de Contenido (4/mes)', price: 30, type: 'monthly', description: '4 cambios mensuales' }
+                        { id: 'content-updates', name: 'Actualizaciones de Contenido (4/mes)', price: 45, type: 'monthly', description: '4 cambios mensuales' }
                     ]
                 }
             ]
@@ -239,35 +239,35 @@
                     id: 'brand-study',
                     name: 'Estudio de Marca e Identidad',
                     description: 'Definimos tu identidad visual, tono y posicionamiento.',
-                    basePrice: 300,
-                    marketValue: 500,
+                    basePrice: 450,
+                    marketValue: 750,
                     priceType: 'one-time',
                     features: ['Logo + Paleta', 'Manual de Marca', 'Tono de Voz'],
                     extras: [
-                        { id: 'social-kit', name: 'Kit Redes Sociales', price: 80, type: 'one-time', description: 'Plantillas para redes' }
+                        { id: 'social-kit', name: 'Kit Redes Sociales', price: 120, type: 'one-time', description: 'Plantillas para redes' }
                     ]
                 },
                 {
                     id: 'automation-consulting',
                     name: 'Consultoría de Automatización',
                     description: 'Sesiones 1-a-1 para mapear oportunidades y priorizar.',
-                    basePrice: 150,
-                    marketValue: 300,
+                    basePrice: 225,
+                    marketValue: 450,
                     priceType: 'one-time',
                     features: ['2 Sesiones (1h)', 'Roadmap', 'Priorización ROI'],
                     extras: [
-                        { id: 'extra-session', name: 'Sesión Adicional', price: 60, type: 'one-time', description: '1 hora extra de consultoría' }
+                        { id: 'extra-session', name: 'Sesión Adicional', price: 90, type: 'one-time', description: '1 hora extra de consultoría' }
                     ]
                 },
                 {
                     id: 'it-partner-standard',
                     name: 'IT Partner Estándar',
                     description: 'Tu departamento IT externo. Soporte prioritario y revisiones.',
-                    basePrice: 50,
-                    marketValue: 150,
+                    basePrice: 75,
+                    marketValue: 225,
                     priceType: 'monthly',
                     features: ['SLA <2h', 'Revisión Semanal', '2h Capacitación/mes'],
-                    setupFee: 150,
+                    setupFee: 225,
                     setupLabel: 'Fase de Estabilización (3 meses)',
                     extras: []
                 },
@@ -275,11 +275,11 @@
                     id: 'it-partner-evolution',
                     name: 'IT Partner Evolución',
                     description: 'Todo lo del Estándar + implementaciones mensuales y SLA VIP.',
-                    basePrice: 200,
-                    marketValue: 500,
+                    basePrice: 300,
+                    marketValue: 750,
                     priceType: 'monthly',
                     features: ['SLA VIP Inmediato', '1 Configuración Nueva/mes', '4h Capacitación/mes'],
-                    setupFee: 400,
+                    setupFee: 600,
                     setupLabel: 'Fase de Estabilización (3 meses)',
                     extras: []
                 }
@@ -547,10 +547,10 @@
                 <div class="mt-4 pt-4 space-y-2" style="border-top: 1px solid var(--cd-border);" onclick="event.stopPropagation()">
                     <p class="text-xs font-semibold text-cd-text-dim uppercase tracking-wider mb-2">Extras opcionales</p>
                     ${svc.extras.map(extra => {
-                        const extraSelected = svcExtras[extra.id];
-                        if (extra.type === 'counter') {
-                            const count = state.counters[`${svc.id}-${extra.id}`] || 1;
-                            return `
+            const extraSelected = svcExtras[extra.id];
+            if (extra.type === 'counter') {
+                const count = state.counters[`${svc.id}-${extra.id}`] || 1;
+                return `
                             <div class="flex items-center justify-between p-3 rounded-lg" style="background: var(--cd-surface);">
                                 <div>
                                     <p class="text-sm font-semibold">${extra.name}</p>
@@ -563,8 +563,8 @@
                                     <button onclick="window.calcUpdateCounter('${svc.id}', '${extra.id}', 1)" class="w-7 h-7 rounded flex items-center justify-center text-sm" style="background: var(--cd-base);">+</button>
                                 </div>
                             </div>`;
-                        }
-                        return `
+            }
+            return `
                         <label class="flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors hover:opacity-80" style="background: var(--cd-surface);">
                             <div class="flex-1">
                                 <p class="text-sm font-semibold">${extra.name}</p>
@@ -576,7 +576,7 @@
                                     class="w-5 h-5 rounded accent-cd-highlight">
                             </div>
                         </label>`;
-                    }).join('')}
+        }).join('')}
                 </div>
             ` : ''}
         </div>`;
@@ -727,7 +727,7 @@
     // ==========================================
     // ACTIONS
     // ==========================================
-    window.calcSelectCategory = function(categoryId) {
+    window.calcSelectCategory = function (categoryId) {
         const key = categoryId + '-selected';
         state.selectedServices[key] = !state.selectedServices[key];
 
@@ -741,7 +741,7 @@
         render();
     };
 
-    window.calcToggleService = function(serviceId) {
+    window.calcToggleService = function (serviceId) {
         state.selectedServices[serviceId] = !state.selectedServices[serviceId];
         if (!state.selectedServices[serviceId]) {
             delete state.extras[serviceId];
@@ -749,13 +749,13 @@
         render();
     };
 
-    window.calcToggleExtra = function(serviceId, extraId) {
+    window.calcToggleExtra = function (serviceId, extraId) {
         if (!state.extras[serviceId]) state.extras[serviceId] = {};
         state.extras[serviceId][extraId] = !state.extras[serviceId][extraId];
         render();
     };
 
-    window.calcUpdateCounter = function(serviceId, extraId, delta) {
+    window.calcUpdateCounter = function (serviceId, extraId, delta) {
         const key = `${serviceId}-${extraId}`;
         if (!state.extras[serviceId]) state.extras[serviceId] = {};
         state.extras[serviceId][extraId] = true;
@@ -763,7 +763,7 @@
         render();
     };
 
-    window.calcGoToStep = function(step) {
+    window.calcGoToStep = function (step) {
         if (step === 2 && getSelectedCount() === 0) {
             // Auto-select all services in selected categories
             SERVICES_DB.forEach(cat => {
@@ -779,7 +779,7 @@
         window.scrollTo({ top: document.getElementById('calculator-app').offsetTop - 100, behavior: 'smooth' });
     };
 
-    window.calcStartQuiz = function() {
+    window.calcStartQuiz = function () {
         state.quizAnswers = [];
         state.recommendedCategories = [];
         renderQuizQuestion(0);
@@ -812,7 +812,7 @@
         </div>`;
     }
 
-    window.calcAnswerQuiz = function(index, value) {
+    window.calcAnswerQuiz = function (index, value) {
         const q = QUIZ_QUESTIONS[index];
         const selected = q.options.find(o => o.value === value);
         if (selected) {
@@ -929,7 +929,7 @@ Comentarios: ${document.getElementById('q-comments').value || 'Ninguno'}
     // ==========================================
     // INIT
     // ==========================================
-    window.initCalculator = function() {
+    window.initCalculator = function () {
         // Check hash for pre-selected category
         const hash = window.location.hash.replace('#', '');
         if (hash) {
