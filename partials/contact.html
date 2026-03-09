@@ -1,13 +1,20 @@
 <div class="max-w-4xl w-full card-modern p-8 md:p-12 relative">
 
-    <div class="flex flex-col md:flex-row mb-8 p-1 gap-1 rounded-lg" style="background: var(--cd-surface); border: 1px solid var(--cd-border);">
-        <button id="tab-simple" onclick="switchForm('simple')" class="flex-1 py-3 font-black uppercase text-sm md:text-lg rounded-md transition-all" style="background: var(--cd-highlight-color); color: white;">
+    <div class="flex flex-col md:flex-row mb-8 p-1 gap-1 rounded-lg"
+        style="background: var(--cd-surface); border: 1px solid var(--cd-border);">
+        <button id="tab-simple" onclick="switchForm('simple')"
+            class="flex-1 py-3 font-black uppercase text-sm md:text-lg rounded-md transition-all"
+            style="background: var(--cd-highlight-color); color: white;">
             Hablemos
         </button>
-        <button id="tab-service" onclick="switchForm('service')" class="flex-1 py-3 font-black uppercase text-sm md:text-lg rounded-md transition-all hover:opacity-80" style="background: transparent; color: var(--color-text);">
+        <button id="tab-service" onclick="switchForm('service')"
+            class="flex-1 py-3 font-black uppercase text-sm md:text-lg rounded-md transition-all hover:opacity-80"
+            style="background: transparent; color: var(--color-text);">
             Solicitud de Servicio
         </button>
-        <button id="tab-schedule" onclick="switchForm('schedule')" class="flex-1 py-3 font-black uppercase text-sm md:text-lg rounded-md transition-all hover:opacity-80" style="background: transparent; color: var(--color-text);">
+        <button id="tab-schedule" onclick="switchForm('schedule')"
+            class="flex-1 py-3 font-black uppercase text-sm md:text-lg rounded-md transition-all hover:opacity-80"
+            style="background: transparent; color: var(--color-text);">
             Agendar
         </button>
     </div>
@@ -21,11 +28,17 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block font-bold text-sm uppercase mb-2">Nombre</label>
-                    <input type="text" id="simple-name" required class="w-full p-4 rounded-lg border transition-all font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="Tu nombre">
+                    <input type="text" id="simple-name" required
+                        class="w-full p-4 rounded-lg border transition-all font-mono text-base"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                        placeholder="Tu nombre">
                 </div>
                 <div>
                     <label class="block font-bold text-sm uppercase mb-2">Empresa</label>
-                    <input type="text" id="simple-company" class="w-full p-4 rounded-lg border transition-all font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="Tu empresa">
+                    <input type="text" id="simple-company"
+                        class="w-full p-4 rounded-lg border transition-all font-mono text-base"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                        placeholder="Tu empresa">
                 </div>
             </div>
 
@@ -34,23 +47,29 @@
                 <label class="block font-bold text-sm uppercase mb-2">¿Cómo te contactamos?</label>
                 <div class="flex gap-4 mb-2">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="contact-method-simple" value="email" checked onchange="toggleContactMethod('simple', 'email')" class="accent-cd-magenta w-5 h-5">
+                        <input type="radio" name="contact-method-simple" value="email" checked
+                            onchange="toggleContactMethod('simple', 'email')" class="accent-cd-magenta w-5 h-5">
                         <span class="font-mono font-bold">Email</span>
                     </label>
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="contact-method-simple" value="phone" onchange="toggleContactMethod('simple', 'phone')" class="accent-cd-magenta w-5 h-5">
+                        <input type="radio" name="contact-method-simple" value="phone"
+                            onchange="toggleContactMethod('simple', 'phone')" class="accent-cd-magenta w-5 h-5">
                         <span class="font-mono font-bold">Teléfono / WhatsApp</span>
                     </label>
                 </div>
 
                 <!-- Input Email Simple -->
                 <div id="simple-email-container">
-                    <input type="email" id="simple-email" class="w-full p-4 rounded-lg border transition-all font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="tu@email.com">
+                    <input type="email" id="simple-email"
+                        class="w-full p-4 rounded-lg border transition-all font-mono text-base"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                        placeholder="tu@email.com">
                 </div>
 
                 <!-- Input Teléfono Simple -->
                 <div id="simple-phone-container" class="hidden flex gap-2">
-                    <select id="simple-country-code" class="w-1/3 p-4 rounded-lg border font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
+                    <select id="simple-country-code" class="w-1/3 p-4 rounded-lg border font-mono text-base"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
                         <optgroup label="Norteamérica">
                             <option value="+1">🇺🇸 USA (+1)</option>
                             <option value="+1">🇨🇦 Canadá (+1)</option>
@@ -90,15 +109,22 @@
                         </optgroup>
                         <option value="">Otro</option>
                     </select>
-                    <input type="tel" id="simple-phone" class="w-2/3 p-4 rounded-lg border transition-all font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="300 123 4567">
+                    <input type="tel" id="simple-phone"
+                        class="w-2/3 p-4 rounded-lg border transition-all font-mono text-base"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                        placeholder="300 123 4567">
                 </div>
             </div>
 
             <div>
                 <label class="block font-bold text-sm uppercase mb-2">¿Qué necesitas?</label>
-                <textarea id="simple-message" required rows="4" class="w-full p-4 rounded-lg border transition-all font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="Breve descripción..."></textarea>
+                <textarea id="simple-message" required rows="4"
+                    class="w-full p-4 rounded-lg border transition-all font-mono text-base"
+                    style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                    placeholder="Breve descripción..."></textarea>
             </div>
-            <button type="submit" id="btn-submit-simple" class="btn-primary w-full font-black text-xl py-4 uppercase justify-center">
+            <button type="submit" id="btn-submit-simple"
+                class="btn-primary w-full font-black text-xl py-4 uppercase justify-center">
                 Enviar Mensaje
             </button>
         </form>
@@ -107,36 +133,47 @@
     <!-- FORMULARIO SERVICIO (TICKET) -->
     <div id="form-service" class="hidden animate-fade-in">
         <h2 class="font-black text-3xl md:text-5xl mb-2 text-left uppercase">Nueva Solicitud</h2>
-        <p class="font-mono text-left mb-8 text-cd-text-dim text-sm">Crea una tarea directamente en nuestro sistema de gestión.</p>
+        <p class="font-mono text-left mb-8 text-cd-text-dim text-sm">Crea una tarea directamente en nuestro sistema de
+            gestión.</p>
 
         <form id="serviceRequestForm" class="space-y-6 text-left">
             <div>
-                <label class="block font-bold text-sm uppercase mb-2">Nombre completo / Empresa <span style="color: var(--cd-highlight-color);">*</span></label>
-                <input type="text" id="req-name" required class="w-full p-3 rounded-lg border transition-all font-mono" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="Ej: Jhony Alvarez / Cambio Digital">
+                <label class="block font-bold text-sm uppercase mb-2">Nombre completo / Empresa <span
+                        style="color: var(--cd-highlight-color);">*</span></label>
+                <input type="text" id="req-name" required class="w-full p-3 rounded-lg border transition-all font-mono"
+                    style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                    placeholder="Ej: Jhony Alvarez / Cambio Digital">
             </div>
 
             <!-- Selector de Contacto Servicio -->
             <div>
-                <label class="block font-bold text-sm uppercase mb-2">Datos de Contacto <span style="color: var(--cd-highlight-color);">*</span></label>
+                <label class="block font-bold text-sm uppercase mb-2">Datos de Contacto <span
+                        style="color: var(--cd-highlight-color);">*</span></label>
                 <div class="flex gap-4 mb-2">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="contact-method-service" value="email" checked onchange="toggleContactMethod('service', 'email')" class="accent-cd-magenta w-5 h-5">
+                        <input type="radio" name="contact-method-service" value="email" checked
+                            onchange="toggleContactMethod('service', 'email')" class="accent-cd-magenta w-5 h-5">
                         <span class="font-mono font-bold">Email</span>
                     </label>
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="contact-method-service" value="phone" onchange="toggleContactMethod('service', 'phone')" class="accent-cd-magenta w-5 h-5">
+                        <input type="radio" name="contact-method-service" value="phone"
+                            onchange="toggleContactMethod('service', 'phone')" class="accent-cd-magenta w-5 h-5">
                         <span class="font-mono font-bold">Teléfono / WhatsApp</span>
                     </label>
                 </div>
 
                 <!-- Input Email Servicio -->
                 <div id="service-email-container">
-                    <input type="email" id="req-email" class="w-full p-3 rounded-lg border transition-all font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="tu@email.com">
+                    <input type="email" id="req-email"
+                        class="w-full p-3 rounded-lg border transition-all font-mono text-base"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                        placeholder="tu@email.com">
                 </div>
 
                 <!-- Input Teléfono Servicio -->
                 <div id="service-phone-container" class="hidden flex gap-2">
-                    <select id="req-country-code" class="w-1/3 p-3 rounded-lg border font-mono text-base" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
+                    <select id="req-country-code" class="w-1/3 p-3 rounded-lg border font-mono text-base"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
                         <optgroup label="Norteamérica">
                             <option value="+1">🇺🇸 USA (+1)</option>
                             <option value="+1">🇨🇦 Canadá (+1)</option>
@@ -176,35 +213,49 @@
                         </optgroup>
                         <option value="">Otro</option>
                     </select>
-                    <input type="tel" id="req-phone" class="w-2/3 p-3 rounded-lg border transition-all font-mono" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="300 123 4567">
+                    <input type="tel" id="req-phone" class="w-2/3 p-3 rounded-lg border transition-all font-mono"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                        placeholder="300 123 4567">
                 </div>
             </div>
 
             <div>
-                <label class="block font-bold text-sm uppercase mb-2">Solicitud o requerimiento principal <span style="color: var(--cd-highlight-color);">*</span></label>
-                <input type="text" id="req-title" required class="w-full p-3 rounded-lg border transition-all font-mono" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="Ej: Automatización de correos de bienvenida">
+                <label class="block font-bold text-sm uppercase mb-2">Solicitud o requerimiento principal <span
+                        style="color: var(--cd-highlight-color);">*</span></label>
+                <input type="text" id="req-title" required class="w-full p-3 rounded-lg border transition-all font-mono"
+                    style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                    placeholder="Ej: Automatización de correos de bienvenida">
                 <p class="text-xs font-mono text-cd-text-dim mt-1">Este será el título de la tarea.</p>
             </div>
 
             <div>
-                <label class="block font-bold text-sm uppercase mb-2">Detalles del proyecto <span style="color: var(--cd-highlight-color);">*</span></label>
-                <textarea id="req-desc" required rows="5" class="w-full p-3 rounded-lg border transition-all font-mono" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);" placeholder="Describe el problema actual y el resultado esperado..."></textarea>
+                <label class="block font-bold text-sm uppercase mb-2">Detalles del proyecto <span
+                        style="color: var(--cd-highlight-color);">*</span></label>
+                <textarea id="req-desc" required rows="5" class="w-full p-3 rounded-lg border transition-all font-mono"
+                    style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);"
+                    placeholder="Describe el problema actual y el resultado esperado..."></textarea>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block font-bold text-sm uppercase mb-2">Fecha límite deseada <span style="color: var(--cd-highlight-color);">*</span></label>
-                    <input type="date" id="req-date" required class="w-full p-3 rounded-lg border transition-all font-mono" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
+                    <label class="block font-bold text-sm uppercase mb-2">Fecha límite deseada <span
+                            style="color: var(--cd-highlight-color);">*</span></label>
+                    <input type="date" id="req-date" required
+                        class="w-full p-3 rounded-lg border transition-all font-mono"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
                 </div>
 
                 <div>
                     <label class="block font-bold text-sm uppercase mb-2">Adjuntos (PDF/Imagen - Max 50MB)</label>
-                    <input type="file" id="req-file" accept="image/*,application/pdf" class="w-full p-3 rounded-lg border transition-all font-mono" style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
+                    <input type="file" id="req-file" accept="image/*,application/pdf"
+                        class="w-full p-3 rounded-lg border transition-all font-mono"
+                        style="background: var(--cd-input-bg); border-color: var(--cd-border); color: var(--color-text);">
                     <p class="text-xs font-mono text-cd-text-dim mt-1">Sube tu archivo aquí.</p>
                 </div>
             </div>
 
-            <button type="submit" id="btn-submit-task" class="btn-primary w-full font-black text-xl py-4 uppercase justify-center flex items-center gap-2">
+            <button type="submit" id="btn-submit-task"
+                class="btn-primary w-full font-black text-xl py-4 uppercase justify-center flex items-center gap-2">
                 <span>Crear Tarea</span> <i data-lucide="check-circle-2"></i>
             </button>
         </form>
@@ -217,8 +268,10 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Asesoría Comercial -->
-            <a href="https://calendar.app.google/RqVEFZg6TSx9ith49" target="_blank" class="card-modern p-6 hover:border-cd-highlight transition-all flex flex-col items-center text-center group">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" style="background: var(--cd-highlight-color); color: white;">
+            <a href="https://calendar.app.google/RqVEFZg6TSx9ith49" target="_blank"
+                class="card-modern p-6 hover:border-cd-highlight transition-all flex flex-col items-center text-center group">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+                    style="background: var(--cd-highlight-color); color: white;">
                     <i data-lucide="briefcase" class="w-8 h-8"></i>
                 </div>
                 <h3 class="font-black text-xl uppercase mb-2">Asesoría Comercial</h3>
@@ -227,12 +280,15 @@
             </a>
 
             <!-- Capacitación -->
-            <a href="https://calendar.app.google/4SP3buCZcpvkpP54A" target="_blank" class="card-modern p-6 hover:border-cd-highlight transition-all flex flex-col items-center text-center group">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" style="background: var(--cd-accent-purple); color: white;">
+            <a href="https://calendar.app.google/RqVEFZg6TSx9ith49" target="_blank"
+                class="card-modern p-6 hover:border-cd-highlight transition-all flex flex-col items-center text-center group">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+                    style="background: var(--cd-accent-purple); color: white;">
                     <i data-lucide="graduation-cap" class="w-8 h-8"></i>
                 </div>
                 <h3 class="font-black text-xl uppercase mb-2">Capacitación</h3>
-                <p class="font-mono text-sm text-cd-text-dim mb-4">Sesiones de entrenamiento y formación especializada.</p>
+                <p class="font-mono text-sm text-cd-text-dim mb-4">Sesiones de entrenamiento y formación especializada.
+                </p>
                 <span class="mt-auto btn-primary text-xs px-4 py-2 uppercase">Agendar Ahora</span>
             </a>
         </div>
@@ -242,9 +298,16 @@
     <div class="mt-8 pt-8 flex items-center justify-between" style="border-top: 1px solid var(--cd-border);">
         <p class="text-sm text-cd-text-dim font-mono">También puedes contactarnos por:</p>
         <div class="flex gap-3">
-            <a href="https://wa.me/573122908416" target="_blank" class="p-2.5 rounded-lg transition-all hover:scale-105" style="background: var(--cd-surface); border: 1px solid var(--cd-border); color: var(--color-text);" aria-label="WhatsApp"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
-            <a href="https://www.instagram.com/cambiodigitall/" target="_blank" class="p-2.5 rounded-lg transition-all hover:scale-105" style="background: var(--cd-surface); border: 1px solid var(--cd-border); color: var(--color-text);" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-            <a href="mailto:hola@cambiodigital.net" class="p-2.5 rounded-lg transition-all hover:scale-105" style="background: var(--cd-surface); border: 1px solid var(--cd-border); color: var(--color-text);" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            <a href="https://wa.me/573122908416" target="_blank" class="p-2.5 rounded-lg transition-all hover:scale-105"
+                style="background: var(--cd-surface); border: 1px solid var(--cd-border); color: var(--color-text);"
+                aria-label="WhatsApp"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
+            <a href="https://www.instagram.com/cambiodigitall/" target="_blank"
+                class="p-2.5 rounded-lg transition-all hover:scale-105"
+                style="background: var(--cd-surface); border: 1px solid var(--cd-border); color: var(--color-text);"
+                aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+            <a href="mailto:hola@cambiodigital.net" class="p-2.5 rounded-lg transition-all hover:scale-105"
+                style="background: var(--cd-surface); border: 1px solid var(--cd-border); color: var(--color-text);"
+                aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
         </div>
     </div>
 
