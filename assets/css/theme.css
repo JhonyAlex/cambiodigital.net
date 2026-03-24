@@ -59,6 +59,10 @@
     
     /* Logo Filter - Dark Mode (White Logo) */
     --logo-filter: none; 
+
+    /* Cursor */
+    --cursor-dot-color: #a78bfa;
+    --cursor-outline-color: rgba(167, 139, 250, 0.7);
 }
 
 /* --- Light Mode --- */
@@ -106,6 +110,18 @@
 
     /* Logo Filter - Light Mode (Black Logo) */
     --logo-filter: brightness(0);
+
+    /* Cursor */
+    --cursor-dot-color: #4338ca;
+    --cursor-outline-color: rgba(67, 56, 202, 0.55);
+}
+
+:root {
+    color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
 }
 
 /* --- Base Body --- */
@@ -152,27 +168,28 @@ body {
 
 #cursor-dot {
     position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: var(--cd-highlight-color);
+    width: 10px;
+    height: 10px;
+    background-color: var(--cursor-dot-color);
     border-radius: 50%;
     pointer-events: none;
     transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background-color 0.3s;
+    transition: width 0.2s, height 0.2s, background-color 0.3s, box-shadow 0.3s;
     z-index: 10003;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 0 3px rgba(15, 23, 42, 0.25);
 }
 
 #cursor-outline {
     position: fixed;
-    width: 32px;
-    height: 32px;
-    border: 1.5px solid var(--cd-highlight-color);
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--cursor-outline-color);
     border-radius: 50%;
     pointer-events: none;
     transform: translate(-50%, -50%);
     transition: transform 0.1s linear, border-color 0.3s, width 0.2s, height 0.2s;
     z-index: 10002;
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 body:has(a:hover, button:hover, input:hover, textarea:hover, select:hover) #cursor-dot {
