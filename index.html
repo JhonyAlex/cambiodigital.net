@@ -576,38 +576,12 @@
                     <h2 class="reveal font-black text-4xl md:text-5xl mb-4">Estrategias para crecer</h2>
                     <p class="reveal text-cd-text-dim">Contenido práctico para potenciar tu negocio.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div id="home-blog-preview-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                     <article class="reveal card-modern p-6">
-                        <span class="badge text-xs mb-3 inline-flex">CRM</span>
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" loading="lazy"
-                            width="800" height="400" alt="Dashboard CRM"
-                            class="w-full h-40 object-cover rounded-lg mb-4">
-                        <h3 class="font-bold text-lg mb-2 leading-tight">Organiza tus clientes como los negocios más
-                            exitosos</h3>
-                        <p class="text-xs text-cd-text-dim mb-4">24 NOV 2025</p>
-                        <a href="/blog.html" class="text-sm font-semibold hover:underline"
-                            style="color: var(--cd-highlight-color);">Leer artículo &rarr;</a>
-                    </article>
-                    <article class="reveal card-modern p-6" data-delay="100">
-                        <span class="badge text-xs mb-3 inline-flex">Automatización</span>
-                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800" loading="lazy"
-                            width="800" height="400" alt="Social media"
-                            class="w-full h-40 object-cover rounded-lg mb-4">
-                        <h3 class="font-bold text-lg mb-2 leading-tight">Domina tus redes sociales con automatización
-                            inteligente</h3>
-                        <p class="text-xs text-cd-text-dim mb-4">24 NOV 2025</p>
-                        <a href="/blog.html" class="text-sm font-semibold hover:underline"
-                            style="color: var(--cd-highlight-color);">Leer artículo &rarr;</a>
-                    </article>
-                    <article class="reveal card-modern p-6" data-delay="200">
-                        <span class="badge text-xs mb-3 inline-flex">Atención al Cliente</span>
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800" loading="lazy"
-                            width="800" height="400" alt="Customer support"
-                            class="w-full h-40 object-cover rounded-lg mb-4">
-                        <h3 class="font-bold text-lg mb-2 leading-tight">Estrategias para brillar en redes sociales</h3>
-                        <p class="text-xs text-cd-text-dim mb-4">24 NOV 2025</p>
-                        <a href="/blog.html" class="text-sm font-semibold hover:underline"
-                            style="color: var(--cd-highlight-color);">Leer artículo &rarr;</a>
+                        <span class="badge text-xs mb-3 inline-flex">Blog</span>
+                        <h3 class="font-bold text-lg mb-2 leading-tight">Cargando últimas publicaciones...</h3>
+                        <p class="text-xs text-cd-text-dim mb-4">Un momento por favor</p>
+                        <a href="/blog.html" class="text-sm font-semibold hover:underline" style="color: var(--cd-highlight-color);">Ver blog &rarr;</a>
                     </article>
                 </div>
                 <div class="reveal text-center">
@@ -774,6 +748,58 @@
                 finally { btn.innerHTML = orig; btn.disabled = false; }
             });
         }
+
+        async function loadHomeBlogPreview() {
+            const container = document.getElementById('home-blog-preview-grid');
+            if (!container) return;
+
+            try {
+                const response = await fetch('/blog.html', { cache: 'no-store' });
+                if (!response.ok) throw new Error('No se pudo cargar blog.html');
+
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                const section = doc.querySelector('section.max-w-7xl.mx-auto.grid');
+                if (!section) throw new Error('No se encontró el grid del blog');
+
+                const cards = Array.from(section.querySelectorAll(':scope > article')).slice(0, 3);
+                if (cards.length === 0) throw new Error('No hay artículos para mostrar');
+
+                container.innerHTML = cards.map((card, index) => {
+                    const tag = card.querySelector('span')?.textContent?.trim() || 'Blog';
+                    const img = card.querySelector('img');
+                    const titleLink = card.querySelector('h3 a');
+                    const date = card.querySelector('p.font-mono.text-xs')?.textContent?.trim() || '';
+                    const href = titleLink?.getAttribute('href') || '/blog.html';
+                    const title = titleLink?.textContent?.trim() || 'Artículo';
+                    const imgSrc = img?.getAttribute('src') || '';
+                    const imgAlt = img?.getAttribute('alt') || title;
+
+                    return `
+                    <article class="reveal card-modern p-6" data-delay="${index * 100}">
+                        <span class="badge text-xs mb-3 inline-flex">${tag}</span>
+                        ${imgSrc ? `<img src="${imgSrc}" loading="lazy" width="800" height="400" alt="${imgAlt}" class="w-full h-40 object-cover rounded-lg mb-4">` : ''}
+                        <h3 class="font-bold text-lg mb-2 leading-tight">${title}</h3>
+                        <p class="text-xs text-cd-text-dim mb-4">${date}</p>
+                        <a href="${href}" class="text-sm font-semibold hover:underline" style="color: var(--cd-highlight-color);">Leer artículo &rarr;</a>
+                    </article>`;
+                }).join('');
+
+                if (window.initAnimations) window.initAnimations();
+            } catch (error) {
+                console.error('Error cargando preview del blog en home:', error);
+                container.innerHTML = `
+                <article class="reveal card-modern p-6">
+                    <span class="badge text-xs mb-3 inline-flex">Blog</span>
+                    <h3 class="font-bold text-lg mb-2 leading-tight">No pudimos cargar el preview automáticamente</h3>
+                    <p class="text-xs text-cd-text-dim mb-4">Puedes ver los artículos directamente en el blog.</p>
+                    <a href="/blog.html" class="text-sm font-semibold hover:underline" style="color: var(--cd-highlight-color);">Ir al blog &rarr;</a>
+                </article>`;
+            }
+        }
+
         lucide.createIcons();
         document.addEventListener('DOMContentLoaded', () => {
             const cd = document.getElementById('cursor-dot'), co = document.getElementById('cursor-outline');
@@ -809,6 +835,8 @@
             });
             const v = document.getElementById('hero-video');
             if (v) { v.muted = true; const p = v.play(); if (p !== undefined) p.catch(() => { const s = () => { v.play();['click', 'touchstart', 'scroll'].forEach(e => document.removeEventListener(e, s)); };['click', 'touchstart', 'scroll'].forEach(e => document.addEventListener(e, s, { once: true })); }); }
+
+            loadHomeBlogPreview();
         });
     </script>
 

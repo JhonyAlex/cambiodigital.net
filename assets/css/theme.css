@@ -151,18 +151,16 @@ body {
 }
 
 /* --- Custom Cursor --- */
-@media (pointer: fine) {
+#cursor-dot, #cursor-outline {
+    display: none;
+}
+
+@media (any-pointer: fine) {
     body, a, button, input, textarea, select {
         cursor: none;
     }
     #cursor-dot, #cursor-outline {
         display: block;
-    }
-}
-
-@media (pointer: coarse) {
-    #cursor-dot, #cursor-outline {
-        display: none;
     }
 }
 

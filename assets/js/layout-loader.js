@@ -62,7 +62,7 @@
 
     function initGlobalCursor() {
         if (window.__cdCursorInitialized) return;
-        if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+        if (window.matchMedia && !window.matchMedia('(any-pointer: fine)').matches) return;
 
         let cursorDot = document.getElementById('cursor-dot');
         let cursorOutline = document.getElementById('cursor-outline');
