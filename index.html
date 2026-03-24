@@ -764,7 +764,17 @@
                 const section = doc.querySelector('section.max-w-7xl.mx-auto.grid');
                 if (!section) throw new Error('No se encontró el grid del blog');
 
-                const cards = Array.from(section.querySelectorAll(':scope > article')).slice(0, 3);
+                const monthMap = { ENE:0,FEB:1,MAR:2,ABR:3,MAY:4,JUN:5,JUL:6,AGO:7,SEP:8,OCT:9,NOV:10,DIC:11 };
+                function parseDate(str) {
+                    const m = (str || '').trim().match(/^(\d{1,2})\s+([A-Z]{3})\s+(\d{4})$/);
+                    return m ? new Date(+m[3], monthMap[m[2]] ?? 0, +m[1]).getTime() : 0;
+                }
+
+                const cards = Array.from(section.querySelectorAll('article'))
+                    .map(card => ({ card, ts: parseDate(card.querySelector('p.font-mono.text-xs')?.textContent) }))
+                    .sort((a, b) => b.ts - a.ts)
+                    .slice(0, 3)
+                    .map(x => x.card);
                 if (cards.length === 0) throw new Error('No hay artículos para mostrar');
 
                 container.innerHTML = cards.map((card, index) => {
