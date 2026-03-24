@@ -22,8 +22,8 @@
                     id: 'chatbot-essential',
                     name: 'Chatbot Esencial',
                     description: 'Atención automática con árbol de decisiones. Respuestas rápidas 24/7.',
-                    basePrice: 270,
-                    marketValue: 450,
+                    basePrice: 600,
+                    marketValue: 900,
                     priceType: 'one-time',
                     features: ['Respuestas Rápidas', 'Lógica de Árbol', 'Multi-canal'],
                     extras: [
@@ -36,8 +36,8 @@
                     id: 'ai-sales-agent',
                     name: 'Agente IA de Ventas',
                     description: 'Califica leads, agenda citas y cierra ventas mientras tú duermes.',
-                    basePrice: 525,
-                    marketValue: 900,
+                    basePrice: 700,
+                    marketValue: 1100,
                     priceType: 'one-time',
                     features: ['Calificación de Leads', 'Agenda Automática', 'Seguimiento Inteligente'],
                     extras: [
