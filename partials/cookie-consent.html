@@ -13,16 +13,46 @@
         <div class="cd-cookie__content">
             <h2 id="cookie-consent-title" class="cd-cookie__title">Usamos cookies</h2>
             <p id="cookie-consent-desc" class="cd-cookie__message">
-                Utilizamos cookies para mejorar tu experiencia y analizar el tr&aacute;fico del sitio.
-                Puedes aceptar o rechazar en cualquier momento.
+                Utilizamos cookies necesarias, analiticas y de marketing para mejorar tu experiencia.
+                Puedes personalizar tu preferencia y revisar nuestra
+                <a href="/politica-privacidad.html#cookies" class="cd-cookie__link">politica de privacidad y cookies</a>.
             </p>
+            <div class="cd-cookie__preferences" data-cookie-preferences hidden>
+                <label class="cd-cookie__option">
+                    <input type="checkbox" checked disabled>
+                    <span>
+                        <strong>Cookies necesarias</strong>
+                        <small>Siempre activas para el funcionamiento basico del sitio.</small>
+                    </span>
+                </label>
+                <label class="cd-cookie__option">
+                    <input type="checkbox" id="cookie-analytics">
+                    <span>
+                        <strong>Analiticas</strong>
+                        <small>Nos ayudan a entender el uso del sitio para mejorarlo.</small>
+                    </span>
+                </label>
+                <label class="cd-cookie__option">
+                    <input type="checkbox" id="cookie-marketing">
+                    <span>
+                        <strong>Marketing</strong>
+                        <small>Permiten personalizar campanas y mensajes comerciales.</small>
+                    </span>
+                </label>
+            </div>
         </div>
         <div class="cd-cookie__actions">
-            <button type="button" class="cd-cookie__btn cd-cookie__btn--accept" data-consent-action="accept">
-                Aceptar
+            <button type="button" class="cd-cookie__btn cd-cookie__btn--accept" data-consent-action="accept-all">
+                Aceptar todo
             </button>
-            <button type="button" class="cd-cookie__btn cd-cookie__btn--decline" data-consent-action="reject">
-                Rechazar
+            <button type="button" class="cd-cookie__btn cd-cookie__btn--decline" data-consent-action="reject-optional">
+                Rechazar no esenciales
+            </button>
+            <button type="button" class="cd-cookie__btn cd-cookie__btn--configure" data-consent-action="configure">
+                Configurar
+            </button>
+            <button type="button" class="cd-cookie__btn cd-cookie__btn--save" data-consent-action="save-preferences">
+                Guardar preferencias
             </button>
         </div>
     </div>

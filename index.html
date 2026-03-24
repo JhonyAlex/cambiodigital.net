@@ -646,7 +646,7 @@
                     <p class="text-cd-text-dim text-lg mb-8">Agenda un diagnóstico gratuito y descubre exactamente cómo
                         escalar tu negocio con automatización.</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="https://wa.me/573122908416?text=Hola%2C%20quiero%20un%20diagnostico%20gratuito%20para%20mi%20negocio"
+                        <a id="cta-whatsapp-link" href="https://wa.me/573122908416?text=Hola%2C%20quiero%20un%20diagnostico%20gratuito%20para%20mi%20negocio"
                             target="_blank" class="btn-primary text-lg py-4 px-8">
                             <i data-lucide="message-circle" class="w-5 h-5"></i> Hablar por WhatsApp
                         </a>
@@ -689,8 +689,12 @@
             const pC = document.getElementById(`${formType}-phone-container`);
             const eI = document.getElementById(formType === 'simple' ? 'simple-email' : 'req-email');
             const pI = document.getElementById(formType === 'simple' ? 'simple-phone' : 'req-phone');
+            const waBtn = document.getElementById(formType === 'simple' ? 'simple-whatsapp-btn' : 'service-whatsapp-btn');
             if (method === 'email') { eC.classList.remove('hidden'); pC.classList.add('hidden'); eI.required = true; pI.required = false; }
             else { eC.classList.add('hidden'); pC.classList.remove('hidden'); eI.required = false; pI.required = true; }
+            if (waBtn) {
+                waBtn.classList.toggle('hidden', method !== 'phone');
+            }
         };
         window.switchForm = function (type) {
             ['simple', 'service', 'schedule'].forEach(t => {
@@ -709,6 +713,24 @@
         };
         function initServiceForm() {
             const N8N = 'https://n8n.cambiodigital.cloud/webhook/c1692d85-8ad6-4977-b484-541c16463d0a';
+            const updateCountryAwareWhatsAppLinks = () => {
+                const simpleCountry = document.getElementById('simple-country-code')?.value || '+57';
+                const serviceCountry = document.getElementById('req-country-code')?.value || '+57';
+                const simpleBtn = document.getElementById('simple-whatsapp-btn');
+                const serviceBtn = document.getElementById('service-whatsapp-btn');
+                const ctaBtn = document.getElementById('cta-whatsapp-link');
+
+                if (simpleBtn && window.buildWhatsAppUrl) {
+                    simpleBtn.href = window.buildWhatsAppUrl(simpleCountry, 'Hola, quiero continuar esta consulta por WhatsApp.');
+                }
+                if (serviceBtn && window.buildWhatsAppUrl) {
+                    serviceBtn.href = window.buildWhatsAppUrl(serviceCountry, 'Hola, quiero continuar mi solicitud de servicio por WhatsApp.');
+                }
+                if (ctaBtn && window.buildWhatsAppUrl) {
+                    ctaBtn.href = window.buildWhatsAppUrl('+57', 'Hola, quiero un diagnostico gratuito para mi negocio.');
+                }
+            };
+
             const getContact = (ft) => {
                 const m = document.querySelector(`input[name="contact-method-${ft}"]:checked`).value;
                 if (m === 'email') return { method: 'email', value: document.getElementById(ft === 'simple' ? 'simple-email' : 'req-email').value };
@@ -716,6 +738,11 @@
                 const n = document.getElementById(ft === 'simple' ? 'simple-phone' : 'req-phone').value;
                 return { method: 'phone', value: `${c} ${n}` };
             };
+
+            document.getElementById('simple-country-code')?.addEventListener('change', updateCountryAwareWhatsAppLinks);
+            document.getElementById('req-country-code')?.addEventListener('change', updateCountryAwareWhatsAppLinks);
+            updateCountryAwareWhatsAppLinks();
+
             const svcForm = document.getElementById('serviceRequestForm');
             if (svcForm) svcForm.addEventListener('submit', async (e) => {
                 e.preventDefault();

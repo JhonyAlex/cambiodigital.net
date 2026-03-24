@@ -20,7 +20,7 @@
             Arma tu Plan <br><span class="text-stroke-black text-white">A Medida</span>
         </h2>
         <p class="reveal font-mono text-lg md:text-xl mb-12 max-w-2xl mx-auto">
-            Selecciona los módulos exactos que necesitas, añade extras y obtén un presupuesto estimado al instante. Sin compromisos.
+            Selecciona el paquete que mejor encaja, suma la operación mensual si aplica y obtén un presupuesto estimado al instante. Sin compromisos.
         </p>
         
         <button onclick="openQuoteModal()" class="reveal bg-cd-magenta text-white font-bold text-xl md:text-2xl py-6 px-12 border-hard shadow-hard btn-press hover:bg-white hover:text-black uppercase flex items-center justify-center gap-4 mx-auto transition-colors">
@@ -46,7 +46,7 @@
             <!-- Left Column: Services -->
             <div class="flex-1 p-6 md:p-10 overflow-y-auto max-h-[60vh] lg:max-h-[85vh] bg-gray-50">
                 <h3 class="font-black text-3xl uppercase mb-2">Configura tu Solución</h3>
-                <p class="font-mono text-sm text-gray-500 mb-8">Selecciona los módulos para ver el precio estimado.</p>
+                <p class="font-mono text-sm text-gray-500 mb-8">Selecciona paquetes y operación para ver el precio estimado.</p>
                 
                 <div class="grid grid-cols-1 gap-6" id="services-grid">
                     <!-- Filled by JS -->
@@ -63,7 +63,7 @@
 
                 <div id="summary-items" class="flex-1 overflow-y-auto max-h-[200px] space-y-3 mb-6 pr-2 font-mono text-sm empty:hidden">
                     <div class="text-center py-8 text-gray-400 border-2 border-dashed border-gray-300">
-                        Selecciona servicios
+                        Selecciona paquetes
                     </div>
                 </div>
 
@@ -116,67 +116,48 @@
     // Database
     const SERVICES_DB = [
         {
-            id: 'web-essential',
-            name: 'Página Esencial',
-            description: 'Diseño básico hasta 3 secciones. Ideal para presencia rápida.',
-            basePrice: 400,
-            marketValue: 650,
-            features: ['3 Secciones', 'Optimización Básica', 'Responsive'],
-            icon: 'layout',
-            extras: [
-                { id: 'copy', name: 'Redacción (Copywriting)', price: 50, type: 'one-time' },
-                { id: 'form', name: 'Formulario Avanzado', price: 20, type: 'one-time' }
-            ]
+            id: 'ia-base',
+            name: 'IA Base',
+            description: 'Instalación del sistema de IA con prompting y base de conocimiento inicial, lista para operar con Kommo CRM.',
+            basePrice: 300,
+            marketValue: 600,
+            type: 'one-time',
+            features: ['Instalación IA', 'Prompting Inicial', 'Kommo Básico'],
+            icon: 'bot',
+            extras: []
         },
         {
-            id: 'web-custom',
-            name: 'Página Personalizada',
-            description: 'Diseño a medida con funcionalidades avanzadas y SEO.',
-            basePrice: 800,
-            marketValue: 1200,
-            features: ['Diseño a Medida', 'SEO Técnico', 'Integraciones'],
-            icon: 'smartphone',
-            extras: [
-                { id: 'chatbot-basic', name: 'Integrar Chatbot Básico', price: 150, type: 'one-time' },
-                { id: 'sections', name: 'Sección Extra ($40 c/u)', price: 40, type: 'counter' }
-            ]
+            id: 'ia-intermedio',
+            name: 'IA Intermedio',
+            description: 'Incluye todo lo del paquete base más estudio del cliente, prompting profesional y conocimiento inicial ya montado.',
+            basePrice: 350,
+            marketValue: 700,
+            type: 'one-time',
+            features: ['Todo IA Base', 'Estudio del Cliente', 'Prompting Pro'],
+            icon: 'brain-circuit',
+            extras: []
         },
         {
-            id: 'store-adv',
-            name: 'Tienda Avanzada',
-            description: 'Catálogo amplio, pasarelas de pago y diseño personalizado.',
-            basePrice: 2400,
-            marketValue: 3500,
-            features: ['Pasarelas de Pago', 'Catálogo Amplio', 'Panel Admin'],
-            icon: 'database',
-            extras: [
-                { id: 'priority', name: 'Carga Prioritaria', price: 200, type: 'one-time' }
-            ]
+            id: 'proyecto-integral',
+            name: 'Proyecto Integral',
+            description: 'Solución llave en mano con gestión completa, acompañamiento operativo e integración avanzada con Kommo CRM.',
+            basePrice: 1400,
+            marketValue: 2800,
+            type: 'one-time',
+            features: ['Llave en Mano', 'Gestión Completa', 'Kommo Avanzado'],
+            icon: 'briefcase-business',
+            extras: []
         },
         {
-            id: 'chatbot-ai',
-            name: 'Chatbot Esencial',
-            description: 'Atención automática para clientes 24/7.',
-            basePrice: 180,
-            marketValue: 300,
-            features: ['Respuestas Rápidas', 'Lógica de Árbol'],
-            icon: 'message-square',
-            extras: [
-                { id: 'ai-token', name: 'Inteligencia Artificial (GPT)', price: 50, type: 'monthly' },
-                { id: 'whatsapp', name: 'WhatsApp API Oficial', price: 30, type: 'monthly' }
-            ]
-        },
-        {
-            id: 'hosting',
-            name: 'Hosting & Dominio',
-            description: 'Alojamiento anual seguro y nombre de dominio.',
-            basePrice: 260,
-            marketValue: 350,
-            features: ['SSL Incluido', 'Correos Corporativos', 'Backups'],
-            icon: 'shield-check',
-            extras: [
-                { id: 'storage', name: '50GB Almacenamiento Extra', price: 50, type: 'one-time' }
-            ]
+            id: 'mantenimiento-operativo',
+            name: 'Mantenimiento Operativo',
+            description: 'Servidor activo, ajustes básicos del prompt y cambios menores mensuales para mantener la solución estable.',
+            basePrice: 30,
+            marketValue: 480,
+            type: 'monthly',
+            features: ['Servidor Activo', 'Ajustes Básicos', 'FAQs y Cambios Menores'],
+            icon: 'refresh-cw',
+            extras: []
         }
     ];
 
@@ -206,6 +187,18 @@
         document.documentElement.classList.remove('overflow-hidden'); // Fix scroll on html
     }
 
+    function formatAmount(value) {
+        return `$${Number(value).toLocaleString('en-US')}`;
+    }
+
+    function formatServicePrice(amount, type) {
+        return type === 'monthly' ? `${formatAmount(amount)}/mes` : formatAmount(amount);
+    }
+
+    function getPriceLabel(type) {
+        return type === 'monthly' ? 'Mensual' : 'Pago Único';
+    }
+
     // Core Functions
     function initQuoteCalculator() {
         console.log('Initializing Quote Calculator...');
@@ -225,8 +218,8 @@
                         <i data-lucide="${service.icon}" class="w-6 h-6"></i>
                     </div>
                     <div class="text-right">
-                        <span class="block text-2xl font-black">$${service.basePrice}</span>
-                        <span class="text-xs font-mono uppercase bg-cd-lavender px-1 border border-black">Pago Único</span>
+                        <span class="block text-2xl font-black">${formatServicePrice(service.basePrice, service.type)}</span>
+                        <span class="text-xs font-mono uppercase bg-cd-lavender px-1 border border-black">${getPriceLabel(service.type)}</span>
                     </div>
                 </div>
 
@@ -264,7 +257,7 @@
                                     }
                                     <span class="text-xs font-mono font-bold">${extra.name}</span>
                                 </div>
-                                <span class="text-xs font-bold text-cd-purple-dark">+$${extra.price}${extra.type === 'monthly' ? '/mes' : ''}</span>
+                                <span class="text-xs font-bold text-cd-purple-dark">+${formatServicePrice(extra.price, extra.type)}</span>
                             </div>
                         `).join('')}
                     </div>
@@ -381,14 +374,18 @@
         const selectedIds = Object.keys(quoteState.selected);
         
         if (selectedIds.length === 0 && summaryList) {
-            summaryList.innerHTML = '<div class="text-center py-8 text-gray-400 border-2 border-dashed border-gray-300">Selecciona servicios para comenzar</div>';
+            summaryList.innerHTML = '<div class="text-center py-8 text-gray-400 border-2 border-dashed border-gray-300">Selecciona paquetes para comenzar</div>';
         }
 
         selectedIds.forEach(id => {
             const service = SERVICES_DB.find(s => s.id === id);
             if(!service) return;
 
-            oneTime += service.basePrice;
+            if (service.type === 'monthly') {
+                monthly += service.basePrice;
+            } else {
+                oneTime += service.basePrice;
+            }
             market += service.marketValue;
 
             // Add Service to Summary
@@ -414,7 +411,7 @@
                 extrasHtml += `
                     <div class="flex justify-between text-xs text-gray-500 pl-2 border-l-2 border-gray-300">
                         <span>+ ${exDef.name} ${typeof val === 'number' ? `(x${val})` : ''}</span>
-                        <span>$${cost}${exDef.type === 'monthly' ? '/mes' : ''}</span>
+                        <span>${formatServicePrice(cost, exDef.type)}</span>
                     </div>
                 `;
             });
@@ -424,7 +421,7 @@
                     <div class="border-b border-gray-200 pb-2 last:border-0">
                         <div class="flex justify-between font-bold text-black">
                             <span>${service.name}</span>
-                            <span>$${service.basePrice}</span>
+                            <span>${formatServicePrice(service.basePrice, service.type)}</span>
                         </div>
                         ${extrasHtml ? `<div class="mt-1 space-y-1">${extrasHtml}</div>` : ''}
                     </div>
@@ -439,24 +436,25 @@
         const elSavings = document.getElementById('total-savings');
         const rowMonthly = document.getElementById('row-monthly');
 
-        if(elOneTime) elOneTime.innerText = `$${oneTime}`;
-        if(elMarket) elMarket.innerText = `$${market}`;
+        if(elOneTime) elOneTime.innerText = formatAmount(oneTime);
+        if(elMarket) elMarket.innerText = formatAmount(market);
         
         if (monthly > 0) {
             if(rowMonthly) {
                 rowMonthly.classList.remove('hidden');
                 rowMonthly.classList.add('flex');
             }
-            if(elMonthly) elMonthly.innerText = `+$${monthly}/mes`;
+            if(elMonthly) elMonthly.innerText = `+${formatServicePrice(monthly, 'monthly')}`;
         } else {
             if(rowMonthly) {
                 rowMonthly.classList.add('hidden');
                 rowMonthly.classList.remove('flex');
             }
+            if(elMonthly) elMonthly.innerText = '$0/mes';
         }
 
         const savings = Math.max(0, market - oneTime - (monthly * 12));
-        if(elSavings) elSavings.innerText = `$${savings.toFixed(0)}`;
+        if(elSavings) elSavings.innerText = formatAmount(savings.toFixed(0));
     }
 
     window.downloadQuoteImage = function() {

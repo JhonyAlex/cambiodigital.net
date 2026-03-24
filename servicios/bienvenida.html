@@ -23,6 +23,7 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/assets/js/config.js"></script>
     
     <!-- Popup Navideño y Banner de Cookies -->
     <!-- <link rel="stylesheet" href="/assets/css/popup-navidad.css">
@@ -70,9 +71,9 @@
                     </h2>
                     
                     <!-- WhatsApp -->
-                    <a href="https://wa.me/573122908416" target="_blank" class="block w-full bg-[#25D366] text-white font-bold text-lg py-4 px-6 border-2 border-black shadow-[4px_4px_0_black] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_black] transition-all mb-6 flex items-center justify-between group">
+                    <a id="welcome-whatsapp-support" href="https://wa.me/573122908416" target="_blank" class="block w-full bg-[#25D366] text-white font-bold text-lg py-4 px-6 border-2 border-black shadow-[4px_4px_0_black] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_black] transition-all mb-6 flex items-center justify-between group">
                         <span class="flex items-center gap-3"><i data-lucide="phone" class="fill-current"></i> WhatsApp Soporte</span>
-                        <span class="font-mono text-sm opacity-90 group-hover:underline">+57 312 290 8416</span>
+                        <span id="welcome-whatsapp-label" class="font-mono text-sm opacity-90 group-hover:underline">+57 312 290 8416</span>
                     </a>
 
                     <!-- Google Chat Info -->
@@ -137,7 +138,10 @@
                                 <p class="font-mono text-xs text-gray-300">
                                     Al usar la plataforma aceptas nuestros términos de servicio y política de privacidad de datos.
                                 </p>
-                                <a href="/servicios/it-partner" class="inline-block mt-2 text-xs font-bold underline decoration-cd-magenta underline-offset-4 hover:text-cd-magenta transition-colors">Ver Documentación Completa</a>
+                                <div class="mt-2 flex flex-wrap gap-3 text-xs font-bold">
+                                    <a href="/condiciones-servicio.html" class="underline decoration-cd-magenta underline-offset-4 hover:text-cd-magenta transition-colors">Condiciones de Servicio</a>
+                                    <a href="/politica-privacidad.html" class="underline decoration-cd-magenta underline-offset-4 hover:text-cd-magenta transition-colors">Política de Privacidad</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -329,6 +333,26 @@
         document.addEventListener('DOMContentLoaded', () => {
             const serviceForm = document.getElementById('serviceRequestForm');
             const N8N_WEBHOOK_URL = 'https://n8n.cambiodigital.cloud/webhook/c1692d85-8ad6-4977-b484-541c16463d0a'; 
+            const countryCodeSelect = document.getElementById('req-country-code');
+            const supportLink = document.getElementById('welcome-whatsapp-support');
+            const supportLabel = document.getElementById('welcome-whatsapp-label');
+
+            const updateSupportWhatsAppLink = () => {
+                const countryCode = countryCodeSelect?.value || '+57';
+                const phoneNumber = window.getWhatsAppNumberByCountryCode
+                    ? window.getWhatsAppNumberByCountryCode(countryCode)
+                    : '573122908416';
+                const message = 'Hola, quiero soporte para mi servicio en Cambio Digital.';
+                if (supportLink && window.buildWhatsAppUrl) {
+                    supportLink.href = window.buildWhatsAppUrl(countryCode, message);
+                }
+                if (supportLabel) {
+                    supportLabel.textContent = phoneNumber === '34603242390' ? '+34 603 242 390' : '+57 312 290 8416';
+                }
+            };
+
+            countryCodeSelect?.addEventListener('change', updateSupportWhatsAppLink);
+            updateSupportWhatsAppLink();
 
             if(serviceForm) {
                 serviceForm.addEventListener('submit', async (e) => {

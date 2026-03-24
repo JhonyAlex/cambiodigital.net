@@ -53,13 +53,12 @@
 
 **Cotizador Plan a Medida (modal HTML)**
 
-| Servicio             | Precio base | Tipo  | Extras                                               |
-| -------------------- | ----------- | ----- | ---------------------------------------------------- |
-| Página Esencial      | $400 USD    | Único | Redacción +$50 único; Formulario avanzado +$20 único |
-| Página Personalizada | $800 USD    | Único | Chatbot básico +$150 único; Sección extra +$40 c/u   |
-| Tienda Avanzada      | $2,400 USD  | Único | Carga prioritaria +$200 único                        |
-| Chatbot Esencial     | $180 USD    | Único | IA GPT +$50/mes; WhatsApp API +$30/mes               |
-| Hosting & Dominio    | $260 USD    | Único | 50GB almacenamiento extra +$50 único                 |
+| Servicio                | Precio base | Tipo    | Extras |
+| ----------------------- | ----------- | ------- | ------ |
+| IA Base                 | $300 USD    | Único   | Sin extras |
+| IA Intermedio           | $350 USD    | Único   | Sin extras |
+| Proyecto Integral       | $1,400 USD  | Único   | Sin extras |
+| Mantenimiento Operativo | $30 USD     | Mensual | Sin extras |
 
 **Fuentes en el código**
 

@@ -892,7 +892,10 @@ Comentarios: ${document.getElementById('q-comments').value || 'Ninguno'}
     function container_showSuccess(totals, selectedList) {
         const container = document.getElementById('calculator-app');
         const phone = document.getElementById('q-phone')?.value || '';
-        const waMessage = encodeURIComponent(`¡Hola! Acabo de cotizar en su web. Servicios: ${selectedList.map(s => s.name).join(', ')}. Total estimado: $${totals.oneTime} USD + $${totals.monthly}/mes.`);
+        const waText = `Hola! Acabo de cotizar en su web. Servicios: ${selectedList.map(s => s.name).join(', ')}. Total estimado: $${totals.oneTime} USD + $${totals.monthly}/mes.`;
+        const waUrl = window.buildWhatsAppUrl
+            ? window.buildWhatsAppUrl('+57', waText)
+            : `https://wa.me/573122908416?text=${encodeURIComponent(waText)}`;
 
         container.innerHTML = `
         <div class="text-center max-w-lg mx-auto py-12 animate-fade-in">
@@ -914,7 +917,7 @@ Comentarios: ${document.getElementById('q-comments').value || 'Ninguno'}
                 ` : ''}
             </div>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="https://wa.me/573122908416?text=${waMessage}" target="_blank" class="btn-primary justify-center py-3 px-6">
+                <a href="${waUrl}" target="_blank" class="btn-primary justify-center py-3 px-6">
                     <i data-lucide="message-circle" class="w-4 h-4"></i> Hablar por WhatsApp
                 </a>
                 <a href="/" class="btn-secondary justify-center py-3 px-6">
