@@ -649,6 +649,43 @@ article td {
     color: var(--color-text-muted);
 }
 
+/* Ensure readability for blog templates that render content inside white cards */
+article.bg-white {
+    color: #0f172a;
+}
+
+article.bg-white h1,
+article.bg-white h2,
+article.bg-white h3,
+article.bg-white strong,
+article.bg-white th {
+    color: #0f172a;
+}
+
+article.bg-white p,
+article.bg-white li,
+article.bg-white ul,
+article.bg-white ol,
+article.bg-white td,
+article.bg-white blockquote {
+    color: #334155;
+}
+
+article.bg-white th {
+    background-color: #f8fafc;
+}
+
+article.bg-white .cta-box {
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+article.bg-white .cta-box p,
+article.bg-white .cta-box h3 {
+    color: #0f172a;
+}
+
 /* --- Text Stroke (legacy support) --- */
 .text-stroke-black {
     -webkit-text-stroke: 2px black;
