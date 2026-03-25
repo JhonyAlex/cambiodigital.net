@@ -30,21 +30,40 @@
         content="Potenciamos tu negocio con automatización inteligente. Chatbots IA, CRM, desarrollo web y soporte IT.">
     <meta property="twitter:image" content="https://cambiodigital.net/assets/og-home.png">
 
+    <script>
+        (function () {
+            try {
+                document.documentElement.setAttribute('data-theme', localStorage.getItem('cd-theme') || 'light');
+            } catch (error) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
     <link rel="stylesheet" href="/assets/css/tailwind.generated.css">
     <link rel="stylesheet" href="/assets/css/theme.css">
-    <link rel="stylesheet" href="/assets/css/cookie-consent.css">
-    <link rel="stylesheet" href="/assets/css/promo-modal.css">
+    <link rel="preload" href="/assets/css/cookie-consent.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/promo-modal.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/assets/css/cookie-consent.css">
+        <link rel="stylesheet" href="/assets/css/promo-modal.css">
+    </noscript>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
+    <link rel="preload"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap">
+    </noscript>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/theme-toggle.js"></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
 
     <script type="application/ld+json">
     {
@@ -810,7 +829,18 @@
             }
         }
 
-        lucide.createIcons();
+        const refreshHomeIcons = () => {
+            if (typeof window.refreshLucideIcons === 'function') {
+                window.refreshLucideIcons();
+                return;
+            }
+
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        };
+
+        refreshHomeIcons();
         document.addEventListener('DOMContentLoaded', () => {
             const cd = document.getElementById('cursor-dot'), co = document.getElementById('cursor-outline');
             let mx = 0, my = 0, ox = 0, oy = 0;
@@ -822,7 +852,7 @@
                     const container = document.getElementById('contact-container');
                     if (container) {
                         container.innerHTML = d;
-                        if (window.lucide) window.lucide.createIcons();
+                        refreshHomeIcons();
                         if (window.initAnimations) window.initAnimations();
                         try { initServiceForm(); } catch (err) { console.error('Error initServiceForm:', err); }
                     }
@@ -846,6 +876,7 @@
             const v = document.getElementById('hero-video');
             if (v) { v.muted = true; const p = v.play(); if (p !== undefined) p.catch(() => { const s = () => { v.play();['click', 'touchstart', 'scroll'].forEach(e => document.removeEventListener(e, s)); };['click', 'touchstart', 'scroll'].forEach(e => document.addEventListener(e, s, { once: true })); }); }
 
+            refreshHomeIcons();
             loadHomeBlogPreview();
         });
     </script>

@@ -220,43 +220,7 @@
     <div id="footer-container"></div>
     
     <!-- Scripts -->
-    <script>
-        lucide.createIcons();
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // Cursor
-            const cursorDot = document.getElementById('cursor-dot');
-            const cursorOutline = document.getElementById('cursor-outline');
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-            let outlineX = 0, outlineY = 0;
-
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-            });
-
-            function animateCursor() {
-                outlineX += (mouseX - outlineX) * 0.15;
-                outlineY += (mouseY - outlineY) * 0.15;
-                cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            // Reveal Observer
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.15 });
-
-            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-        });
-    </script>
+        <script src="/assets/js/blog-post.js"></script>
     <script src="/assets/js/layout-loader.js"></script>
 </body>
 </html>

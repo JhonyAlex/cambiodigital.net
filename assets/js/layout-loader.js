@@ -7,6 +7,7 @@
     'use strict';
 
     const THEME_SCRIPT_SRC = '/assets/js/theme-toggle.js';
+    const LUCIDE_SCRIPT_SELECTOR = 'script[src*="unpkg.com/lucide"]';
 
     function applyStoredThemeFallback() {
         try {
@@ -58,6 +59,44 @@
         } catch (error) {
             console.error('Error loading theme runtime:', error);
         }
+    }
+
+    function initThemeToggleWhenReady() {
+        if (typeof window.initThemeToggle === 'function') {
+            window.initThemeToggle();
+            return;
+        }
+
+        const existing = document.querySelector(`script[src="${THEME_SCRIPT_SRC}"]`) || document.querySelector('script[data-cd="theme-toggle"]');
+        if (!existing || existing.dataset.themeInitBound === 'true') {
+            return;
+        }
+
+        existing.dataset.themeInitBound = 'true';
+        existing.addEventListener('load', () => {
+            if (typeof window.initThemeToggle === 'function') {
+                window.initThemeToggle();
+            }
+        }, { once: true });
+    }
+
+    function refreshLucideIcons() {
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+            return;
+        }
+
+        const existing = document.querySelector(LUCIDE_SCRIPT_SELECTOR);
+        if (!existing || existing.dataset.lucideBound === 'true') {
+            return;
+        }
+
+        existing.dataset.lucideBound = 'true';
+        existing.addEventListener('load', () => {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        }, { once: true });
     }
 
     function initGlobalCursor() {
@@ -132,13 +171,8 @@
 
             headerContainer.innerHTML = data;
 
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
-
-            if (typeof window.initThemeToggle === 'function') {
-                window.initThemeToggle();
-            }
+            refreshLucideIcons();
+            initThemeToggleWhenReady();
 
             initMobileMenu();
         } catch (error) {
@@ -155,21 +189,21 @@
 
             footerContainer.innerHTML = data;
 
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
-
-            if (typeof window.initThemeToggle === 'function') {
-                window.initThemeToggle();
-            }
+            refreshLucideIcons();
+            initThemeToggleWhenReady();
         } catch (error) {
             console.error('Error loading footer:', error);
         }
     }
 
+    window.refreshLucideIcons = refreshLucideIcons;
+    window.refreshThemeToggle = initThemeToggleWhenReady;
+
     document.addEventListener('DOMContentLoaded', async () => {
         await ensureThemeRuntime();
         initGlobalCursor();
-        await Promise.all([loadHeader(), loadFooter()]);
+        await Promise.allSettled([loadHeader(), loadFooter()]);
+        refreshLucideIcons();
+        initThemeToggleWhenReady();
     });
 })();

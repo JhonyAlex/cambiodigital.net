@@ -10,7 +10,7 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#1c2143">
     <link rel="manifest" href="/manifest.json">
-    <link rel="canonical" href="https://cambiodigital.net/blog/por-que-usar-crm">
+    <link rel="canonical" href="https://cambiodigital.net/blog/por-que-usar-crm.html">
     <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
 
     <!-- Open Graph -->
@@ -18,11 +18,11 @@
     <meta property="og:title" content="Por Qué las Mejores Empresas Usan CRM: +27% Retención de Clientes">
     <meta property="og:description" content="Descubre por qué empresas líderes usan CRM y aumentan retención 27%, ventas 41% y satisfacción 45%. Guía práctica sin tecnicismos 2025.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800">
-    <meta property="og:url" content="https://cambiodigital.net/blog/por-que-usar-crm">
+    <meta property="og:url" content="https://cambiodigital.net/blog/por-que-usar-crm.html">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://cambiodigital.net/blog/por-que-usar-crm">
+    <meta property="twitter:url" content="https://cambiodigital.net/blog/por-que-usar-crm.html">
     <meta property="twitter:title" content="Por Qué las Mejores Empresas Usan CRM: +27% Retención de Clientes">
     <meta property="twitter:description" content="Descubre por qué empresas líderes usan CRM y aumentan retención 27%, ventas 41% y satisfacción 45%. Guía práctica sin tecnicismos 2025.">
     <meta property="twitter:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800">
@@ -57,7 +57,7 @@
         
         <article class="max-w-3xl mx-auto bg-white p-8 md:p-12 border-hard shadow-hard reveal active">
             <div class="mb-8 border-b-2 border-black pb-6">
-                <a href="/blog" class="inline-flex items-center gap-2 font-mono text-sm font-bold mb-4 hover:text-cd-magenta transition-colors min-h-[48px] flex items-center">
+                <a href="/blog.html" class="inline-flex items-center gap-2 font-mono text-sm font-bold mb-4 hover:text-cd-magenta transition-colors min-h-[48px] flex items-center">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Volver al Blog
                 </a>
                 <h1 class="font-black text-4xl md:text-5xl uppercase leading-tight mb-4">¿Por Qué las Mejores Empresas Usan CRM?</h1>
@@ -397,45 +397,7 @@
     <!-- Footer Container -->
     <div id="footer-container"></div>
 
-    <script>
-        lucide.createIcons();
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // Header and Footer handled by layout-loader.js
-
-            // Cursor
-            const cursorDot = document.getElementById('cursor-dot');
-            const cursorOutline = document.getElementById('cursor-outline');
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-            let outlineX = 0, outlineY = 0;
-
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-            });
-
-            function animateCursor() {
-                outlineX += (mouseX - outlineX) * 0.15;
-                outlineY += (mouseY - outlineY) * 0.15;
-                cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            // Reveal Observer
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.15 });
-
-            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-        });
-    </script>
+        <script src="/assets/js/blog-post.js"></script>
     <script src="/assets/js/layout-loader.js"></script>
 </body>
 </html>
