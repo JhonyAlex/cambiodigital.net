@@ -55,6 +55,7 @@
 
     <!-- Theme Toggle (in head to prevent flash) -->
     <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clickable-cards.js" defer></script>
 
     <!-- Popup Navideño y Banner de Cookies -->
     <!-- <link rel="stylesheet" href="/assets/css/popup-navidad.css">
@@ -598,8 +599,23 @@
     <script>
         lucide.createIcons();
 
+        function initBlogClickableCards(root = document) {
+            if (typeof window.setupClickableCards !== 'function') {
+                return;
+            }
+
+            window.setupClickableCards([
+                {
+                    cardSelector: 'section.max-w-7xl.mx-auto.grid article.card-modern',
+                    linkSelector: 'a.btn-secondary[href]'
+                }
+            ], root);
+        }
+
         document.addEventListener('DOMContentLoaded', (event) => {
             // Header and Footer handled by layout-loader.js
+
+            initBlogClickableCards();
 
             // Cursor
             const cursorDot = document.getElementById('cursor-dot');

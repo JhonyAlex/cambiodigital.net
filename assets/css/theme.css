@@ -442,6 +442,15 @@ body:has(a:hover, button:hover) #cursor-outline {
     transform: translateY(-2px);
 }
 
+.clickable-card {
+    cursor: pointer;
+}
+
+.clickable-card:focus-within {
+    border-color: var(--cd-highlight-color);
+    box-shadow: 0 0 0 1px var(--cd-highlight-color), 0 10px 25px -5px var(--cd-shadow-color);
+}
+
 /* --- Section Divider --- */
 .section-divider {
     height: 1px;

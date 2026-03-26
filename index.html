@@ -65,6 +65,7 @@
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <script src="/assets/js/config.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clickable-cards.js" defer></script>
 
     <script type="application/ld+json">
     {
@@ -769,6 +770,17 @@
             });
         }
 
+        function initHomeClickableCards(root = document) {
+            if (typeof window.setupClickableCards !== 'function') {
+                return;
+            }
+
+            window.setupClickableCards([
+                { cardSelector: '#servicios .card-modern', linkSelector: 'a.btn-primary[href]' },
+                { cardSelector: '#home-blog-preview-grid article.card-modern', linkSelector: 'a[href]' }
+            ], root);
+        }
+
         async function loadHomeBlogPreview() {
             const container = document.getElementById('home-blog-preview-grid');
             if (!container) return;
@@ -817,6 +829,8 @@
                     </article>`;
                 }).join('');
 
+                initHomeClickableCards(container);
+
                 if (window.initAnimations) window.initAnimations();
             } catch (error) {
                 console.error('Error cargando preview del blog en home:', error);
@@ -827,6 +841,8 @@
                     <p class="text-xs text-cd-text-dim mb-4">Puedes ver los artículos directamente en el blog.</p>
                     <a href="/blog.html" class="text-sm font-semibold hover:underline" style="color: var(--cd-highlight-color);">Ir al blog &rarr;</a>
                 </article>`;
+
+                initHomeClickableCards(container);
             }
         }
 
@@ -843,6 +859,7 @@
 
         refreshHomeIcons();
         document.addEventListener('DOMContentLoaded', () => {
+            initHomeClickableCards();
             const cd = document.getElementById('cursor-dot'), co = document.getElementById('cursor-outline');
             let mx = 0, my = 0, ox = 0, oy = 0;
             window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; cd.style.transform = `translate(${mx}px,${my}px)`; });
