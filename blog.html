@@ -597,7 +597,11 @@
     <div id="footer-container"></div>
 
     <script>
-        lucide.createIcons();
+        function refreshBlogIcons() {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        }
 
         function initBlogClickableCards(root = document) {
             if (typeof window.setupClickableCards !== 'function') {
@@ -615,6 +619,7 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             // Header and Footer handled by layout-loader.js
 
+            refreshBlogIcons();
             initBlogClickableCards();
 
             // Cursor
