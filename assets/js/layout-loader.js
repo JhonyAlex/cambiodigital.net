@@ -190,11 +190,13 @@
 
         function openMenu() {
             mobileMenu.classList.add('open');
+            document.documentElement.classList.add('overflow-hidden');
             document.body.classList.add('overflow-hidden');
         }
 
         function closeMenu() {
             mobileMenu.classList.remove('open');
+            document.documentElement.classList.remove('overflow-hidden');
             document.body.classList.remove('overflow-hidden');
         }
 
