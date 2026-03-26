@@ -329,7 +329,8 @@
         counters: {},
         quizAnswers: [],
         recommendedCategories: [],
-        customer: {}
+        customer: {},
+        hashApplied: false
     };
 
     // ==========================================
@@ -433,7 +434,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
             ${SERVICES_DB.map(cat => `
                 <button onclick="window.calcSelectCategory('${cat.category}')"
-                    class="card-modern text-left p-6 ${state.selectedServices[cat.category + '-selected'] ? 'border-cd-highlight ring-2 ring-cd-highlight' : ''} ${hash === cat.category ? 'border-cd-highlight ring-2 ring-cd-highlight' : ''}">
+                    class="card-modern text-left p-6 ${state.selectedServices[cat.category + '-selected'] ? 'border-cd-highlight ring-2 ring-cd-highlight' : ''}">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: var(--cd-surface);">
                             <i data-lucide="${cat.categoryIcon}" class="w-5 h-5" style="color: var(--cd-highlight-color);"></i>
@@ -462,10 +463,11 @@
             </button>
         </div>`;
 
-        // Auto-select from hash
-        if (hash) {
+        // Auto-select from hash (only once on first load)
+        if (hash && !state.hashApplied) {
+            state.hashApplied = true;
             const cat = SERVICES_DB.find(c => c.category === hash);
-            if (cat && !state.selectedServices[hash + '-selected']) {
+            if (cat) {
                 state.selectedServices[hash + '-selected'] = true;
                 cat.services.forEach(s => { state.selectedServices[s.id] = false; });
             }

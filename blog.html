@@ -307,8 +307,8 @@
             </article>
 
             <!-- SCHEDULED POST: 2026-01-19 -->
-            <div id="post-2026-01-19" style="display:none;" data-date="2026-01-19T00:00:00">
-             <article class="reveal card-modern text-left card-hover p-6 flex flex-col h-full">
+            <div id="post-2026-01-19" style="display:contents;" data-date="2026-01-19T00:00:00">
+             <article class="reveal active card-modern text-left card-hover p-6 flex flex-col h-full">
                 <span class="font-mono text-xs border-b-2 inline-block w-max mb-3 pb-1">ESTRATEGIA_IA_CRM</span>
                 <a href="/blog/5-cosas-competencia-ia-crm-2026.html" class="block overflow-hidden rounded-lg mb-4">
                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800" loading="lazy" width="800" height="400" alt="Análisis competencia" class="w-full h-48 object-cover grayscale hover:grayscale-0 transition-all hover:scale-105 duration-500">
@@ -338,21 +338,6 @@
                 </div>
             </article>
             </div>
-            <script>
-                (function() {
-                    try {
-                        var now = new Date();
-                        var post = document.getElementById('post-2026-01-19');
-                        if(post) {
-                            var dateStr = post.getAttribute('data-date');
-                            var publishDate = new Date(dateStr);
-                            if (!isNaN(publishDate) && now >= publishDate) {
-                                post.style.display = 'contents';
-                            }
-                        }
-                    } catch(e) { console.error("Error checking scheduled post", e); }
-                })();
-            </script>
 
             <!-- VENDEDOR IA (Visible Now) -->
             <article class="reveal active card-modern card-hover p-6 flex flex-col">
@@ -636,6 +621,8 @@
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
+
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
 
             // Reveal Observer
             const revealObserver = new IntersectionObserver((entries) => {

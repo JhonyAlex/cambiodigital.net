@@ -7,7 +7,9 @@
     'use strict';
 
     const THEME_SCRIPT_SRC = '/assets/js/theme-toggle.js';
+    const LUCIDE_SCRIPT_SRC = 'https://unpkg.com/lucide@latest';
     const LUCIDE_SCRIPT_SELECTOR = 'script[src*="unpkg.com/lucide"]';
+    const GOOGLE_FONTS_HREF = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap';
 
     function applyStoredThemeFallback() {
         try {
@@ -16,6 +18,32 @@
             document.documentElement.setAttribute('data-theme', saved || 'light');
         } catch (error) {
             console.error('Theme fallback error:', error);
+        }
+    }
+
+    function ensureGlobalFonts() {
+        if (!document.head) return;
+
+        if (!document.querySelector('link[href="https://fonts.googleapis.com"]')) {
+            const preconnectFonts = document.createElement('link');
+            preconnectFonts.rel = 'preconnect';
+            preconnectFonts.href = 'https://fonts.googleapis.com';
+            document.head.appendChild(preconnectFonts);
+        }
+
+        if (!document.querySelector('link[href="https://fonts.gstatic.com"]')) {
+            const preconnectStatic = document.createElement('link');
+            preconnectStatic.rel = 'preconnect';
+            preconnectStatic.href = 'https://fonts.gstatic.com';
+            preconnectStatic.crossOrigin = 'anonymous';
+            document.head.appendChild(preconnectStatic);
+        }
+
+        if (!document.querySelector(`link[href="${GOOGLE_FONTS_HREF}"]`)) {
+            const fontStylesheet = document.createElement('link');
+            fontStylesheet.rel = 'stylesheet';
+            fontStylesheet.href = GOOGLE_FONTS_HREF;
+            document.head.appendChild(fontStylesheet);
         }
     }
 
@@ -87,7 +115,20 @@
         }
 
         const existing = document.querySelector(LUCIDE_SCRIPT_SELECTOR);
-        if (!existing || existing.dataset.lucideBound === 'true') {
+        if (!existing) {
+            loadScriptOnce(LUCIDE_SCRIPT_SRC, 'lucide')
+                .then(() => {
+                    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                        window.lucide.createIcons();
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error loading lucide runtime:', error);
+                });
+            return;
+        }
+
+        if (existing.dataset.lucideBound === 'true') {
             return;
         }
 
@@ -198,6 +239,9 @@
 
     window.refreshLucideIcons = refreshLucideIcons;
     window.refreshThemeToggle = initThemeToggleWhenReady;
+
+    applyStoredThemeFallback();
+    ensureGlobalFonts();
 
     document.addEventListener('DOMContentLoaded', async () => {
         await ensureThemeRuntime();
