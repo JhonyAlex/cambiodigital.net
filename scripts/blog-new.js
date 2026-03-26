@@ -30,9 +30,14 @@ function printUsage() {
 function main() {
     const args = parseCliArgs(process.argv.slice(2));
 
-    if (args.help || args.h || !args.title) {
+    if (args.help || args.h) {
         printUsage();
-        process.exit(args.title ? 0 : 1);
+        process.exit(0);
+    }
+
+    if (!args.title) {
+        printUsage();
+        process.exit(1);
     }
 
     const { slug, html } = buildPostFromTemplate(args);
