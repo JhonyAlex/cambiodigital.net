@@ -13,6 +13,28 @@
     // ==========================================
     const SERVICES_DB = [
         {
+            category: 'whatsapp-demobot',
+            categoryName: 'Automatizacion de WhatsApp (Entregas y Demos)',
+            categoryIcon: 'message-circle',
+            categoryDescription: 'Entrega automatica de demos y seguimientos comerciales por WhatsApp.',
+            services: [
+                {
+                    id: 'whatsapp-demobot-system',
+                    name: 'Sistema Automatizado de Demos (WhatsApp DemoBot)',
+                    description: 'Entrega credenciales de prueba desde Google Sheets y convierte leads con seguimiento en Kommo CRM.',
+                    basePrice: 0,
+                    marketValue: 317,
+                    priceType: 'one-time',
+                    features: ['Entrega de Credenciales', 'Menu de Soporte y FAQs', 'Seguimiento de Conversion'],
+                    extras: [
+                        { id: 'demobot-setup', name: 'Setup Base de datos + Menu bot', price: 160, type: 'one-time', description: 'Configuracion inicial del flujo automatizado' },
+                        { id: 'demobot-cloud', name: 'Integracion Servidor en la Nube', price: 22, type: 'monthly', description: 'Operacion y monitoreo continuo de la integracion' },
+                        { id: 'demobot-kommo', name: 'Licencia Kommo Avanzado', price: 135, type: 'one-time', description: 'Costo por semestre de la licencia Kommo Avanzado' }
+                    ]
+                }
+            ]
+        },
+        {
             category: 'chatbots-ia',
             categoryName: 'Chatbots & Agentes IA',
             categoryIcon: 'bot',

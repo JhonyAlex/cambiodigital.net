@@ -1,6 +1,6 @@
 (() => {
     const PROMO_CONFIG = {
-        sessionKey: 'cd_promo_endyear_seen',
+        sessionKey: 'cd_promo_whatsapp_demobot_seen',
         delayMs: 5000
     };
 
