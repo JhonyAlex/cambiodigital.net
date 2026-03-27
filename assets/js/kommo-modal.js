@@ -2,6 +2,7 @@
     let lastFocusedElement = null;
     let focusTrapHandler = null;
     let previousBodyOverflow = '';
+    let activeModalType = null;
 
     const getModal = () => document.getElementById('kommo-pdf-modal');
 
@@ -30,7 +31,11 @@
     const trapFocus = (modal) => {
         focusTrapHandler = (event) => {
             if (event.key === 'Escape') {
-                closeKommoPdfModal();
+                if (activeModalType === 'pdf') {
+                    closeKommoPdfModal();
+                } else if (activeModalType === 'image') {
+                    closeKommoImageModal();
+                }
                 return;
             }
 
@@ -66,6 +71,7 @@
             return;
         }
 
+        activeModalType = 'pdf';
         lastFocusedElement = document.activeElement;
         modal.hidden = false;
         lockScroll();
@@ -96,6 +102,57 @@
 
         setTimeout(() => {
             modal.hidden = true;
+            activeModalType = null;
+            if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                lastFocusedElement.focus();
+            }
+        }, 180);
+    }
+
+    function openKommoImageModal(imageSrc, imageAlt) {
+        const modal = document.getElementById('kommo-image-modal');
+        const image = document.getElementById('kommo-image-viewer');
+        if (!modal || !image || !imageSrc) {
+            return;
+        }
+
+        activeModalType = 'image';
+        lastFocusedElement = document.activeElement;
+        image.src = imageSrc;
+        image.alt = imageAlt || 'Certificado Kommo';
+        modal.hidden = false;
+        lockScroll();
+
+        requestAnimationFrame(() => {
+            modal.classList.add('is-open');
+            const focusable = getFocusableElements(modal);
+            if (focusable.length) {
+                focusable[0].focus();
+            }
+            if (typeof window.refreshLucideIcons === 'function') {
+                window.refreshLucideIcons();
+            }
+        });
+
+        trapFocus(modal);
+    }
+
+    function closeKommoImageModal() {
+        const modal = document.getElementById('kommo-image-modal');
+        const image = document.getElementById('kommo-image-viewer');
+        if (!modal || !image) {
+            return;
+        }
+
+        modal.classList.remove('is-open');
+        releaseFocus();
+        unlockScroll();
+
+        setTimeout(() => {
+            modal.hidden = true;
+            image.src = '';
+            image.alt = '';
+            activeModalType = null;
             if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
                 lastFocusedElement.focus();
             }
@@ -121,10 +178,34 @@
                 closeKommoPdfModal();
             }
         });
+
+        document.querySelectorAll('[data-image-viewer-open]').forEach((trigger) => {
+            trigger.addEventListener('click', (event) => {
+                event.preventDefault();
+                const imageSrc = trigger.getAttribute('data-image-src') || trigger.getAttribute('href');
+                const imageAlt = trigger.getAttribute('data-image-alt') || trigger.textContent;
+                openKommoImageModal(imageSrc, imageAlt);
+            });
+        });
+
+        const imageModal = document.getElementById('kommo-image-modal');
+        if (imageModal) {
+            imageModal.querySelectorAll('[data-image-viewer-close]').forEach((button) => {
+                button.addEventListener('click', closeKommoImageModal);
+            });
+
+            imageModal.addEventListener('click', (event) => {
+                if (event.target === imageModal) {
+                    closeKommoImageModal();
+                }
+            });
+        }
     }
 
     window.openKommoPdfModal = openKommoPdfModal;
     window.closeKommoPdfModal = closeKommoPdfModal;
+    window.openKommoImageModal = openKommoImageModal;
+    window.closeKommoImageModal = closeKommoImageModal;
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initKommoPdfModal);

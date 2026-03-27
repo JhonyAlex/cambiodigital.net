@@ -442,16 +442,22 @@
                         <p class="text-sm text-cd-text-dim mb-4">Respaldamos nuestra experiencia con certificaciones oficiales.</p>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <a href="/assets/images/kommo/certificado-partnership-kommo.jpeg" target="_blank"
-                                class="kommo-cert-card">
+                            <a href="/assets/images/kommo/certificado-partnership-kommo.jpeg"
+                                class="kommo-cert-card"
+                                data-image-viewer-open
+                                data-image-src="/assets/images/kommo/certificado-partnership-kommo.jpeg"
+                                data-image-alt="Certificado de Partnership Kommo - Cambio Digital">
                                 <img src="/assets/images/kommo/certificado-partnership-kommo.jpeg"
                                     alt="Certificado de Partnership Kommo - Cambio Digital"
                                     class="w-full h-40 object-cover rounded-lg mb-3">
                                 <span class="kommo-cert-card__title">Partnership Kommo</span>
                                 <span class="kommo-cert-card__meta">Certificado oficial</span>
                             </a>
-                            <a href="/assets/images/kommo/certificado-cloud-whatsapp-api.jpeg" target="_blank"
-                                class="kommo-cert-card">
+                            <a href="/assets/images/kommo/certificado-cloud-whatsapp-api.jpeg"
+                                class="kommo-cert-card"
+                                data-image-viewer-open
+                                data-image-src="/assets/images/kommo/certificado-cloud-whatsapp-api.jpeg"
+                                data-image-alt="Certificado de experto en automatizaci&oacute;n WhatsApp Cloud API">
                                 <img src="/assets/images/kommo/certificado-cloud-whatsapp-api.jpeg"
                                     alt="Certificado de experto en automatizaci&oacute;n WhatsApp Cloud API"
                                     class="w-full h-40 object-cover rounded-lg mb-3">
@@ -780,6 +786,25 @@
                     class="btn-secondary text-xs py-2 px-4">
                     Abrir PDF en nueva pesta&ntilde;a <i data-lucide="external-link" class="w-4 h-4"></i>
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="kommo-image-modal" class="cd-kommo-modal" role="dialog" aria-modal="true"
+        aria-labelledby="kommo-image-title" hidden>
+        <div class="cd-kommo-modal__dialog cd-kommo-modal__dialog--image" role="document">
+            <div class="cd-kommo-modal__header">
+                <div>
+                    <p class="cd-kommo-modal__eyebrow">Certificaci&oacute;n</p>
+                    <h3 id="kommo-image-title" class="cd-kommo-modal__title">Certificado Kommo</h3>
+                </div>
+                <button type="button" class="cd-kommo-modal__close" data-image-viewer-close aria-label="Cerrar visor de imagen">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="cd-kommo-modal__image-wrap">
+                <img id="kommo-image-viewer" src="" alt="" loading="lazy">
             </div>
         </div>
     </div>
