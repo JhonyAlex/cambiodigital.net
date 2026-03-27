@@ -1,0 +1,175 @@
+/* ================================================
+   KOMMO PARTNER SECTION + PDF MODAL
+   ================================================ */
+
+.kommo-cert-card {
+    display: block;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    background: var(--cd-surface);
+    border: 1px solid var(--cd-border);
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.kommo-cert-card:hover,
+.kommo-cert-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--cd-highlight-color);
+    box-shadow: 0 10px 24px -14px var(--cd-shadow-color);
+}
+
+.kommo-cert-card__title {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.kommo-cert-card__meta {
+    display: block;
+    margin-top: 2px;
+    font-size: 11px;
+    color: var(--cd-text-dim);
+}
+
+.cd-kommo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(8, 12, 20, 0.78);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.cd-kommo-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cd-kommo-modal__dialog {
+    width: min(1100px, 100%);
+    max-height: calc(100vh - 32px);
+    background: linear-gradient(180deg, var(--cd-base), var(--cd-base-dark));
+    border: 1px solid var(--cd-border);
+    border-radius: 16px;
+    box-shadow: 0 30px 70px -35px var(--cd-shadow-color);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+    transform: translateY(12px) scale(0.99);
+    transition: transform 180ms ease;
+}
+
+.cd-kommo-modal.is-open .cd-kommo-modal__dialog {
+    transform: translateY(0) scale(1);
+}
+
+.cd-kommo-modal__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--cd-border);
+}
+
+.cd-kommo-modal__eyebrow {
+    margin: 0 0 4px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cd-text-dim);
+}
+
+.cd-kommo-modal__title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--color-text);
+}
+
+.cd-kommo-modal__close {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--cd-border);
+    background: var(--cd-surface);
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.cd-kommo-modal__close:hover,
+.cd-kommo-modal__close:focus-visible {
+    border-color: var(--cd-highlight-color);
+    color: var(--cd-highlight-color);
+}
+
+.cd-kommo-modal__body {
+    min-height: 420px;
+    background: #e6eaf3;
+}
+
+.cd-kommo-modal__body iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    border: 0;
+}
+
+.cd-kommo-modal__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px 18px;
+    border-top: 1px solid var(--cd-border);
+}
+
+.cd-kommo-modal__footer p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--cd-text-dim);
+}
+
+@media (max-width: 768px) {
+    .cd-kommo-modal {
+        padding: 8px;
+    }
+
+    .cd-kommo-modal__dialog {
+        max-height: calc(100vh - 16px);
+    }
+
+    .cd-kommo-modal__title {
+        font-size: 17px;
+    }
+
+    .cd-kommo-modal__body,
+    .cd-kommo-modal__body iframe {
+        min-height: 58vh;
+    }
+
+    .cd-kommo-modal__footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kommo-cert-card,
+    .cd-kommo-modal,
+    .cd-kommo-modal__dialog {
+        transition: none;
+    }
+}

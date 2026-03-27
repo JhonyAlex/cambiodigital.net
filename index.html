@@ -47,9 +47,12 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="/assets/css/promo-modal.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/kommo-modal.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="/assets/css/cookie-consent.css">
         <link rel="stylesheet" href="/assets/css/promo-modal.css">
+        <link rel="stylesheet" href="/assets/css/kommo-modal.css">
     </noscript>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,6 +69,7 @@
     <script src="/assets/js/config.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/clickable-cards.js" defer></script>
+    <script src="/assets/js/kommo-modal.js" defer></script>
 
     <script type="application/ld+json">
     {
@@ -381,7 +385,88 @@
 
         <div class="section-divider"></div>
 
-        <!-- ===== 5. PROCESO ===== -->
+        <!-- ===== 5. KOMMO PARTNER ===== -->
+        <section id="kommo-partner" class="w-full py-24 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                    <div class="reveal card-modern p-8 lg:p-10">
+                        <span class="badge mb-4 inline-flex">Partner Certificado Kommo</span>
+                        <h2 class="font-black text-3xl md:text-4xl mb-5">Impulsa tu negocio con Kommo y Cambio Digital</h2>
+                        <p class="text-cd-text-dim mb-4">
+                            Kommo es un CRM de mensajer&iacute;a avanzada que centraliza WhatsApp, Instagram, Facebook,
+                            correo y formularios en un solo flujo comercial para que no se pierda ninguna oportunidad.
+                        </p>
+                        <p class="text-cd-text-dim mb-6">
+                            Como socios certificados, en Cambio Digital dise&ntilde;amos la implementaci&oacute;n a medida,
+                            automatizamos procesos de venta y damos soporte experto para que tu equipo venda m&aacute;s,
+                            responda mejor y opere con orden.
+                        </p>
+
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3 text-sm text-cd-text-muted">
+                                <i data-lucide="messages-square" class="w-4 h-4 mt-0.5" style="color: var(--cd-accent-green);"></i>
+                                <span>Centralizaci&oacute;n de conversaciones y seguimiento comercial en tiempo real.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-cd-text-muted">
+                                <i data-lucide="workflow" class="w-4 h-4 mt-0.5" style="color: var(--cd-accent-green);"></i>
+                                <span>Automatizaciones para captar, calificar y nutrir prospectos sin fricci&oacute;n.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-cd-text-muted">
+                                <i data-lucide="funnel" class="w-4 h-4 mt-0.5" style="color: var(--cd-accent-green);"></i>
+                                <span>Gesti&oacute;n de ventas con embudos claros, tareas y alertas para tu equipo.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-cd-text-muted">
+                                <i data-lucide="shield-check" class="w-4 h-4 mt-0.5" style="color: var(--cd-accent-green);"></i>
+                                <span>Implementaci&oacute;n, capacitaci&oacute;n y soporte continuo con especialistas certificados.</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button type="button" class="btn-primary text-sm py-3 px-5" data-kommo-modal-open>
+                                Ver presentaci&oacute;n oficial <i data-lucide="file-text" class="w-4 h-4"></i>
+                            </button>
+                            <a href="#contacto" class="btn-secondary text-sm py-3 px-5">
+                                Quiero una implementaci&oacute;n guiada <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <aside class="reveal card-modern p-8 lg:p-10" data-delay="100">
+                        <div class="rounded-2xl p-4 mb-6" style="background: var(--cd-cream);">
+                            <img src="/assets/images/kommo/badge-light.svg" alt="Kommo Partner"
+                                class="w-full h-auto rounded-xl"
+                                data-dark-src="/assets/images/kommo/badge-dark.svg"
+                                data-light-src="/assets/images/kommo/badge-light.svg">
+                        </div>
+
+                        <p class="text-sm text-cd-text-dim mb-4">Respaldamos nuestra experiencia con certificaciones oficiales.</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <a href="/assets/images/kommo/certificado-partnership-kommo.jpeg" target="_blank"
+                                class="kommo-cert-card">
+                                <img src="/assets/images/kommo/certificado-partnership-kommo.jpeg"
+                                    alt="Certificado de Partnership Kommo - Cambio Digital"
+                                    class="w-full h-40 object-cover rounded-lg mb-3">
+                                <span class="kommo-cert-card__title">Partnership Kommo</span>
+                                <span class="kommo-cert-card__meta">Certificado oficial</span>
+                            </a>
+                            <a href="/assets/images/kommo/certificado-cloud-whatsapp-api.jpeg" target="_blank"
+                                class="kommo-cert-card">
+                                <img src="/assets/images/kommo/certificado-cloud-whatsapp-api.jpeg"
+                                    alt="Certificado de experto en automatizaci&oacute;n WhatsApp Cloud API"
+                                    class="w-full h-40 object-cover rounded-lg mb-3">
+                                <span class="kommo-cert-card__title">WhatsApp Cloud API</span>
+                                <span class="kommo-cert-card__meta">Experto certificado</span>
+                            </a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 6. PROCESO ===== -->
         <section class="w-full py-24 px-4">
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-16">
@@ -428,7 +513,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- ===== 6. COTIZADOR TEASER ===== -->
+        <!-- ===== 7. COTIZADOR TEASER ===== -->
         <section class="w-full py-24 px-4">
             <div class="max-w-3xl mx-auto text-center">
                 <div class="reveal card-modern p-12"
@@ -449,7 +534,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- ===== 7. CASOS DE EXITO ===== -->
+        <!-- ===== 8. CASOS DE EXITO ===== -->
         <section id="proyectos" class="w-full py-24 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
@@ -520,7 +605,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- ===== 8. TESTIMONIOS ===== -->
+        <!-- ===== 9. TESTIMONIOS ===== -->
         <section id="resenas" class="w-full py-24 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
@@ -589,7 +674,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- ===== 9. BLOG PREVIEW ===== -->
+        <!-- ===== 10. BLOG PREVIEW ===== -->
         <section id="blog-preview" class="w-full py-24 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
@@ -614,7 +699,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- ===== 10. CONTACTO ===== -->
+        <!-- ===== 11. CONTACTO ===== -->
         <section id="contacto" class="w-full pt-24 pb-12 px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
@@ -668,6 +753,34 @@
             <h3 class="font-black text-2xl mb-3">¡Solicitud Enviada!</h3>
             <p id="popup-message" class="text-sm text-cd-text-dim mb-6">Hemos recibido tu información correctamente.</p>
             <button onclick="closePopup()" class="btn-primary w-full justify-center py-3">Entendido</button>
+        </div>
+    </div>
+
+    <div id="kommo-pdf-modal" class="cd-kommo-modal" role="dialog" aria-modal="true"
+        aria-labelledby="kommo-pdf-title" hidden>
+        <div class="cd-kommo-modal__dialog" role="document">
+            <div class="cd-kommo-modal__header">
+                <div>
+                    <p class="cd-kommo-modal__eyebrow">Documento Institucional</p>
+                    <h3 id="kommo-pdf-title" class="cd-kommo-modal__title">Presentaci&oacute;n Kommo para socios</h3>
+                </div>
+                <button type="button" class="cd-kommo-modal__close" data-kommo-modal-close aria-label="Cerrar visor PDF">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="cd-kommo-modal__body">
+                <iframe src="/assets/docs/kommo-presentacion-cambiodigital.pdf#view=FitH" loading="lazy"
+                    title="Presentaci&oacute;n Kommo para socios - Cambio Digital"></iframe>
+            </div>
+
+            <div class="cd-kommo-modal__footer">
+                <p>Si el visor no carga, abre el archivo directamente.</p>
+                <a href="/assets/docs/kommo-presentacion-cambiodigital.pdf" target="_blank" rel="noopener noreferrer"
+                    class="btn-secondary text-xs py-2 px-4">
+                    Abrir PDF en nueva pesta&ntilde;a <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
         </div>
     </div>
 
