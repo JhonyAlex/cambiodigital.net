@@ -22,14 +22,14 @@
                     id: 'whatsapp-demobot-system',
                     name: 'Sistema Automatizado de Demos (WhatsApp DemoBot)',
                     description: 'Entrega credenciales de prueba desde Google Sheets y convierte leads con seguimiento en Kommo CRM.',
-                    basePrice: 0,
+                    basePrice: 160,
                     marketValue: 317,
                     priceType: 'one-time',
                     features: ['Entrega de Credenciales', 'Menu de Soporte y FAQs', 'Seguimiento de Conversion'],
                     extras: [
-                        { id: 'demobot-setup', name: 'Setup Base de datos + Menu bot', price: 160, type: 'one-time', description: 'Configuracion inicial del flujo automatizado' },
-                        { id: 'demobot-cloud', name: 'Integracion Servidor en la Nube', price: 22, type: 'monthly', description: 'Operacion y monitoreo continuo de la integracion' },
-                        { id: 'demobot-kommo', name: 'Licencia Kommo Avanzado', price: 135, type: 'one-time', description: 'Costo por semestre de la licencia Kommo Avanzado' }
+                        { id: 'demobot-setup', name: 'Setup Base de datos + Menu bot', price: 160, type: 'one-time', description: 'Configuracion inicial del flujo automatizado', required: true },
+                        { id: 'demobot-cloud', name: 'Integracion Servidor en la Nube', price: 22, type: 'monthly', description: 'Operacion y monitoreo continuo de la integracion', required: true },
+                        { id: 'demobot-kommo', name: 'Licencia Kommo Avanzado', price: 135, type: 'one-time', description: 'Costo por semestre de la licencia Kommo Avanzado', required: true }
                     ]
                 }
             ]
@@ -389,17 +389,17 @@
                 oneTime += svc.setupFee;
             }
 
-            // Extras
+            // Extras (including required ones)
             const svcExtras = state.extras[serviceId] || {};
-            for (const [extraId, extraSelected] of Object.entries(svcExtras)) {
-                if (!extraSelected) continue;
-                const extra = svc.extras.find(e => e.id === extraId);
-                if (!extra) continue;
+            for (const extra of svc.extras) {
+                const isExtraSelected = svcExtras[extra.id];
+                const shouldInclude = extra.required || isExtraSelected;
+                if (!shouldInclude) continue;
 
                 if (extra.type === 'monthly') {
                     monthly += extra.price;
                 } else if (extra.type === 'counter') {
-                    const count = state.counters[`${serviceId}-${extraId}`] || 1;
+                    const count = state.counters[`${serviceId}-${extra.id}`] || 1;
                     oneTime += extra.price * count;
                 } else {
                     oneTime += extra.price;
@@ -569,7 +569,7 @@
 
             ${isSelected && svc.extras.length > 0 ? `
                 <div class="mt-4 pt-4 space-y-2" style="border-top: 1px solid var(--cd-border);" onclick="event.stopPropagation()">
-                    <p class="text-xs font-semibold text-cd-text-dim uppercase tracking-wider mb-2">Extras opcionales</p>
+                    <p class="text-xs font-semibold text-cd-text-dim uppercase tracking-wider mb-2">Extras ${svc.extras.some(e => e.required) ? '(requeridos y opcionales)' : 'opcionales'}</p>
                     ${svc.extras.map(extra => {
             const extraSelected = svcExtras[extra.id];
             if (extra.type === 'counter') {
@@ -587,6 +587,19 @@
                                     <button onclick="window.calcUpdateCounter('${svc.id}', '${extra.id}', 1)" class="w-7 h-7 rounded flex items-center justify-center text-sm" style="background: var(--cd-base);">+</button>
                                 </div>
                             </div>`;
+            }
+            if (extra.required) {
+                return `
+                        <div class="flex items-center justify-between p-3 rounded-lg" style="background: rgba(90,130,255,0.1); border: 1px solid var(--cd-highlight-color);">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">${extra.name}</p>
+                                <p class="text-xs text-cd-text-dim">${extra.description}</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-bold" style="color: var(--cd-highlight-color);">+$${extra.price}${extra.type === 'monthly' ? '/mes' : ''}</span>
+                                <span class="text-xs px-2 py-1 rounded" style="background: var(--cd-highlight-color); color: white;">Requerido</span>
+                            </div>
+                        </div>`;
             }
             return `
                         <label class="flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors hover:opacity-80" style="background: var(--cd-surface);">
@@ -619,11 +632,23 @@
             ${selectedList.length === 0 ? `
                 <p class="text-sm text-cd-text-dim text-center py-8">Selecciona servicios para ver el resumen</p>
             ` : `
-                <div class="space-y-2 mb-4">
+                <div class="space-y-3 mb-4">
                     ${selectedList.map(svc => `
-                        <div class="flex justify-between text-sm">
-                            <span class="text-cd-text-muted">${svc.name}</span>
-                            <span class="font-semibold">$${svc.basePrice}${svc.priceType === 'monthly' ? '/mes' : ''}</span>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-cd-text-muted font-semibold">${svc.name}</span>
+                                <span class="font-semibold">$${svc.basePrice}${svc.priceType === 'monthly' ? '/mes' : ''}</span>
+                            </div>
+                            ${svc.extras.filter(e => e.required).length > 0 ? `
+                                <div class="ml-2 space-y-0.5 text-xs text-cd-text-dim">
+                                    ${svc.extras.filter(e => e.required).map(e => `
+                                        <div class="flex justify-between">
+                                            <span>&nbsp;&nbsp;• ${e.name}</span>
+                                            <span>+$${e.price}${e.type === 'monthly' ? '/mes' : ''}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
                         </div>
                     `).join('')}
                 </div>
@@ -769,6 +794,17 @@
         state.selectedServices[serviceId] = !state.selectedServices[serviceId];
         if (!state.selectedServices[serviceId]) {
             delete state.extras[serviceId];
+        } else {
+            // Auto-select required extras
+            const svc = getServiceById(serviceId);
+            if (svc && svc.extras.length > 0) {
+                if (!state.extras[serviceId]) state.extras[serviceId] = {};
+                svc.extras.forEach(extra => {
+                    if (extra.required) {
+                        state.extras[serviceId][extra.id] = true;
+                    }
+                });
+            }
         }
         render();
     };
