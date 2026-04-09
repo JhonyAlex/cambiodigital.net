@@ -37,10 +37,10 @@ El Cliente puede elegir entre dos planes:
 ### 4. Facturación y Pagos
 
 4.1. **Pago Inicial:** El Cliente realizará un pago inicial al contratar el servicio, correspondiente a la fase de estabilización:
-    - Plan Estándar: **$150 USD** (cubre los 3 meses iniciales).
+    - Plan Estándar: **$300 USD** (cubre los 3 meses iniciales).
     - Plan Evolución: **$400 USD** (cubre los 2 primeros meses).
 
-4.2. **Pagos Mensuales:** Después del período inicial, el servicio se renovará automáticamente de forma mensual al precio del plan seleccionado ($50 USD para Estándar, $200 USD para Evolución), pagaderos por adelantado.
+4.2. **Pagos Mensuales:** Después del período inicial, el servicio se renovará automáticamente de forma mensual al precio del plan seleccionado ($100 USD para Estándar, $200 USD para Evolución), pagaderos por adelantado.
 
 4.3. **Atrasos en el Pago:** El Proveedor se reserva el derecho de suspender el servicio si el pago presenta un atraso de más de cinco (5) días. La reactivación del servicio requerirá el pago de los montos adeudados más una tarifa de reactivación de **$25 USD**.
 

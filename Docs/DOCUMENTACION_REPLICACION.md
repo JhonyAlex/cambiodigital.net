@@ -45,8 +45,8 @@
 ### IT Partner (Soporte)
 | Plan | Precio | Frecuencia | Inclusión Clave |
 | :--- | :--- | :--- | :--- |
-| **Fase Estabilización** | **$150 USD** | Pago Único (3 meses) | Inventario, monitoreo, backups, optimización inicial. |
-| **Estándar** | **$50 USD** | Mensual (tras fase 1) | Soporte < 2h, 1 revisión/sem, 2h capacitación. |
+| **Fase Estabilización** | **$300 USD** | Pago Único (3 meses) | Inventario, monitoreo, backups, optimización inicial. |
+| **Estándar** | **$100 USD** | Mensual (tras fase 1) | Soporte < 2h, 1 revisión/sem, 2h capacitación. |
 | **Evolución** | **$200 USD** | Mensual | Soporte VIP inmediato, 2 revisiones/sem, 4h capacitación, 1 config nueva/mes. |
 
 *Nota: Los planes requieren pago trimestral al inicio (Fase de Estabilización).*

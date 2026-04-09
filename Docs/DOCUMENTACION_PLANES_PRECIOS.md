@@ -12,7 +12,7 @@ El servicio "IT Partner" funciona como un departamento de TI externo bajo un mod
 
 | Característica | Plan Estándar | Plan Evolución |
 | :--- | :--- | :--- |
-| **Precio Mensual** | **$50 USD** | **$200 USD** |
+| **Precio Mensual** | **$100 USD** | **$200 USD** |
 | **Enfoque** | Mantenimiento y Estabilidad | Mejora Continua y Crecimiento |
 | **SLA (Respuesta)** | Prioritario (< 2 horas hábiles) | **VIP Inmediato** |
 | **Revisiones de Salud** | 1 por semana | 2 por semana |
@@ -25,7 +25,7 @@ El servicio "IT Partner" funciona como un departamento de TI externo bajo un mod
 
 *   **Fase de Estabilización (Obligatoria):**
     *   Todos los planes inician con un periodo de 3 meses para inventario, limpieza y optimización.
-    *   **Costo Inicial Estándar:** $150 USD (Pago trimestral adelantado).
+    *   **Costo Inicial Estándar:** $300 USD (Pago trimestral adelantado).
     *   **Costo Inicial Evolución:** $400 USD (Cubre 2 meses adelantados).
 *   **Permanencia:** Mínima de 3 meses (durante la estabilización). Luego, cancelación libre con 30 días de preaviso.
 *   **Alcance:**

@@ -284,11 +284,11 @@
                     id: 'it-partner-standard',
                     name: 'IT Partner Estándar',
                     description: 'Tu departamento IT externo. Soporte prioritario y revisiones.',
-                    basePrice: 75,
+                    basePrice: 100,
                     marketValue: 225,
                     priceType: 'monthly',
                     features: ['SLA <2h', 'Revisión Semanal', '2h Capacitación/mes'],
-                    setupFee: 225,
+                    setupFee: 300,
                     setupLabel: 'Fase de Estabilización (3 meses)',
                     extras: []
                 },

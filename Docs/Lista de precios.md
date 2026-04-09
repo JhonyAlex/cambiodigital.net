@@ -2,7 +2,7 @@
 
 | Plan                 | Pago inicial       | Mensualidad  | Nota                      |
 | -------------------- | ------------------ | ------------ | ------------------------- |
-| IT Partner Estándar  | $150 USD (3 meses) | $50 USD/mes  | Pago trimestral al inicio |
+| IT Partner Estándar  | $300 USD (3 meses) | $100 USD/mes | Pago trimestral al inicio |
 | IT Partner Evolución | $400 USD (2 meses) | $200 USD/mes | “Solo 2 meses adelanto”   |
 
 **Cotizador Dinámico (SERVICES_DB) — Chatbots & Agentes IA**

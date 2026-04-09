@@ -34,7 +34,7 @@ Ofrecemos dos niveles de servicio para adaptarnos a tus necesidades:
 | Característica | Plan Estándar | Plan Evolución |
 | :--- | :--- | :--- |
 | **Ideal para** | Empresas que buscan estabilidad y paz mental. | Empresas que buscan mejora continua y crecimiento. |
-| **Inversión Mensual** | **$50 USD** | **$200 USD** |
+| **Inversión Mensual** | **$100 USD** | **$200 USD** |
 | **Respuesta a Incidentes** | Garantizada en < 2 horas (días hábiles) | Soporte VIP Inmediato |
 | **Revisiones Proactivas** | 1 por semana | 2 por semana |
 | **Capacitación para tu equipo** | 2 horas al mes | 4 horas al mes |

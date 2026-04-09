@@ -29,6 +29,79 @@
     
     <link rel="stylesheet" href="/assets/css/tailwind.generated.css">
     <link rel="stylesheet" href="/assets/css/theme.css">
+    <style>
+        /* Dark-safe overrides for this page to avoid low-contrast utility classes */
+        html[data-theme="dark"] .text-gray-700,
+        html.dark .text-gray-700 {
+            color: var(--color-text-muted) !important;
+        }
+
+        html[data-theme="dark"] .text-gray-600,
+        html.dark .text-gray-600 {
+            color: var(--color-text-muted) !important;
+            opacity: 0.92;
+        }
+
+        html[data-theme="dark"] .border-gray-200,
+        html[data-theme="dark"] .border-gray-400,
+        html.dark .border-gray-200,
+        html.dark .border-gray-400 {
+            border-color: var(--cd-border) !important;
+        }
+
+        html[data-theme="dark"] .bg-blue-100,
+        html.dark .bg-blue-100 {
+            background: rgba(90, 130, 255, 0.14) !important;
+            border-color: rgba(90, 130, 255, 0.45) !important;
+        }
+
+        html[data-theme="dark"] .text-blue-900,
+        html.dark .text-blue-900 {
+            color: var(--color-text) !important;
+        }
+
+        html[data-theme="dark"] main .text-black,
+        html.dark main .text-black {
+            color: var(--color-text) !important;
+        }
+
+        html[data-theme="dark"] #onboardingForm input,
+        html[data-theme="dark"] #onboardingForm textarea,
+        html[data-theme="dark"] #onboardingForm select,
+        html.dark #onboardingForm input,
+        html.dark #onboardingForm textarea,
+        html.dark #onboardingForm select {
+            background: var(--cd-surface);
+            color: var(--color-text);
+            border-color: var(--cd-border) !important;
+        }
+
+        html[data-theme="dark"] #onboardingForm input::placeholder,
+        html[data-theme="dark"] #onboardingForm textarea::placeholder,
+        html.dark #onboardingForm input::placeholder,
+        html.dark #onboardingForm textarea::placeholder {
+            color: var(--color-text-muted);
+            opacity: 0.8;
+        }
+
+        html[data-theme="dark"] #success-popup > div,
+        html.dark #success-popup > div {
+            background: var(--cd-surface);
+            color: var(--color-text);
+            border-color: var(--cd-border);
+            box-shadow: 0 12px 30px -10px var(--cd-shadow-color);
+        }
+
+        html[data-theme="dark"] #success-popup .text-black,
+        html.dark #success-popup .text-black {
+            color: var(--color-text) !important;
+        }
+
+        html[data-theme="dark"] #success-popup button[onclick="closePopup()"],
+        html.dark #success-popup button[onclick="closePopup()"] {
+            border-color: var(--cd-border);
+        }
+    </style>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,20 +142,20 @@
                     </div>
 
                     <!-- Pricing Recap -->
-                    <div class="bg-white border-hard p-6 mb-6">
+                    <div class="border-hard p-6 mb-6" style="background: var(--cd-surface); color: var(--color-text); border-color: var(--cd-border);">
                         <h3 class="font-bold text-lg mb-4 uppercase">Resumen de tu Plan</h3>
                         <div class="space-y-3 font-mono text-sm">
                             <div class="flex justify-between items-center">
                                 <span>Pago Inicial (3 meses):</span>
-                                <span class="font-bold text-lg">$150 USD</span>
+                                <span class="font-bold text-lg">$300 USD</span>
                             </div>
-                            <div class="border-t-2 border-dashed border-gray-400 pt-3">
+                            <div class="border-t-2 border-dashed pt-3" style="border-color: var(--cd-border);">
                                 <div class="flex justify-between items-center">
                                     <span>Mensualidad (después de 3 meses):</span>
-                                    <span class="font-bold text-lg text-cd-lavender">$50 USD/mes</span>
+                                    <span class="font-bold text-lg text-cd-lavender">$100 USD/mes</span>
                                 </div>
                             </div>
-                            <div class="bg-yellow-100 border-2 border-yellow-600 p-3 mt-4">
+                            <div class="p-3 mt-4" style="background: rgba(250, 204, 21, 0.16); border: 1px solid rgba(202, 138, 4, 0.55); color: var(--color-text);">
                                 <p class="text-xs font-bold">
                                     <i data-lucide="info" class="w-4 h-4 inline mr-1"></i>
                                     Permanencia mínima: 3 meses. Después, mes a mes sin compromiso.
@@ -352,12 +425,12 @@ Recuerda: Plan Estándar incluye hasta 3 servicios personalizados."
                         </div>
 
                         <!-- Pre-filled Template Info -->
-                        <div class="bg-blue-50 border-2 border-blue-300 p-4 text-sm">
-                            <p class="font-bold mb-2">
+                        <div class="p-4 text-sm" style="background: var(--cd-surface); border: 1px solid var(--cd-border); color: var(--color-text);">
+                            <p class="font-bold mb-2" style="color: var(--cd-highlight-color);">
                                 <i data-lucide="sparkles" class="w-4 h-4 inline mr-1"></i>
                                 Tu Plan Estándar incluye:
                             </p>
-                            <ul class="text-xs space-y-1 ml-4">
+                            <ul class="text-xs space-y-1 ml-4" style="color: var(--color-text-muted);">
                                 <li>• Soporte prioritario con respuesta &lt; 2 horas</li>
                                 <li>• 1 revisión semanal de salud (health check)</li>
                                 <li>• 2 horas de capacitación mensual</li>

@@ -169,11 +169,11 @@
                     name: 'IT Partner Estándar',
                     description: 'Soporte técnico prioritario y revisiones semanales.',
                     benefit: 'Tu equipo de tecnología externo, disponible cuando lo necesitas.',
-                    basePrice: 50,
-                    marketValue: 150,
+                    basePrice: 100,
+                    marketValue: 300,
                     priceType: 'monthly',
                     features: ['SLA <2h', 'Revisión semanal', '2h capacitación/mes'],
-                    setupFee: 150,
+                    setupFee: 300,
                     setupLabel: 'Fase de estabilización (3 meses)',
                     extras: []
                 }

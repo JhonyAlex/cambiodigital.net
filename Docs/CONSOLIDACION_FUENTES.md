@@ -5,8 +5,8 @@
 ### PLANES Y PRECIOS
 | Aspecto | ESTÁNDAR | EVOLUCIÓN |
 |---------|----------|-----------|
-| Precio Inicial | $150 USD (3 meses) | $400 USD (2 meses) |
-| Precio Mensual | $50 USD/mes | $200 USD/mes |
+| Precio Inicial | $300 USD (3 meses) | $400 USD (2 meses) |
+| Precio Mensual | $100 USD/mes | $200 USD/mes |
 | Respuesta SLA | < 2 horas | "VIP Inmediato" (NO ESPECIFICADO) |
 | Revisiones/Semana | 1 | 2 |
 | Capacitación | 2 h/mes (no acumulables) | 4 h/mes (no acumulables) |
